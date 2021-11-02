@@ -1,0 +1,33 @@
+@charset "ISO-8859-1";
+
+/*Trabajando con AdministradorAlumnos.jsp*/
+
+header{
+	background-color: #3C3F42;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	color: white;
+}
+
+a{
+	color: white;
+}
+
+.conteiner__h2{
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+table{
+	display: flex;
+	justify-content:center;
+}
+
+td, th{
+border: 1px solid #000;
+text-align: center;
+padding: 5px;
+}
+
