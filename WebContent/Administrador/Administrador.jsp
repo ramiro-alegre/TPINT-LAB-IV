@@ -11,12 +11,16 @@
 <body>
 
 <header>
+<div class="conteiner__logout">
+<a class="logout" href="#">Cerrar Sesión</a>
+</div>
+
 <div class="conteiner__h1">
 <h1>MENU ADMINISTRADOR</h1>
 </div>
 
-<div class="conteiner__logout">
-<a class="logout" href="#">Cerrar Sesión</a>
+<div class="conteiner__usuario">
+<p>Bienvenido <span id="usuario">Lorem</span></p>
 </div>
 
 </header>
@@ -26,7 +30,7 @@
 <div class="conteiner__h2">Opciones</div>
 <div class="conteiner__links">
 <a href="AdministradorAlumnos.jsp">Alumnos</a>
-<a href="#">Docentes</a>
+<a href="AdministradorDocentes.jsp">Docentes</a>
 <a href="#">Cursos</a>
 </div>
 

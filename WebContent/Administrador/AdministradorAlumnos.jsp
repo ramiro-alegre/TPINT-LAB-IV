@@ -7,7 +7,7 @@
 <title>Administrador Alumnos</title>
 <link href="StyleGeneral.css" rel="stylesheet" type="text/css">
 
-<link href="AdministradorAlumnos.css" rel="stylesheet" type="text/css">
+<link href="AdministradorAlumnosDocentes.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 

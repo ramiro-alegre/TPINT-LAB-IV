@@ -6,8 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>UTN - Agregar alumno</title>
 <link href="StyleGeneral.css" rel="stylesheet" type="text/css">
-<link href="AdministradorAlumnos.css" rel="stylesheet" type="text/css">
-<link href="AltaAlumno.css" rel="stylesheet" type="text/css">
+<link href="AltaAlumnoDocente.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
