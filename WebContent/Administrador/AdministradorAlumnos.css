@@ -18,7 +18,9 @@ a{
 	display: flex;
 	justify-content: center;
 	margin-top: 10px;
+    justify-content:space-around;
 }
+
 
 table{
 	display: flex;

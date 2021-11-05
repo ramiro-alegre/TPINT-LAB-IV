@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Administrador Alumnos</title>
 <link href="StyleGeneral.css" rel="stylesheet" type="text/css">
+
 <link href="AdministradorAlumnos.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -27,7 +28,12 @@
 
 <div class="conteiner__h2">
 <h2>Alumnos</h2>
+
+<a href="AltaAlumno.jsp"><button type="button">Agregar Alumno</button></a>
+
 </div>
+
+
 
 <div class="conteiner__alumnos">
 
@@ -60,6 +66,8 @@
   
   <tr>
   
+  
+
   <td>Lorem</td>
   <td>Lorem</td>
   <td>Lorem</td>
@@ -70,6 +78,8 @@
   <td>Lorem</td>
   <td>Lorem</td>
   <td>Lorem</td>
+    <td> <button>Modificar</button></td>
+  <td> <button>Eliminar</button></td>
   
   </tr>
   
