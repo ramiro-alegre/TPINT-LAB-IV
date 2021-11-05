@@ -1,0 +1,56 @@
+
+/*Este archivo css trabaja con AltaAlumno y AltaDocente*/
+
+body{
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 200px 1fr;
+}
+
+header{
+	grid-column: 1 / 2;
+	grid-row: 1 / 2;
+	background-color: #3C3F42;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.conteiner__h1, .conteiner__volver, .conteiner__usuario{
+	color: white;
+}
+
+main{
+	grid-column: 1 / 2;
+	grid-row: 2 / 3;
+	height: 500px;
+	
+}
+
+.formulario{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items:center;
+}
+
+.conteiner__data{
+	display: flex;
+	flex-direction: column;
+	margin: 10px 0px;
+}
+
+input{
+	padding: 5px; 
+}
+
+button{
+	width: 130px;
+	height: 30px;
+	color: white;
+	background-color: #1C819F;
+	border: none;
+	cursor: pointer;
+}
