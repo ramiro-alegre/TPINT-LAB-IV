@@ -29,11 +29,11 @@
 <form class="formulario">
 
 <div class="conteiner__data">
-<label for="Dni">Dni</label> <input type="text" id="dni">
+<label for="Dni">Dni</label> <input type="text" id="Dni">
 </div>
 
 <div class="conteiner__data">
-<label for="Nombre y apellido">Nombre y Apellido</label> <input type="text" id="NombreYapellido">
+<label for="Nombreyapellido">Nombre y Apellido</label> <input type="text" id="NombreYapellido">
 </div>
 
 <div class="conteiner__data">
@@ -45,15 +45,19 @@
 </div>
 
 <div class="conteiner__data">
-<label for="Nacionalidad">Localidad</label> <input type="text" id="Localidad">
+<label for="Localidad">Localidad</label> <input type="text" id="Localidad">
 </div>
 
 <div class="conteiner__data">
-<label for="Direccion">Nacionalidad</label> <input type="text" id="Nacionalidad">
+<label for="Nacionalidad">Nacionalidad</label> <input type="text" id="Nacionalidad">
 </div>
 
 <div class="conteiner__data">
 <label for="Email">Email</label> <input type="text" id="Email">
+</div>
+
+<div class="conteiner__data">
+<label for="Password">Password</label> <input type="text" id="Password">
 </div>
 
 <div class="conteiner__data">
