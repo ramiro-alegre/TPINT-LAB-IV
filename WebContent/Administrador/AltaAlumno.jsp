@@ -42,11 +42,21 @@
 </div>
 
 <div class="conteiner__data">
-<label for="Nacionalidad">Nacionalidad</label> <input type="text" id="Nacionalidad">
+<label for="Nacionalidad">Nacionalidad</label> 
+<select>
+<option value="Argentina">Argentina</option>
+<option value="Uruguay">Uruguay</option>
+<option value="Peru">Peru</option>
+</select>
 </div>
 
 <div class="conteiner__data">
-<label for="Direccion">Provincia</label> <input type="text" id="Provincia">
+<label for="Direccion">Provincia</label> 
+<select>
+<option value="Buenos Aires">Buenos Aires</option>
+<option value="Santa Fe">Santa Fe</option>
+<option value="Mendoza">Mendoza</option>
+</select>
 </div>
 
 <div class="conteiner__data">

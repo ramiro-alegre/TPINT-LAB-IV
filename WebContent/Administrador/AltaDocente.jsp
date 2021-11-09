@@ -45,15 +45,25 @@
 </div>
 
 <div class="conteiner__data">
-<label for="Localidad">Localidad</label> <input type="text" id="Localidad">
+<label for="Localidad">Localidad</label> 
+<select id="Localidad">
+<option value="San Fernando">San Fernando</option>
+<option value="Tigre">Tigre</option>
+<option value="Escobar">Escobar</option>
+</select>
 </div>
 
 <div class="conteiner__data">
-<label for="Nacionalidad">Nacionalidad</label> <input type="text" id="Nacionalidad">
+<label for="Nacionalidad">Nacionalidad</label> 
+<select>
+<option value="Argentina">Argentina</option>
+<option value="Uruguay">Uruguay</option>
+<option value="Peru">Peru</option>
+</select>
 </div>
 
 <div class="conteiner__data">
-<label for="Email">Email</label> <input type="text" id="Email">
+<label for="Email">Email</label> <input type="email" id="Email">
 </div>
 
 <div class="conteiner__data">
@@ -61,7 +71,7 @@
 </div>
 
 <div class="conteiner__data">
-<label for="Telefono">Telefono</label><input type="text" id="Telefono">
+<label for="Telefono">Telefono</label><input type="tel" id="Telefono">
 </div>
 
 <div>

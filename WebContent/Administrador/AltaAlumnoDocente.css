@@ -54,3 +54,7 @@ button{
 	border: none;
 	cursor: pointer;
 }
+
+.conteiner__data{
+	width: 300px;
+}
