@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -9,69 +9,75 @@
 </head>
 <body>
 
-<header>
+	<header>
 
-<div class="conteiner__volver"><a href="AdministradorAlumnos.jsp">Volver</a></div>
+		<div class="conteiner__volver">
+			<a href="AdministradorAlumnos.jsp">Volver</a>
+		</div>
 
-<div class="conteiner__h1">
-<h1>Agregar Alumno</h1>
-</div>
+		<div class="conteiner__h1">
+			<h1>Agregar Alumno</h1>
+		</div>
 
-<div class="conteiner__usuario">
-<p>Bienvenido <span id="usuario">Lorem</span></p>
-</div>
-</header>
+		<div class="conteiner__usuario">
+			<p>
+				Bienvenido <span id="usuario">Lorem</span>
+			</p>
+		</div>
+	</header>
 
 
-<form class="formulario">
+	<form class="formulario">
 
-<div class="conteiner__data">
-<label for="Dni">Dni</label> <input type="text" id="dni">
-</div>
+		<div class="conteiner__data">
+			<label for="Dni">Dni</label> <input type="text" id="dni">
+		</div>
 
-<div class="conteiner__data">
-<label for="Nombre y apellido">Nombre y Apellido</label> <input type="text" id="NombreYapellido">
-</div>
+		<div class="conteiner__data">
+			<label for="Nombre y apellido">Nombre y Apellido</label> <input
+				type="text" id="NombreYapellido">
+		</div>
 
-<div class="conteiner__data">
-<label for="FechaNacimiento">Fecha de Nacimiento</label> <input type="text" id="FechaNacimiento">
-</div>
+		<div class="conteiner__data">
+			<label for="FechaNacimiento">Fecha de Nacimiento</label> <input
+				type="text" id="FechaNacimiento">
+		</div>
 
-<div class="conteiner__data">
-<label for="Direccion">Direccion</label> <input type="text" id="Direccion">
-</div>
+		<div class="conteiner__data">
+			<label for="Direccion">Direccion</label> <input type="text"
+				id="Direccion">
+		</div>
 
-<div class="conteiner__data">
-<label for="Nacionalidad">Nacionalidad</label> 
-<select>
-<option value="Argentina">Argentina</option>
-<option value="Uruguay">Uruguay</option>
-<option value="Peru">Peru</option>
-</select>
-</div>
+		<div class="conteiner__data">
+			<label for="Nacionalidad">Nacionalidad</label> <select>
+				<option value="Argentina">Argentina</option>
+				<option value="Uruguay">Uruguay</option>
+				<option value="Peru">Peru</option>
+			</select>
+		</div>
 
-<div class="conteiner__data">
-<label for="Direccion">Provincia</label> 
-<select>
-<option value="Buenos Aires">Buenos Aires</option>
-<option value="Santa Fe">Santa Fe</option>
-<option value="Mendoza">Mendoza</option>
-</select>
-</div>
+		<div class="conteiner__data">
+			<label for="Direccion">Provincia</label> <select>
+				<option value="Buenos Aires">Buenos Aires</option>
+				<option value="Santa Fe">Santa Fe</option>
+				<option value="Mendoza">Mendoza</option>
+			</select>
+		</div>
 
-<div class="conteiner__data">
-<label for="Email">Email</label> <input type="text" id="Email">
-</div>
+		<div class="conteiner__data">
+			<label for="Email">Email</label> <input type="text" id="Email">
+		</div>
 
-<div class="conteiner__data">
-<label for="Telefono">Telefono</label><input type="text" id="Telefono">
-</div>
+		<div class="conteiner__data">
+			<label for="Telefono">Telefono</label><input type="text"
+				id="Telefono">
+		</div>
 
-<div>
-<button type="submit">Agregar Alumno</button>
-</div>
+		<div>
+			<button type="submit">Agregar Alumno</button>
+		</div>
 
-</form>
+	</form>
 
 </body>
 </html>

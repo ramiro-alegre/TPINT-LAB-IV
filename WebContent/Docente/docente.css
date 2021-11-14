@@ -1,14 +1,17 @@
 @charset "ISO-8859-1";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital@0;1&display=swap');
 
-*{
+@import
+	url('https://fonts.googleapis.com/css2?family=Poppins:ital@0;1&display=swap')
+	;
+
+* {
 	padding: 0;
 	margin: 0;
-	box-sizing: border-box; 
+	box-sizing: border-box;
 	font-family: 'Poppins', 'Arial';
 }
 
-header{
+header {
 	background-color: #3C3F42;
 	display: flex;
 	justify-content: space-around;
@@ -16,49 +19,45 @@ header{
 	color: white;
 }
 
-
-
-main{
+main {
 	display: flex;
 	flex-direction: column;
-	align-items:center;
+	align-items: center;
 }
 
 .button_container {
 	text-align: center;
-    padding: 5px;
-	
+	padding: 5px;
 }
 
-.conteiner__h1, .conteiner__volver, .conteiner__usuario{
+.conteiner__h1, .conteiner__volver, .conteiner__usuario {
 	color: white;
 }
 
-.conteiner__h2{
+.conteiner__h2 {
 	font-size: 25px;
 	margin-top: 50px;
 }
 
-.conteiner__links{
+.conteiner__links {
 	width: 300px;
 	display: flex;
 	flex-direcion: row;
 	justify-content: space-around;
-	
 }
 
-table{
+table {
 	display: flex;
-	justify-content:center;
+	justify-content: center;
 }
 
-td, th{
-border: 1px solid #000;
-text-align: center;
-padding: 5px;
+td, th {
+	border: 1px solid #000;
+	text-align: center;
+	padding: 5px;
 }
 
-button{
+button {
 	width: 130px;
 	height: 30px;
 	color: white;

@@ -1,9 +1,7 @@
 @charset "ISO-8859-1";
 
-
 /*Este archivo css trabaja con AdministradorAlumnos y AdministradorDocentes*/
-
-header{
+header {
 	background-color: #3C3F42;
 	display: flex;
 	justify-content: space-around;
@@ -11,26 +9,24 @@ header{
 	color: white;
 }
 
-a{
+a {
 	color: white;
 }
 
-.conteiner__h2{
+.conteiner__h2 {
 	display: flex;
 	justify-content: center;
 	margin-top: 10px;
-    justify-content:space-around;
+	justify-content: space-around;
 }
 
-
-table{
+table {
 	display: flex;
-	justify-content:center;
+	justify-content: center;
 }
 
-td, th{
-border: 1px solid #000;
-text-align: center;
-padding: 5px;
+td, th {
+	border: 1px solid #000;
+	text-align: center;
+	padding: 5px;
 }
-
