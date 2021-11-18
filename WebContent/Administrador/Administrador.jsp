@@ -31,8 +31,8 @@
 
 	<div class="conteiner__h2">Opciones</div>
 	<div class="conteiner__links">
-		<a href="../src/servlets/servletPersona?toAdmAlumnos=1">Alumnos</a> 
-		<a href="../src/servlets/servletPersona?toAdmDocentes=1">Docentes</a> 
+		<a href="/servletPersona?toAdmAlumnos=1">Alumnos</a> 
+		<a href="/servletPersona?toAdmDocentes=1">Docentes</a> 
 		<a href="AltaCursos.jsp">Cursos</a>
 	</div>
 
