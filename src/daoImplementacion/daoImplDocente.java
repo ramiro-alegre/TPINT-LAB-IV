@@ -14,7 +14,7 @@ public class daoImplDocente implements daoPersona {
 	
 	private static final String insert = "INSERT INTO docentes (Dni,Legajo,NombreApellido,FechaNacimiento,direccion,idlocalidad,idprovincia,idnacionalidad,email,telefono) VALUES(?,?,?,?,?,?,?,?,?,?)";
 	private static final String delete = "UPDATE docentes SET Estado = false WHERE Dni = ?";
-	private static final String readall = "SELECT Dni,Legajo,NombreApellido AS [Nombre y Apellido],FechaNacimiento AS [Fecha de Nacimiento],direccion AS Dirección,idlocalidad AS Localidad,idprovincia AS Provincia,idnacionalidad AS Nacionalidad,Email,Telefono AS Teléfono, Estado FROM docentes";
+	private static final String readall = "SELECT * FROM docentes";
 	private static final String update = "UPDATE docentes SET Legajo = ? ,NombreApellido = ?,FechaNacimiento = ?,direccion = ?,idlocalidad = ?,idprovincia = ?,idnacionalidad = ?,email = ?,telefono = ? WHERE Dni = ?";
 
 	@Override
@@ -110,14 +110,14 @@ public class daoImplDocente implements daoPersona {
 		
 		Persona person = localizador.getPersonaLocalizada(resultSet.getInt("Localidad"));
 		
-		person.setDni(resultSet.getInt("Dni")); 
-		person.setLegajo(resultSet.getInt("Legajo")); 
-		person.setNombreApellido(resultSet.getString("Nombre y Apellido")); 
-		person.setFechaNacimiento(resultSet.getString("Fecha de nacimiento"));
-		person.setDireccion(resultSet.getString("Dirección")); 
-		person.setEmail(resultSet.getString("Email"));
-		person.setTelefono(resultSet.getInt("Teléfono"));
-		person.setEstado(resultSet.getBoolean("Estado"));
+		person.setDni(resultSet.getInt("dni")); 
+		person.setLegajo(resultSet.getInt("legajo")); 
+		person.setNombreApellido(resultSet.getString("nombreApellido")); 
+		person.setFechaNacimiento(resultSet.getString("fechaNacimiento"));
+		person.setDireccion(resultSet.getString("direccion")); 
+		person.setEmail(resultSet.getString("email"));
+		person.setTelefono(resultSet.getInt("telefono"));
+		person.setEstado(resultSet.getBoolean("estado"));
 		
 		return person;
 	}

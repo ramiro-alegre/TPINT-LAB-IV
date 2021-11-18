@@ -41,7 +41,7 @@ public class servletPersona extends HttpServlet {
 		{
 				request.setAttribute("listaAlumnos", listaAlumnos);
 				
-				RequestDispatcher rd = request.getRequestDispatcher("/AdministradorAlumnos.jsp");   
+				RequestDispatcher rd = request.getRequestDispatcher("../AdministradorAlumnos.jsp");   
 		        rd.forward(request, response);	
 		}
 		
@@ -49,7 +49,7 @@ public class servletPersona extends HttpServlet {
 		{
 				request.setAttribute("listaDocentes", listaDocentes);
 				
-				RequestDispatcher rd = request.getRequestDispatcher("/AdministradorDocentes.jsp");   
+				RequestDispatcher rd = request.getRequestDispatcher("../AdministradorDocentes.jsp");   
 		        rd.forward(request, response);	
 		}
 		
