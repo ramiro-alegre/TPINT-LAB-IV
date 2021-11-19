@@ -130,7 +130,7 @@ public class daoImplAlumno implements daoPersona{
 		
 		daoImplLocalidades localizador = new daoImplLocalidades();
 		
-		Persona person = localizador.getPersonaLocalizada(resultSet.getInt("idLocalidad"));
+		Persona person = localizador.getPersonaLocalizada(resultSet.getInt("idLocalidad"), resultSet.getInt("idNacionalidad"));
 		
 		person.setDni(resultSet.getInt("dni")); 
 		person.setLegajo(resultSet.getInt("legajo")); 

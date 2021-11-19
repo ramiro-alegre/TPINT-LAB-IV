@@ -12,10 +12,10 @@ import entidad.Provincia;
 
 public class daoImplLocalidades {
 
-	private static final String namesfromID ="SELECT Paises.nombre,Paises.id,Provincias.nombre,Provincias.id,Localidades.nombre, Localidades.id FROM Localidades INNER JOIN Provincias "
-			          + "ON Localidades.idProvincia= Provincias.id INNER JOIN Paises ON Provincias.idPais = Paises.id WHERE Localidades.id = ? ";
-	
- public Persona getPersonaLocalizada(int idLocalidad) {
+	private static final String LocalidadfromID ="SELECT Provincias.nombre,Provincias.id,Localidades.nombre, Localidades.id FROM Localidades INNER JOIN Provincias "
+			                                   + "ON Localidades.idProvincia= Provincias.id WHERE Localidades.id = ? ";
+	private static final String NacionalidadfromID = "SELECT Paises.nombre, Paises.id FROM Paises WHERE Paises.id = ? "; 
+ public Persona getPersonaLocalizada(int idLocalidad, int idPais) {
 	 
 	 
 	 try {
@@ -26,19 +26,26 @@ public class daoImplLocalidades {
 		}
 		
 		
-		PreparedStatement statement;
-		ResultSet resultSet;
+		PreparedStatement statement1;
+		ResultSet resultSet1;
+		PreparedStatement statement2;
+		ResultSet resultSet2;
 		
 		Conexion conexion = Conexion.getConexion();
 		try 
 		{
-			statement = conexion.getSQLConexion().prepareStatement(namesfromID);
-			statement.setInt(1,idLocalidad);
+			statement1 = conexion.getSQLConexion().prepareStatement(LocalidadfromID);
+			statement1.setInt(1,idLocalidad);
 			
-			resultSet = statement.executeQuery();
-			while(resultSet.next())
+			statement2 = conexion.getSQLConexion().prepareStatement(NacionalidadfromID);
+			statement2.setInt(1,idPais);
+			
+			resultSet1 = statement1.executeQuery();
+			resultSet2 = statement2.executeQuery();
+			
+			while(resultSet1.next() && resultSet2.next())
 			{
-				return localizarPersona(resultSet);
+				return localizarPersona(resultSet1,resultSet2);
 			}
 		} 
 		catch (SQLException e) 
@@ -50,20 +57,20 @@ public class daoImplLocalidades {
 	 return new Persona();
  }
 	
-	private Persona localizarPersona(ResultSet resultSet) throws SQLException {
+	private Persona localizarPersona(ResultSet resultSet1, ResultSet resultSet2) throws SQLException {
 		
 	    Persona pers = new Persona (); 
 	    
 	    Pais nac = new Pais ();
 	    Provincia pro = new Provincia ();
 		Localidad loc = new Localidad ();
-	    nac.setNombre(resultSet.getString("Paises.nombre"));
-		pro.setNombre(resultSet.getString("Provincias.nombre"));
-		loc.setNombre(resultSet.getString("Localidades.nombre"));
+	    nac.setNombre(resultSet2.getString("Paises.nombre"));
+		pro.setNombre(resultSet1.getString("Provincias.nombre"));
+		loc.setNombre(resultSet1.getString("Localidades.nombre"));
 		
-		nac.setId(resultSet.getInt("Paises.id"));
-		pro.setId(resultSet.getInt("Provincias.id"));
-		loc.setId(resultSet.getInt("Localidades.id"));
+		nac.setId(resultSet2.getInt("Paises.id"));
+		pro.setId(resultSet1.getInt("Provincias.id"));
+		loc.setId(resultSet1.getInt("Localidades.id"));
 		
 		pers.setNacionalidad(nac);
 		pers.setProvincia(pro);

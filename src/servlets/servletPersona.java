@@ -37,20 +37,12 @@ public class servletPersona extends HttpServlet {
 		ArrayList<Persona> listaAlumnos= daoAlumno.readAll();
 		ArrayList<Persona> listaDocentes= daoDocente.readAll();
 		
-		/*if(request.getParameter("toAdmAlumnos")!=null)
-		{
-				request.setAttribute("listaAlumnos", listaAlumnos);
-			
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/AdministradorAlumnos.jsp");	 
-				
-		        rd.forward(request, response);	
-		}*/
 		
 		if(request.getParameter("toAdmAlumnos")!=null)
 		{
 				request.setAttribute("listaAlumnos", listaAlumnos);
 			
-				RequestDispatcher rd = request.getRequestDispatcher("/AdministradorAlumnos.jsp");  
+				RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorAlumnos.jsp");  
 				
 		        rd.forward(request, response);	
 		}
@@ -59,7 +51,7 @@ public class servletPersona extends HttpServlet {
 		{
 				request.setAttribute("listaDocentes", listaDocentes);
 				
-				RequestDispatcher rd = request.getRequestDispatcher("/AdministradorDocentes.jsp");   
+				RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorDocentes.jsp");   
 		        rd.forward(request, response);	
 		}
 		
@@ -72,14 +64,14 @@ public class servletPersona extends HttpServlet {
 			boolean isDeleteExitoso = daoAlumno.delete(dni);
 			   request.setAttribute("deleteExitoso",isDeleteExitoso);
 			   request.setAttribute("listaAlumnos", listaAlumnos);
-		       RequestDispatcher rd = request.getRequestDispatcher("/AdministradorAlumnos.jsp");
+		       RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorAlumnos.jsp");
 		       rd.forward(request, response);
 		}
 		
 		if(request.getParameter("modificarAlumno")!=null)
 		{
 			
-			Persona alumno = daoLocalidades.getPersonaLocalizada(Integer.parseInt(request.getParameter("localidadAlumno").toString()));
+			Persona alumno = daoLocalidades.getPersonaLocalizada(Integer.parseInt(request.getParameter("localidadAlumno").toString()),Integer.parseInt(request.getParameter("nacionalidadAlumno").toString()));
 			alumno.setDni(Integer.parseInt(request.getParameter("dniAlumno").toString()));
 			alumno.setLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString()));
 			alumno.setNombreApellido(request.getParameter("nombreAlumno").toString());
@@ -93,7 +85,7 @@ public class servletPersona extends HttpServlet {
 			
 			request.setAttribute("deleteExitoso",isUpdateExitoso);
 			request.setAttribute("listaAlumnos", listaAlumnos);
-		    RequestDispatcher rd = request.getRequestDispatcher("/AdministradorAlumnos.jsp");
+		    RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorAlumnos.jsp");
 		    rd.forward(request, response);
 			
 		}
