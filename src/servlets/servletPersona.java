@@ -22,7 +22,7 @@ import entidad.Persona;
 public class servletPersona extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
+	
     public servletPersona() {
         super();
      
@@ -37,11 +37,21 @@ public class servletPersona extends HttpServlet {
 		ArrayList<Persona> listaAlumnos= daoAlumno.readAll();
 		ArrayList<Persona> listaDocentes= daoDocente.readAll();
 		
+		/*if(request.getParameter("toAdmAlumnos")!=null)
+		{
+				request.setAttribute("listaAlumnos", listaAlumnos);
+			
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/AdministradorAlumnos.jsp");	 
+				
+		        rd.forward(request, response);	
+		}*/
+		
 		if(request.getParameter("toAdmAlumnos")!=null)
 		{
 				request.setAttribute("listaAlumnos", listaAlumnos);
+			
+				RequestDispatcher rd = request.getRequestDispatcher("/AdministradorAlumnos.jsp");  
 				
-				RequestDispatcher rd = request.getRequestDispatcher("../AdministradorAlumnos.jsp");   
 		        rd.forward(request, response);	
 		}
 		
@@ -49,7 +59,7 @@ public class servletPersona extends HttpServlet {
 		{
 				request.setAttribute("listaDocentes", listaDocentes);
 				
-				RequestDispatcher rd = request.getRequestDispatcher("../AdministradorDocentes.jsp");   
+				RequestDispatcher rd = request.getRequestDispatcher("/AdministradorDocentes.jsp");   
 		        rd.forward(request, response);	
 		}
 		
