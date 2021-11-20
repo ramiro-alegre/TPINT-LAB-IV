@@ -15,7 +15,7 @@ public class daoImplAlumno implements daoPersona{
 	private static final String insert = "INSERT INTO alumnos (Dni,Legajo,NombreApellido,FechaNacimiento,direccion,idlocalidad,idprovincia,idnacionalidad,email,telefono) VALUES(?,?,?,?,?,?,?,?,?,?)";
 	private static final String delete = "UPDATE alumnos SET Estado = false WHERE Dni = ?";
 	private static final String readall = "SELECT * FROM alumnos";
-	private static final String update = "UPDATE alumnos SET Legajo = ? ,NombreApellido = ?,FechaNacimiento = ?,direccion = ?,idlocalidad = ?,idprovincia = ?,idnacionalidad = ?,email = ?,telefono = ? WHERE Dni = ?";
+	private static final String update = "UPDATE alumnos SET Dni = ?,Legajo = ? ,NombreApellido = ?,FechaNacimiento = ?,direccion = ?,idlocalidad = ?,idprovincia = ?,idnacionalidad = ?,email = ?,telefono = ?, estado = ? WHERE Dni = ?";
 
 	@Override
 	public boolean insert(Persona persona) {
@@ -36,7 +36,6 @@ public class daoImplAlumno implements daoPersona{
 			statement.setString(9, persona.getEmail());
 			statement.setInt(10, persona.getTelefono());
 			
-			
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -54,6 +53,42 @@ public class daoImplAlumno implements daoPersona{
 		}
 		
 		return isInsertExitoso;
+	}
+	
+	@Override
+	public boolean update(Persona persona) {
+		
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isupdateExitoso = false;
+		try 
+		{
+			statement = conexion.prepareStatement(update);
+			
+			statement.setInt(1, persona.getDni());
+			statement.setInt(2, persona.getLegajo());
+			statement.setString(3, persona.getNombreApellido());
+			statement.setString(4, persona.getFechaNacimiento());
+			statement.setString(5, persona.getDireccion());
+			statement.setInt(6, persona.getLocalidad().getId());
+			statement.setInt(7, persona.getProvincia().getId());
+			statement.setInt(8, persona.getNacionalidad().getId());
+			statement.setString(9, persona.getEmail());
+			statement.setInt(10, persona.getTelefono());
+			statement.setBoolean(11 , persona.getEstado());
+			statement.setInt(12, persona.getDni());
+			
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isupdateExitoso = true;
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return isupdateExitoso;
 	}
 
 	@Override
@@ -142,40 +177,6 @@ public class daoImplAlumno implements daoPersona{
 		person.setEstado(resultSet.getBoolean("estado"));
 		
 		return person;
-	}
-
-	@Override
-	public boolean update(Persona persona) {
-		
-		PreparedStatement statement;
-		Connection conexion = Conexion.getConexion().getSQLConexion();
-		boolean isupdateExitoso = false;
-		try 
-		{
-			statement = conexion.prepareStatement(update);
-			
-			statement.setInt(1, persona.getLegajo());
-			statement.setString(2, persona.getNombreApellido());
-			statement.setString(3, persona.getFechaNacimiento());
-			statement.setString(4, persona.getDireccion());
-			statement.setInt(5, persona.getLocalidad().getId());
-			statement.setInt(6, persona.getProvincia().getId());
-			statement.setInt(7, persona.getNacionalidad().getId());
-			statement.setString(8, persona.getEmail());
-			statement.setInt(9, persona.getTelefono());
-			
-			
-			if(statement.executeUpdate() > 0)
-			{
-				conexion.commit();
-				isupdateExitoso = true;
-			}
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return isupdateExitoso;
 	}
 
 }

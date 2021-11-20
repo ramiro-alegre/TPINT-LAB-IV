@@ -3,18 +3,22 @@ package daoImplementacion;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-
+import dao.daoLocalidad;
 import entidad.Localidad;
 import entidad.Pais;
 import entidad.Persona;
 import entidad.Provincia;
 
-public class daoImplLocalidades {
+public class daoImplLocalidades implements daoLocalidad {
 
 	private static final String LocalidadfromID ="SELECT Provincias.nombre,Provincias.id,Localidades.nombre, Localidades.id FROM Localidades INNER JOIN Provincias "
 			                                   + "ON Localidades.idProvincia= Provincias.id WHERE Localidades.id = ? ";
-	private static final String NacionalidadfromID = "SELECT Paises.nombre, Paises.id FROM Paises WHERE Paises.id = ? "; 
+	private static final String NacionalidadfromID = "SELECT Paises.nombre, Paises.id FROM Paises WHERE Paises.id = ? ";
+	
+	private static final String readall = "SELECT * FROM localidades";
+	
  public Persona getPersonaLocalizada(int idLocalidad, int idPais) {
 	 
 	 
@@ -76,5 +80,38 @@ public class daoImplLocalidades {
 		pers.setProvincia(pro);
 		pers.setLocalidad(loc);
 		return pers;
+	}
+
+	@Override
+	public ArrayList<Localidad> readAll() {
+		
+		PreparedStatement statement;
+		ResultSet resultSet; 
+		ArrayList<Localidad> localidades = new ArrayList<Localidad>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readall);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				localidades.add(getLocalidad(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return localidades;
+	}
+
+	private Localidad getLocalidad(ResultSet resultSet) throws SQLException {
+		
+		Localidad localidad = new Localidad ();
+		localidad.setId(resultSet.getInt("id"));
+		localidad.setIdProvincia(resultSet.getInt("idProvincia"));
+		localidad.setNombre(resultSet.getString("nombre"));
+		return localidad;
 	}
 }

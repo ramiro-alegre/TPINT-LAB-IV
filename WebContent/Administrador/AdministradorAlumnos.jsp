@@ -41,6 +41,24 @@
 	{
 		listaAlumnos = (ArrayList<Persona>) request.getAttribute("listaAlumnos");
 	}
+	
+	ArrayList<Pais> listaPaises = null;
+	if(request.getAttribute("listaPaises")!=null)
+	{
+		listaPaises = (ArrayList<Pais>) request.getAttribute("listaPaises");
+	}
+	
+	ArrayList<Provincia> listaProvincias = null;
+	if(request.getAttribute("listaProvincias")!=null)
+	{
+		listaProvincias = (ArrayList<Provincia>) request.getAttribute("listaProvincias");
+	}
+	
+	ArrayList<Localidad> listaLocalidades = null;
+	if(request.getAttribute("listaLocalidades")!=null)
+	{
+		listaLocalidades = (ArrayList<Localidad>) request.getAttribute("listaLocalidades");
+	}
 
  %>
   
@@ -99,9 +117,73 @@
 				<td> <input type="text" required name="nombreAlumno" value="<%=alumno.getNombreApellido() %>" ></td> 
 				<td> <input type="text" required name="nacimientoAlumno" value="<%=alumno.getFechaNacimiento() %>" ></td> 
 				<td> <input type="text" required name="direccionAlumno" value="<%=alumno.getDireccion() %>" ></td> 
-				<td> <input type="text" required name="localidadAlumno" value="<%=alumno.getLocalidad().getNombre() %>" ></td> 
-				<td> <input type="text" required name="provinciaAlumno" value="<%=alumno.getProvincia().getNombre() %>" ></td> 
-				<td> <input type="text" required name="nacionalidadAlumno" value="<%=alumno.getNacionalidad().getNombre() %>" ></td> 
+				<td> <select required name="localidadAlumno" >
+                     <%  if(listaLocalidades!=null) 
+                         {
+		                    for(Localidad localidad : listaLocalidades) 
+		                    {
+		                       if (alumno.getProvincia().getId()==localidad.getIdProvincia())
+		                       {
+		                       
+		                         if (alumno.getLocalidad().getId() == localidad.getId())  
+		                         {
+		                          %>         
+							      <option selected="selected" value="<%=localidad.getId() %>"><%=localidad.getNombre() %></option>
+	                              <%
+		                         } else {
+	                              %>         
+							      <option value="<%=localidad.getId() %>"><%=localidad.getNombre() %></option>
+	                              <%
+	                             }
+	                           }
+	                        }
+	                    }
+	                 
+	                 %>							
+					</select>
+					</td>
+					
+				     <td> 
+				         <select required name="provinciaAlumno" >
+                     <%  if(listaProvincias!=null)
+		                    {
+		                    for(Provincia provincia : listaProvincias) 
+		                    {
+		                       if (alumno.getProvincia().getId()==provincia.getId())
+		                       {
+	                 %>
+							   <option selected="selected" value="<%=provincia.getId() %>"><%=provincia.getNombre() %></option>
+	                 <%
+	                           }else{ 
+	                  %> 
+	                 <option value="<%=provincia.getId() %>"><%=provincia.getNombre() %></option>
+	                 
+	                     <%    }
+                             }
+                            }
+	                     %>							
+
+					     </select>
+				
+				</td> 
+				<td> <select required name="nacionalidadAlumno" >
+				 <%  if(listaPaises!=null)
+		                    {
+		                    for(Pais pais : listaPaises) 
+		                    {  
+		                          if (alumno.getNacionalidad().getId()==pais.getId())
+		                       {
+		                    %>	
+				                   <option selected="selected" value="<%=pais.getId() %>"><%=pais.getNombre() %></option>
+				<% } else {
+				%>
+				                   <option value="<%=pais.getId() %>"><%=pais.getNombre() %></option>
+				<% }
+				}}
+				
+				%>
+				</select>
+				</td> 
 				<td> <input type="text" required name="emailAlumno" value="<%=alumno.getEmail() %>" ></td> 
 				<td> <input type="text" required name="telefonoAlumno" value="<%=alumno.getTelefono() %>" ></td> 
 				<td> <input type="submit" name="modificarAlumno" value="Modificar"> </td>

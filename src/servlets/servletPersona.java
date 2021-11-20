@@ -12,10 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import daoImplementacion.daoImplAlumno;
 import daoImplementacion.daoImplDocente;
 import daoImplementacion.daoImplLocalidades;
+import daoImplementacion.daoImplPais;
+import daoImplementacion.daoImplProvincia;
 
 import java.util.ArrayList;
 
+import entidad.Localidad;
+import entidad.Pais;
 import entidad.Persona;
+import entidad.Provincia;
 
 
 @WebServlet("/servletPersona")
@@ -34,14 +39,25 @@ public class servletPersona extends HttpServlet {
 		daoImplAlumno daoAlumno = new daoImplAlumno();
 		daoImplDocente daoDocente = new daoImplDocente();
 		daoImplLocalidades daoLocalidades = new daoImplLocalidades();
+		daoImplProvincia daoProvincia = new daoImplProvincia();
+		daoImplPais daoPais = new daoImplPais();
+		
+		ArrayList<Pais> listaPaises = daoPais.readAll();
+		ArrayList<Provincia> listaProvincias = daoProvincia.readAll();
+		ArrayList<Localidad> listaLocalidades = daoLocalidades.readAll();
 		ArrayList<Persona> listaAlumnos= daoAlumno.readAll();
 		ArrayList<Persona> listaDocentes= daoDocente.readAll();
+		
+		
 		
 		
 		if(request.getParameter("toAdmAlumnos")!=null)
 		{
 				request.setAttribute("listaAlumnos", listaAlumnos);
-			
+				request.setAttribute("listaLocalidades", listaLocalidades);
+				request.setAttribute("listaProvincias", listaProvincias);
+				request.setAttribute("listaPaises", listaPaises);
+				
 				RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorAlumnos.jsp");  
 				
 		        rd.forward(request, response);	
@@ -83,7 +99,7 @@ public class servletPersona extends HttpServlet {
 					         	
 			boolean isUpdateExitoso = daoAlumno.update(alumno);
 			
-			request.setAttribute("deleteExitoso",isUpdateExitoso);
+			request.setAttribute("updateExitoso",isUpdateExitoso);
 			request.setAttribute("listaAlumnos", listaAlumnos);
 		    RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorAlumnos.jsp");
 		    rd.forward(request, response);
