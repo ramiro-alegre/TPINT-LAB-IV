@@ -11,15 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import daoImplementacion.daoImplAlumno;
 import daoImplementacion.daoImplDocente;
-import daoImplementacion.daoImplLocalidades;
+import daoImplementacion.daoImplLocalidad;
 import daoImplementacion.daoImplPais;
 import daoImplementacion.daoImplProvincia;
 
 import java.util.ArrayList;
 
+import entidad.Alumno;
+import entidad.Docente;
 import entidad.Localidad;
 import entidad.Pais;
-import entidad.Persona;
 import entidad.Provincia;
 
 
@@ -38,15 +39,15 @@ public class servletPersona extends HttpServlet {
 		
 		daoImplAlumno daoAlumno = new daoImplAlumno();
 		daoImplDocente daoDocente = new daoImplDocente();
-		daoImplLocalidades daoLocalidades = new daoImplLocalidades();
+		//daoImplLocalidad daoLocalidad = new daoImplLocalidad(); -------descomentar cuando se ahga la parte de ABML docentes
 		daoImplProvincia daoProvincia = new daoImplProvincia();
 		daoImplPais daoPais = new daoImplPais();
 		
 		ArrayList<Pais> listaPaises = daoPais.readAll();
 		ArrayList<Provincia> listaProvincias = daoProvincia.readAll();
-		ArrayList<Localidad> listaLocalidades = daoLocalidades.readAll();
-		ArrayList<Persona> listaAlumnos= daoAlumno.readAll();
-		ArrayList<Persona> listaDocentes= daoDocente.readAll();
+		//ArrayList<Localidad> listaLocalidades = daoLocalidad.readAll();   -------descomentar cuando se ahga la parte de ABML docentes
+		ArrayList<Alumno> listaAlumnos= daoAlumno.readAll();
+		ArrayList<Docente> listaDocentes= daoDocente.readAll();
 		
 		
 		
@@ -54,7 +55,6 @@ public class servletPersona extends HttpServlet {
 		if(request.getParameter("toAdmAlumnos")!=null)
 		{
 				request.setAttribute("listaAlumnos", listaAlumnos);
-				request.setAttribute("listaLocalidades", listaLocalidades);
 				request.setAttribute("listaProvincias", listaProvincias);
 				request.setAttribute("listaPaises", listaPaises);
 				
@@ -81,12 +81,10 @@ public class servletPersona extends HttpServlet {
 			
 			listaPaises = daoPais.readAll();
 			listaProvincias = daoProvincia.readAll();
-			listaLocalidades = daoLocalidades.readAll();
 			listaAlumnos= daoAlumno.readAll();
 			
 			   request.setAttribute("deleteExitoso",isDeleteExitoso);
 			   request.setAttribute("listaAlumnos", listaAlumnos);
-			   request.setAttribute("listaLocalidades", listaLocalidades);
 				request.setAttribute("listaProvincias", listaProvincias);
 				request.setAttribute("listaPaises", listaPaises);
 			   
@@ -97,12 +95,16 @@ public class servletPersona extends HttpServlet {
 		if(request.getParameter("modificarAlumno")!=null)
 		{
 			
-			Persona alumno = daoLocalidades.getPersonaLocalizada(Integer.parseInt(request.getParameter("localidadAlumno").toString()),Integer.parseInt(request.getParameter("nacionalidadAlumno").toString()));
+			Alumno alumno = new Alumno();
+					
+			
 			alumno.setDni(Integer.parseInt(request.getParameter("dniAlumno").toString()));
 			alumno.setLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString()));
 			alumno.setNombreApellido(request.getParameter("nombreAlumno").toString());
 			alumno.setFechaNacimiento(request.getParameter("nacimientoAlumno").toString());
-			alumno.setDireccion(request.getParameter("direccionAlumno").toString());		                     
+			alumno.setDireccion(request.getParameter("direccionAlumno").toString());
+			alumno.setProvincia(daoProvincia.provinciaFromID(Integer.parseInt(request.getParameter("provinciaAlumno").toString())));
+			alumno.setNacionalidad(daoPais.paisFromID(Integer.parseInt(request.getParameter("nacionalidadAlumno").toString())));
 			alumno.setEmail(request.getParameter("emailAlumno").toString());		                     
 			alumno.setTelefono(Integer.parseInt(request.getParameter("telefonoAlumno").toString()));		                     
 			alumno.setEstado(true);		                     
@@ -111,12 +113,10 @@ public class servletPersona extends HttpServlet {
 			
 			listaPaises = daoPais.readAll();
 			listaProvincias = daoProvincia.readAll();
-			listaLocalidades = daoLocalidades.readAll();
 			listaAlumnos= daoAlumno.readAll();
 			
 			request.setAttribute("updateExitoso",isUpdateExitoso);
 			request.setAttribute("listaAlumnos", listaAlumnos);
-			request.setAttribute("listaLocalidades", listaLocalidades);
 			request.setAttribute("listaProvincias", listaProvincias);
 			request.setAttribute("listaPaises", listaPaises);
 		    RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorAlumnos.jsp");

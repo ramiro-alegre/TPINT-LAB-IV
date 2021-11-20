@@ -1,6 +1,6 @@
 package entidad;
 
-public class Persona {
+public class Docente {
 
 	private int dni;
 	private int legajo;
@@ -8,18 +8,17 @@ public class Persona {
 	private String fechaNacimiento;
 	private String direccion;
 	private Localidad localidad;
-	private Provincia provincia;
 	private Pais nacionalidad;
 	private String email;
 	private int telefono;
 	private Boolean estado;
 	
-	public Persona() {
+	public Docente() {
 		
 	}
 	
-	public Persona(int dni, int legajo, String nombreApellido, String fechaNacimiento, String direccion,
-			Localidad localidad, Provincia provincia, Pais nacionalidad, String email, int telefono, Boolean estado) {
+	public Docente(int dni, int legajo, String nombreApellido, String fechaNacimiento, String direccion,
+			 Localidad localidad, Pais nacionalidad, String email, int telefono, Boolean estado) {
 		super();
 		this.dni = dni;
 		this.legajo = legajo;
@@ -27,7 +26,6 @@ public class Persona {
 		this.fechaNacimiento = fechaNacimiento;
 		this.direccion = direccion;
 		this.localidad = localidad;
-		this.provincia = provincia;
 		this.nacionalidad = nacionalidad;
 		this.email = email;
 		this.telefono = telefono;
@@ -82,14 +80,6 @@ public class Persona {
 		this.localidad = localidad;
 	}
 
-	public Provincia getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(Provincia provincia) {
-		this.provincia = provincia;
-	}
-
 	public Pais getNacionalidad() {
 		return nacionalidad;
 	}
@@ -121,16 +111,6 @@ public class Persona {
 	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
-
-	@Override
-	public String toString() {
-		return "Persona [dni=" + dni + ", legajo=" + legajo + ", nombreApellido=" + nombreApellido
-				+ ", fechaNacimiento=" + fechaNacimiento + ", direccion=" + direccion + ", localidad=" + localidad.getNombre()
-				+ ", provincia=" + provincia.getNombre() + ", nacionalidad=" + nacionalidad.getNombre() + ", email=" + email + ", telefono="
-				+ telefono + "]";
-	}
-	
-	
 	
 	
 }

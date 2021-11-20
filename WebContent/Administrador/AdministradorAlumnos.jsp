@@ -1,7 +1,6 @@
-<%@page import="entidad.Persona"%>
+<%@page import="entidad.Alumno"%>
 <%@page import="entidad.Pais"%>
 <%@page import="entidad.Provincia"%>
-<%@page import="entidad.Localidad"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -36,10 +35,10 @@
 	<main>
 
 <% 
-	ArrayList<Persona> listaAlumnos = null;
+	ArrayList<Alumno> listaAlumnos = null;
 	if(request.getAttribute("listaAlumnos")!=null)
 	{
-		listaAlumnos = (ArrayList<Persona>) request.getAttribute("listaAlumnos");
+		listaAlumnos = (ArrayList<Alumno>) request.getAttribute("listaAlumnos");
 	}
 	
 	ArrayList<Pais> listaPaises = null;
@@ -54,12 +53,6 @@
 		listaProvincias = (ArrayList<Provincia>) request.getAttribute("listaProvincias");
 	}
 	
-	ArrayList<Localidad> listaLocalidades = null;
-	if(request.getAttribute("listaLocalidades")!=null)
-	{
-		listaLocalidades = (ArrayList<Localidad>) request.getAttribute("listaLocalidades");
-	}
-
  %>
   
 	<div class="conteiner__h2">
@@ -88,8 +81,6 @@
 
 				<th>Dirreción</th>
 
-                <th>Localidad</th>
-
                 <th>Provincia</th>
 
 				<th>Nacionalidad</th>
@@ -106,7 +97,7 @@
 			</tr>
 
 			 <%  if(listaAlumnos!=null)
-		for(Persona alumno : listaAlumnos) 
+		for(Alumno alumno : listaAlumnos) 
 		{
 	%>
 		<tr>  
@@ -117,34 +108,8 @@
 				<td> <input type="text" required name="nombreAlumno" value="<%=alumno.getNombreApellido() %>" ></td> 
 				<td> <input type="text" required name="nacimientoAlumno" value="<%=alumno.getFechaNacimiento() %>" ></td> 
 				<td> <input type="text" required name="direccionAlumno" value="<%=alumno.getDireccion() %>" ></td> 
-				<td> <select required name="localidadAlumno" >
-                     <%  if(listaLocalidades!=null) 
-                         {
-		                    for(Localidad localidad : listaLocalidades) 
-		                    {
-		                       if (alumno.getProvincia().getId()==localidad.getIdProvincia())
-		                       {
-		                       
-		                         if (alumno.getLocalidad().getId() == localidad.getId())  
-		                         {
-		                          %>         
-							      <option selected="selected" value="<%=localidad.getId() %>"><%=localidad.getNombre() %></option>
-	                              <%
-		                         } else {
-	                              %>         
-							      <option value="<%=localidad.getId() %>"><%=localidad.getNombre() %></option>
-	                              <%
-	                             }
-	                           }
-	                        }
-	                    }
-	                 
-	                 %>							
-					</select>
-					</td>
-					
 				     <td> 
-				         <select required name="provinciaAlumno" onchange=<%=  %> >
+				         <select required name="provinciaAlumno">
                      <%  if(listaProvincias!=null)
 		                    {
 		                    for(Provincia provincia : listaProvincias) 
@@ -170,16 +135,17 @@
 				 <%  if(listaPaises!=null)
 		                    {
 		                    for(Pais pais : listaPaises) 
-		                    {  
+		                      {  
 		                          if (alumno.getNacionalidad().getId()==pais.getId())
-		                       {
+		                         {
 		                    %>	
 				                   <option selected="selected" value="<%=pais.getId() %>"><%=pais.getNombre() %></option>
-				<% } else {
+				<%               } else {
 				%>
 				                   <option value="<%=pais.getId() %>"><%=pais.getNombre() %></option>
-				<% }
-				}}
+				<%               }
+				             }
+				           }
 				
 				%>
 				</select>

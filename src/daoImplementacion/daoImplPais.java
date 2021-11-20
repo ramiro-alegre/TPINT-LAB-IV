@@ -11,6 +11,7 @@ import entidad.Pais;
 public class daoImplPais implements daoPais {
 
 	private static final String readall = "SELECT * FROM paises";
+	private static final String NacionalidadfromID = "SELECT Paises.nombre, Paises.id FROM Paises WHERE Paises.id = ? ";
 	
 	@Override
 	public ArrayList<Pais> readAll() {
@@ -43,4 +44,42 @@ public class daoImplPais implements daoPais {
 		return pais;
 	}
 
+	public Pais paisFromID(int id) {
+		
+		 try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		 Pais pais = new Pais();
+		 
+		    PreparedStatement statement;
+			ResultSet resultSet;
+			
+			
+			Conexion conexion = Conexion.getConexion();
+			try 
+			{
+				
+				statement = conexion.getSQLConexion().prepareStatement(NacionalidadfromID);
+				statement.setInt(1,id);
+				
+				resultSet = statement.executeQuery();
+				
+				while(resultSet.next())
+				{
+					pais.setId(resultSet.getInt("Paises.id"));
+					pais.setNombre(resultSet.getString("Paises.nombre"));
+					return pais;
+				}
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+			return pais;
+			
+	}
 }

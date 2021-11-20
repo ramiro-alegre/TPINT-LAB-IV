@@ -6,35 +6,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dao.daoPersona;
-import entidad.Persona;
+import dao.daoAlumno;
+import entidad.Alumno;
 
 
-public class daoImplAlumno implements daoPersona{
+public class daoImplAlumno implements daoAlumno{
 	
-	private static final String insert = "INSERT INTO alumnos (Dni,Legajo,NombreApellido,FechaNacimiento,direccion,idlocalidad,idprovincia,idnacionalidad,email,telefono) VALUES(?,?,?,?,?,?,?,?,?,?)";
+	private static final String insert = "INSERT INTO alumnos (Dni,Legajo,NombreApellido,FechaNacimiento,direccion,idprovincia,idnacionalidad,email,telefono) VALUES(?,?,?,?,?,?,?,?,?)";
+	private static final String update = "UPDATE alumnos SET Legajo = ? ,NombreApellido = ?,FechaNacimiento = ?,direccion = ?,idprovincia = ?,idnacionalidad = ?,email = ?,telefono = ?, estado = ? WHERE Dni = ?";
 	private static final String delete = "UPDATE alumnos SET Estado = false WHERE Dni = ?";
 	private static final String readall = "SELECT * FROM alumnos WHERE estado = true";
-	private static final String update = "UPDATE alumnos SET Dni = ?,Legajo = ? ,NombreApellido = ?,FechaNacimiento = ?,direccion = ?,idlocalidad = ?,idprovincia = ?,idnacionalidad = ?,email = ?,telefono = ?, estado = ? WHERE Dni = ?";
 
 	@Override
-	public boolean insert(Persona persona) {
+	public boolean insert(Alumno alumno) {
+		
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
 		try
 		{
 			statement = conexion.prepareStatement(insert);
-			statement.setInt(1, persona.getDni());
-			statement.setInt(2, persona.getLegajo());
-			statement.setString(3, persona.getNombreApellido());
-			statement.setString(4, persona.getFechaNacimiento());
-			statement.setString(5, persona.getDireccion());
-			statement.setInt(6, persona.getLocalidad().getId());
-			statement.setInt(7, persona.getProvincia().getId());
-			statement.setInt(8, persona.getNacionalidad().getId());
-			statement.setString(9, persona.getEmail());
-			statement.setInt(10, persona.getTelefono());
+			
+			statement.setInt(1, alumno.getDni());
+			statement.setInt(2, alumno.getLegajo());
+			statement.setString(3, alumno.getNombreApellido());
+			statement.setString(4, alumno.getFechaNacimiento());
+			statement.setString(5, alumno.getDireccion());
+			statement.setInt(6, alumno.getProvincia().getId());
+			statement.setInt(7, alumno.getNacionalidad().getId());
+			statement.setString(8, alumno.getEmail());
+			statement.setInt(9, alumno.getTelefono());
 			
 			if(statement.executeUpdate() > 0)
 			{
@@ -56,7 +57,7 @@ public class daoImplAlumno implements daoPersona{
 	}
 	
 	@Override
-	public boolean update(Persona persona) {
+	public boolean update(Alumno alumno) {
 		
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
@@ -65,18 +66,16 @@ public class daoImplAlumno implements daoPersona{
 		{
 			statement = conexion.prepareStatement(update);
 			
-			statement.setInt(1, persona.getDni());
-			statement.setInt(2, persona.getLegajo());
-			statement.setString(3, persona.getNombreApellido());
-			statement.setString(4, persona.getFechaNacimiento());
-			statement.setString(5, persona.getDireccion());
-			statement.setInt(6, persona.getLocalidad().getId());
-			statement.setInt(7, persona.getProvincia().getId());
-			statement.setInt(8, persona.getNacionalidad().getId());
-			statement.setString(9, persona.getEmail());
-			statement.setInt(10, persona.getTelefono());
-			statement.setBoolean(11 , persona.getEstado());
-			statement.setInt(12, persona.getDni());
+			statement.setInt(1, alumno.getLegajo());
+			statement.setString(2, alumno.getNombreApellido());
+			statement.setString(3, alumno.getFechaNacimiento());
+			statement.setString(4, alumno.getDireccion());
+			statement.setInt(5, alumno.getProvincia().getId());
+			statement.setInt(6, alumno.getNacionalidad().getId());
+			statement.setString(7, alumno.getEmail());
+			statement.setInt(8, alumno.getTelefono());
+			statement.setBoolean(9 , alumno.getEstado());
+			statement.setInt(10, alumno.getDni());
 			
 			if(statement.executeUpdate() > 0)
 			{
@@ -92,7 +91,7 @@ public class daoImplAlumno implements daoPersona{
 	}
 
 	@Override
-	public boolean delete(Persona persona_a_eliminar) {
+	public boolean delete(Alumno alumno) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isdeleteExitoso = false;
@@ -100,7 +99,7 @@ public class daoImplAlumno implements daoPersona{
 		{
 			statement = conexion.prepareStatement(delete);
 			
-			statement.setInt(1, persona_a_eliminar.getDni());
+			statement.setInt(1, alumno.getDni());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -138,10 +137,10 @@ public class daoImplAlumno implements daoPersona{
 	
 
 	@Override
-	public ArrayList<Persona> readAll() {
+	public ArrayList<Alumno> readAll() {
 		PreparedStatement statement;
 		ResultSet resultSet; 
-		ArrayList<Persona> personas = new ArrayList<Persona>();
+		ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
 		Conexion conexion = Conexion.getConexion();
 		try 
 		{
@@ -149,7 +148,7 @@ public class daoImplAlumno implements daoPersona{
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
-				personas.add(getPersona(resultSet));
+				alumnos.add(getAlumno(resultSet));
 			}
 		} 
 		catch (SQLException e) 
@@ -157,26 +156,27 @@ public class daoImplAlumno implements daoPersona{
 			e.printStackTrace();
 		}
 		
-		return personas;
+		return alumnos;
 	}
 
-	private Persona getPersona(ResultSet resultSet) throws SQLException
+	private Alumno getAlumno(ResultSet resultSet) throws SQLException
 	{
+		Alumno alumno = new Alumno();
+		daoImplProvincia provincia = new daoImplProvincia ();
+		daoImplPais nacionalidad = new daoImplPais ();
 		
-		daoImplLocalidades localizador = new daoImplLocalidades();
+		alumno.setDni(resultSet.getInt("dni")); 
+		alumno.setLegajo(resultSet.getInt("legajo")); 
+		alumno.setNombreApellido(resultSet.getString("nombreApellido")); 
+		alumno.setFechaNacimiento(resultSet.getString("fechaNacimiento"));
+		alumno.setDireccion(resultSet.getString("direccion"));
+		alumno.setProvincia(provincia.provinciaFromID(resultSet.getInt("idProvincia")));
+		alumno.setNacionalidad(nacionalidad.paisFromID(resultSet.getInt("idNacionalidad")));
+		alumno.setEmail(resultSet.getString("email"));
+		alumno.setTelefono(resultSet.getInt("telefono"));
+		alumno.setEstado(resultSet.getBoolean("estado"));
 		
-		Persona person = localizador.getPersonaLocalizada(resultSet.getInt("idLocalidad"), resultSet.getInt("idNacionalidad"));
-		
-		person.setDni(resultSet.getInt("dni")); 
-		person.setLegajo(resultSet.getInt("legajo")); 
-		person.setNombreApellido(resultSet.getString("nombreApellido")); 
-		person.setFechaNacimiento(resultSet.getString("fechaNacimiento"));
-		person.setDireccion(resultSet.getString("direccion")); 
-		person.setEmail(resultSet.getString("email"));
-		person.setTelefono(resultSet.getInt("telefono"));
-		person.setEstado(resultSet.getBoolean("estado"));
-		
-		return person;
+		return alumno;
 	}
 
 }
