@@ -110,7 +110,7 @@
 		{
 	%>
 		<tr>  
-		    <form name="tablaAlumnos" action="servletPersona?dniAlumno=<%=alumno.getDni()%>" method="get">
+		    <form name="tablaAlumnos" action="servletPersona" method="get">
 				
 				<td> <input type="text" name="dniAlumno" readonly="readonly" value="<%=alumno.getDni()%>"> </td> 
 				<td> <input type="text" required name="legajoAlumno" value="<%=alumno.getLegajo() %>" ></td>   
@@ -144,7 +144,7 @@
 					</td>
 					
 				     <td> 
-				         <select required name="provinciaAlumno" >
+				         <select required name="provinciaAlumno" onchange=<%=  %> >
                      <%  if(listaProvincias!=null)
 		                    {
 		                    for(Provincia provincia : listaProvincias) 

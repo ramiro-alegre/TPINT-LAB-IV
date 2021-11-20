@@ -14,7 +14,7 @@ public class daoImplAlumno implements daoPersona{
 	
 	private static final String insert = "INSERT INTO alumnos (Dni,Legajo,NombreApellido,FechaNacimiento,direccion,idlocalidad,idprovincia,idnacionalidad,email,telefono) VALUES(?,?,?,?,?,?,?,?,?,?)";
 	private static final String delete = "UPDATE alumnos SET Estado = false WHERE Dni = ?";
-	private static final String readall = "SELECT * FROM alumnos";
+	private static final String readall = "SELECT * FROM alumnos WHERE estado = true";
 	private static final String update = "UPDATE alumnos SET Dni = ?,Legajo = ? ,NombreApellido = ?,FechaNacimiento = ?,direccion = ?,idlocalidad = ?,idprovincia = ?,idnacionalidad = ?,email = ?,telefono = ?, estado = ? WHERE Dni = ?";
 
 	@Override

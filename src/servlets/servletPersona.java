@@ -78,8 +78,18 @@ public class servletPersona extends HttpServlet {
 			int dni = Integer.parseInt(request.getParameter("dniAlumno").toString());
 			
 			boolean isDeleteExitoso = daoAlumno.delete(dni);
+			
+			listaPaises = daoPais.readAll();
+			listaProvincias = daoProvincia.readAll();
+			listaLocalidades = daoLocalidades.readAll();
+			listaAlumnos= daoAlumno.readAll();
+			
 			   request.setAttribute("deleteExitoso",isDeleteExitoso);
 			   request.setAttribute("listaAlumnos", listaAlumnos);
+			   request.setAttribute("listaLocalidades", listaLocalidades);
+				request.setAttribute("listaProvincias", listaProvincias);
+				request.setAttribute("listaPaises", listaPaises);
+			   
 		       RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorAlumnos.jsp");
 		       rd.forward(request, response);
 		}
@@ -99,8 +109,16 @@ public class servletPersona extends HttpServlet {
 					         	
 			boolean isUpdateExitoso = daoAlumno.update(alumno);
 			
+			listaPaises = daoPais.readAll();
+			listaProvincias = daoProvincia.readAll();
+			listaLocalidades = daoLocalidades.readAll();
+			listaAlumnos= daoAlumno.readAll();
+			
 			request.setAttribute("updateExitoso",isUpdateExitoso);
 			request.setAttribute("listaAlumnos", listaAlumnos);
+			request.setAttribute("listaLocalidades", listaLocalidades);
+			request.setAttribute("listaProvincias", listaProvincias);
+			request.setAttribute("listaPaises", listaPaises);
 		    RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorAlumnos.jsp");
 		    rd.forward(request, response);
 			
