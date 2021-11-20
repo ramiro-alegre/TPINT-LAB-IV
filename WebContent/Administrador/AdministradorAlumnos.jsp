@@ -4,6 +4,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -103,10 +104,10 @@
 		<tr>  
 		    <form name="tablaAlumnos" action="servletPersona" method="get">
 				
-				<td> <input type="text" name="dniAlumno" readonly="readonly" value="<%=alumno.getDni()%>"> </td> 
-				<td> <input type="text" required name="legajoAlumno" value="<%=alumno.getLegajo() %>" ></td>   
+				<td> <input type="number" name="dniAlumno" readonly="readonly" value="<%=alumno.getDni()%>"> </td> 
+				<td> <input type="number" required name="legajoAlumno" value="<%=alumno.getLegajo() %>" ></td>   
 				<td> <input type="text" required name="nombreAlumno" value="<%=alumno.getNombreApellido() %>" ></td> 
-				<td> <input type="text" required name="nacimientoAlumno" value="<%=alumno.getFechaNacimiento() %>" ></td> 
+				<td> <input type="text" required pattern="\d{1,2}/\d{1,2}/\d{4}" title="La fecha no es v&aacute;lida" name="nacimientoAlumno" value="<%=alumno.getFechaNacimiento() %>" ></td> 
 				<td> <input type="text" required name="direccionAlumno" value="<%=alumno.getDireccion() %>" ></td> 
 				     <td> 
 				         <select required name="provinciaAlumno">
@@ -150,8 +151,8 @@
 				%>
 				</select>
 				</td> 
-				<td> <input type="text" required name="emailAlumno" value="<%=alumno.getEmail() %>" ></td> 
-				<td> <input type="text" required name="telefonoAlumno" value="<%=alumno.getTelefono() %>" ></td> 
+				<td> <input type="email" required name="emailAlumno" value="<%=alumno.getEmail() %>" ></td> 
+				<td> <input type="number" required name="telefonoAlumno" value="<%=alumno.getTelefono() %>" ></td> 
 				<td> <input type="submit" name="modificarAlumno" value="Modificar"> </td>
 				<td> <input type="submit" name="eliminarAlumno" value="Eliminar"> </td>    
 				
