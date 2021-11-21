@@ -6,7 +6,7 @@ import entidad.Docente;
 
 public interface daoDocente {
 	public boolean insert(Docente docente);
-	public boolean delete(Docente docente);
+	public boolean delete(int id);
 	public ArrayList<Docente> readAll();
 	public boolean update(Docente docente);
 }

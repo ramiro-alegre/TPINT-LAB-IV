@@ -39,13 +39,13 @@ public class servletPersona extends HttpServlet {
 		
 		daoImplAlumno daoAlumno = new daoImplAlumno();
 		daoImplDocente daoDocente = new daoImplDocente();
-		//daoImplLocalidad daoLocalidad = new daoImplLocalidad(); -------descomentar cuando se ahga la parte de ABML docentes
+		daoImplLocalidad daoLocalidad = new daoImplLocalidad(); 
 		daoImplProvincia daoProvincia = new daoImplProvincia();
 		daoImplPais daoPais = new daoImplPais();
 		
 		ArrayList<Pais> listaPaises = daoPais.readAll();
 		ArrayList<Provincia> listaProvincias = daoProvincia.readAll();
-		//ArrayList<Localidad> listaLocalidades = daoLocalidad.readAll();   -------descomentar cuando se ahga la parte de ABML docentes
+		ArrayList<Localidad> listaLocalidades = daoLocalidad.readAll();   
 		ArrayList<Alumno> listaAlumnos= daoAlumno.readAll();
 		ArrayList<Docente> listaDocentes= daoDocente.readAll();
 		
@@ -66,6 +66,7 @@ public class servletPersona extends HttpServlet {
 		if(request.getParameter("toAdmDocentes")!=null)
 		{
 				request.setAttribute("listaDocentes", listaDocentes);
+				request.setAttribute("listaLocalidades", listaLocalidades);
 				
 				RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorDocentes.jsp");   
 		        rd.forward(request, response);	
@@ -93,6 +94,58 @@ public class servletPersona extends HttpServlet {
 		}
 		
 		if(request.getParameter("modificarAlumno")!=null)
+		{
+			
+			Alumno alumno = new Alumno();
+					
+			
+			alumno.setDni(Integer.parseInt(request.getParameter("dniAlumno").toString()));
+			alumno.setLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString()));
+			alumno.setNombreApellido(request.getParameter("nombreAlumno").toString());
+			alumno.setFechaNacimiento(request.getParameter("nacimientoAlumno").toString());
+			alumno.setDireccion(request.getParameter("direccionAlumno").toString());
+			alumno.setProvincia(daoProvincia.provinciaFromID(Integer.parseInt(request.getParameter("provinciaAlumno").toString())));
+			alumno.setNacionalidad(daoPais.paisFromID(Integer.parseInt(request.getParameter("nacionalidadAlumno").toString())));
+			alumno.setEmail(request.getParameter("emailAlumno").toString());		                     
+			alumno.setTelefono(Integer.parseInt(request.getParameter("telefonoAlumno").toString()));		                     
+			alumno.setEstado(true);		                     
+					         	
+			boolean isUpdateExitoso = daoAlumno.update(alumno);
+			
+			listaPaises = daoPais.readAll();
+			listaProvincias = daoProvincia.readAll();
+			listaAlumnos= daoAlumno.readAll();
+			
+			request.setAttribute("updateExitoso",isUpdateExitoso);
+			request.setAttribute("listaAlumnos", listaAlumnos);
+			request.setAttribute("listaProvincias", listaProvincias);
+			request.setAttribute("listaPaises", listaPaises);
+		    RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorAlumnos.jsp");
+		    rd.forward(request, response);
+			
+		}
+		
+		if(request.getParameter("eliminarDocente")!=null)
+		{
+			
+			int dni = Integer.parseInt(request.getParameter("dniDocente").toString());
+			
+			boolean isDeleteExitoso = daoDocente.delete(dni);
+			
+			listaPaises = daoPais.readAll();
+			listaProvincias = daoProvincia.readAll();
+			listaAlumnos= daoAlumno.readAll();
+			
+			   request.setAttribute("deleteExitoso",isDeleteExitoso);
+			   request.setAttribute("listaAlumnos", listaAlumnos);
+				request.setAttribute("listaProvincias", listaProvincias);
+				request.setAttribute("listaPaises", listaPaises);
+			   
+		       RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorAlumnos.jsp");
+		       rd.forward(request, response);
+		}
+		
+		if(request.getParameter("modificarDocente")!=null)
 		{
 			
 			Alumno alumno = new Alumno();

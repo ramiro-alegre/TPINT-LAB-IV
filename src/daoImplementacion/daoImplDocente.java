@@ -91,7 +91,7 @@ public class daoImplDocente implements daoDocente {
 	}
 	
 	@Override
-	public boolean delete(Docente docente) {
+	public boolean delete(int id) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isdeleteExitoso = false;
@@ -99,7 +99,7 @@ public class daoImplDocente implements daoDocente {
 		{
 			statement = conexion.prepareStatement(delete);
 			
-			statement.setInt(1, docente.getDni());
+			statement.setInt(1, id);
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
