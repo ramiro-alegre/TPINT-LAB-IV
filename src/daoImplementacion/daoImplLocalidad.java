@@ -13,7 +13,7 @@ public class daoImplLocalidad implements daoLocalidad {
 	private static final String LocalidadfromID ="SELECT Localidades.nombre, Localidades.id FROM Localidades WHERE Localidades.id = ? ";
 	
 	
-	private static final String readall = "SELECT * FROM localidades";
+	private static final String readall = "SELECT * FROM Localidades";
 	
  
 	@Override

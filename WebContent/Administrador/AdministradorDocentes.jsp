@@ -8,8 +8,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Administrador Docentes</title>
-<link href="StyleGeneral.css" rel="stylesheet" type="text/css">
-<link href="AdministradorAlumnosDocentes.css" rel="stylesheet"
+<link href="Administrador/StyleGeneral.css" rel="stylesheet" type="text/css">
+<link href="Administrador/AdministradorAlumnosDocentes.css" rel="stylesheet"
 	type="text/css">
 </head>
 <body>
@@ -17,7 +17,7 @@
 	<header>
 
 		<div class="conteiner__volver">
-			<a href="Administrador.jsp">Volver</a>
+			<a href="Administrador/Administrador.jsp">Volver</a>
 		</div>
 
 		<div class="conteiner__h1">
@@ -59,7 +59,7 @@
 	<div class="conteiner__h2">
 		<h2>Docentes</h2>
 
-		<a href="AltaDocente.jsp"><button type="button">Agregar
+		<a href="./servletPersona?moverAgregarDocente=1"><button type="button">Agregar
 				Docente</button></a>
 
 	</div>
