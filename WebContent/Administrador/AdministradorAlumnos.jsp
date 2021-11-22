@@ -9,9 +9,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Administrador Alumnos</title>
-<link href="StyleGeneral.css" rel="stylesheet" type="text/css">
+<link href="Administrador/StyleGeneral.css" rel="stylesheet" type="text/css">
 
-<link href="AdministradorAlumnosDocentes.css" rel="stylesheet"
+<link href="Administrador/AdministradorAlumnosDocentes.css" rel="stylesheet"
 	type="text/css">
 </head>
 <body>

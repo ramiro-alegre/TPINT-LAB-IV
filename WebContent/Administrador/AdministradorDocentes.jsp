@@ -59,7 +59,7 @@
 	<div class="conteiner__h2">
 		<h2>Docentes</h2>
 
-		<a href="./servletPersona?moverAgregarDocente=1"><button type="button">Agregar
+		<a href="servletPersona?moverAgregarDocente=1"><button type="button">Agregar
 				Docente</button></a>
 
 	</div>

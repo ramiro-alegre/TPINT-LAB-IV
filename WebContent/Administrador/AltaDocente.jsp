@@ -17,7 +17,7 @@
 	<header>
 
 		<div class="conteiner__volver">
-			<a href="./servletPersona?toAdmDocentes=1">Volver</a>
+			<a href="servletPersona?toAdmDocentes=1">Volver</a>
 		</div>
 
 		<div class="conteiner__h1">
@@ -49,7 +49,7 @@
 
 
 
-	<form class="formulario" action="./servletPersona" method="get">
+	<form class="formulario" action="servletPersona" method="get">
 
 		<div class="conteiner__data">
 			<label for="Dni">Dni</label> <input type="text" id="Dni" required name="dniDocente">
