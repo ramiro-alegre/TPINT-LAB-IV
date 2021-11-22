@@ -27,6 +27,7 @@ import entidad.Perfil;
 import entidad.Provincia;
 
 
+
 @WebServlet("/servletPersona")
 public class servletPersona extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -71,6 +72,7 @@ public class servletPersona extends HttpServlet {
 		{
 				request.setAttribute("listaDocentes", listaDocentes);
 				request.setAttribute("listaLocalidades", listaLocalidades);
+				request.setAttribute("listaPaises", listaPaises);
 				
 				RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorDocentes.jsp");   
 		        rd.forward(request, response);	
@@ -176,7 +178,7 @@ public class servletPersona extends HttpServlet {
 			request.setAttribute("listaAlumnos", listaDocentes);
 			request.setAttribute("listaLocalidades", listaLocalidades);
 			request.setAttribute("listaPaises", listaPaises);
-		    RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorDocentes.jsp");
+		    RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAdmDocentes=1");
 		    rd.forward(request, response);
 			
 		}
@@ -186,9 +188,10 @@ public class servletPersona extends HttpServlet {
 
 			Docente docente = new Docente();
 					
-			//Se comenta el legajo porque es automatico(auto incrementable)
+			
+			
 			docente.setDni(Integer.parseInt(request.getParameter("dniDocente").toString()));
-			//docente.setLegajo(Integer.parseInt(request.getParameter("legajoDocente").toString()));
+			docente.setLegajo(Integer.parseInt(request.getParameter("legajoDocente").toString()));
 			docente.setNombreApellido(request.getParameter("nombreDocente").toString());
 			docente.setFechaNacimiento(request.getParameter("nacimientoDocente").toString());
 			docente.setDireccion(request.getParameter("direccionDocente").toString());
@@ -215,9 +218,20 @@ public class servletPersona extends HttpServlet {
 			
 			//En este punto, ya se creo correctamente su perfil
 			
-			RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorDocentes.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAdmDocentes=1");
 		    rd.forward(request, response);
 			
+		}
+		
+		if(request.getParameter("moverAgregarDocente")!=null)
+		{
+				
+				request.setAttribute("listaLocalidades", listaLocalidades);
+				request.setAttribute("listaPaises", listaPaises);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("Administrador/AltaDocente.jsp");  
+				
+		        rd.forward(request, response);	
 		}
 		
 	}
