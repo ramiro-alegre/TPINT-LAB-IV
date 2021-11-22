@@ -105,12 +105,12 @@
 		    <form name="tablaDocentes" action="servletPersona" method="get">
 				
 				<td> <input type="number" name="dniDocente" readonly="readonly" value="<%=docente.getDni()%>"> </td> 
-				<td> <input type="number" required name="legajoAlumno" value="<%=docente.getLegajo() %>" ></td>   
-				<td> <input type="text" required name="nombreAlumno" value="<%=docente.getNombreApellido() %>" ></td> 
+				<td> <input type="number" required name="legajoDocente" value="<%=docente.getLegajo() %>" ></td>   
+				<td> <input type="text" required name="nombreDocente" value="<%=docente.getNombreApellido() %>" ></td> 
 				<td> <input type="text" required pattern="\d{1,2}/\d{1,2}/\d{4}" title="La fecha no es v&aacute;lida" name="nacimientoDocente" value="<%=docente.getFechaNacimiento() %>" ></td> 
 				<td> <input type="text" required name="direccionDocente" value="<%=docente.getDireccion() %>" ></td> 
 				     <td> 
-				         <select required name="provinciaAlumno">
+				         <select required name="localidadDocente">
                      <%  if(listaLocalidades!=null)
 		                    {
 		                    for(Localidad localidad : listaLocalidades) 

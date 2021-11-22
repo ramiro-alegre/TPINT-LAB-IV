@@ -22,6 +22,7 @@ public class Conexion {
 			Class.forName("com.mysql.jdbc.Driver"); //this.connection = DriverManager.getConnection(host+dbName,user,pass);
 			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/carrera?autoReconnect=true&useSSL=false","root","root");
 			this.connection.setAutoCommit(false);
+			
 		}
 		catch(Exception e)
 		{

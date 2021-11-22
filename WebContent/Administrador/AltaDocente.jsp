@@ -30,29 +30,29 @@
 	</header>
 
 
-	<form class="formulario">
+	<form class="formulario" action="servletPersona" method="get">
 
 		<div class="conteiner__data">
-			<label for="Dni">Dni</label> <input type="text" id="Dni">
+			<label for="Dni" name="dniDocente">Dni</label> <input type="text" id="Dni">
 		</div>
 
 		<div class="conteiner__data">
 			<label for="Nombreyapellido">Nombre y Apellido</label> <input
-				type="text" id="NombreYapellido">
+				type="text" id="NombreYapellido" name="nombreDocente">
 		</div>
 
 		<div class="conteiner__data">
 			<label for="FechaNacimiento">Fecha de Nacimiento</label> <input
-				type="text" id="FechaNacimiento">
+				type="text" id="FechaNacimiento" name="nacimientoDocente">
 		</div>
 
 		<div class="conteiner__data">
 			<label for="Direccion">Direccion</label> <input type="text"
-				id="Direccion">
+				id="Direccion" name="direccionDocente">
 		</div>
 
 		<div class="conteiner__data">
-			<label for="Localidad">Localidad</label> <select id="Localidad">
+			<label for="Localidad">Localidad</label> <select id="Localidad" name="localidadDocente">
 				<option value="San Fernando">San Fernando</option>
 				<option value="Tigre">Tigre</option>
 				<option value="Escobar">Escobar</option>
@@ -60,7 +60,7 @@
 		</div>
 
 		<div class="conteiner__data">
-			<label for="Nacionalidad">Nacionalidad</label> <select>
+			<label for="Nacionalidad">Nacionalidad</label> <select name="nacionalidadDocente">
 				<option value="Argentina">Argentina</option>
 				<option value="Uruguay">Uruguay</option>
 				<option value="Peru">Peru</option>
@@ -68,20 +68,20 @@
 		</div>
 
 		<div class="conteiner__data">
-			<label for="Email">Email</label> <input type="email" id="Email">
+			<label for="Email">Email</label> <input type="email" id="Email" name="emailDocente">
 		</div>
 
 		<div class="conteiner__data">
 			<label for="Password">Password</label> <input type="text"
-				id="Password">
+				id="Password" name="contraseniaDocente">
 		</div>
 
 		<div class="conteiner__data">
-			<label for="Telefono">Telefono</label><input type="tel" id="Telefono">
+			<label for="Telefono">Telefono</label><input type="tel" id="Telefono" name="telefonoDocente">
 		</div>
 
 		<div>
-			<button type="submit">Agregar Docente</button>
+			<button type="submit" name="agregarDocente">Agregar Docente</button>
 		</div>
 
 	</form>

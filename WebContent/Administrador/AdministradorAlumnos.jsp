@@ -19,7 +19,7 @@
 	<header>
 
 		<div class="conteiner__volver">
-			<a href="Administrador.jsp">Volver</a>
+			<a href="Administrador/Administrador.jsp">Volver</a>
 		</div>
 
 		<div class="conteiner__h1">
