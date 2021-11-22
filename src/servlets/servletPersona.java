@@ -13,6 +13,7 @@ import dao.daoPerfil;
 import daoImplementacion.daoImplAlumno;
 import daoImplementacion.daoImplDocente;
 import daoImplementacion.daoImplLocalidad;
+import daoImplementacion.daoImplLogin;
 import daoImplementacion.daoImplPais;
 import daoImplementacion.daoImplPerfil;
 import daoImplementacion.daoImplProvincia;
@@ -225,6 +226,43 @@ public class servletPersona extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		doGet(request, response);
+		
+		daoImplLogin  daoImplLogin;
+		daoImplLogin = new daoImplLogin();
+		
+		String email = request.getParameter("email");
+		String contrasenia = request.getParameter("contrasenia");
+		Perfil perfil;
+		
+
+		try {
+			perfil = daoImplLogin.getValidPerfil(email, contrasenia);
+			
+			if (perfil.isEstado() ) {
+				if(perfil.isAdministrador()) {
+				request.setAttribute("Perfil",perfil);	
+				RequestDispatcher rd = request.getRequestDispatcher("Administrador/Administrador.jsp");
+				rd.forward(request,response);
+				}else {
+		
+						request.setAttribute("Perfil",perfil);	
+						RequestDispatcher rd = request.getRequestDispatcher("Docente/Docente.jsp");
+						rd.forward(request,response);
+					  
+					}
+				
+				
+			} else {
+				
+				request.setAttribute("perfilInvalido","Usuario o contrasenia invalido");
+				RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
+				rd.forward(request,response);
+				
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

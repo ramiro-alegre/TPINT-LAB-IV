@@ -17,23 +17,32 @@
 
 	<main>
 
-	<form class="formulario">
+	<form class="formulario" action="servletPersona" method ="post">
+	
 
 		<div class="conteiner__data">
 			<label for="user">Nombre de usuario</label> <input type="text"
-				id="user">
+				id="email" name="email">
 		</div>
 
 		<div class="conteiner__data">
 			<label for="password">Contraseña</label> <input type="password"
-				id="password">
+				id="contrasenia" name="contrasenia">
 		</div>
 
 		<div>
 			<button type="submit">Acceder</button>
 		</div>
 
+      
+
 	</form>
+
+      <% if(request.getParameter("perfilInvalido")!=null){
+    	  
+    	  %> <h3>Usuario o contrasenia invalido</h3> <%
+    	  
+      } %>
 
 	</main>
 
