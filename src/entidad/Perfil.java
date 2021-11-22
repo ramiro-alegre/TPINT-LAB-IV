@@ -5,11 +5,21 @@ public class Perfil {
 	int dni;
 	String email;
 	String contrasenia;
+	boolean isAdministrador;
+	boolean estado;
 	
 	
+
+	public Perfil() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public int getDni() {
 		return dni;
 	}
+
 
 
 	public void setDni(int dni) {
@@ -17,9 +27,11 @@ public class Perfil {
 	}
 
 
+
 	public String getEmail() {
 		return email;
 	}
+
 
 
 	public void setEmail(String email) {
@@ -27,9 +39,11 @@ public class Perfil {
 	}
 
 
+
 	public String getContrasenia() {
 		return contrasenia;
 	}
+
 
 
 	public void setContrasenia(String contrasenia) {
@@ -37,8 +51,27 @@ public class Perfil {
 	}
 
 
-	public Perfil() {
-		// TODO Auto-generated constructor stub
+
+	public boolean isAdministrador() {
+		return isAdministrador;
+	}
+
+
+
+	public void setAdministrador(boolean isAdministrador) {
+		this.isAdministrador = isAdministrador;
+	}
+
+
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 
 }

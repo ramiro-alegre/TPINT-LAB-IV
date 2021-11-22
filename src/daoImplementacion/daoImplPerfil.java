@@ -6,12 +6,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.daoPerfil;
+import entidad.Alumno;
 import entidad.Perfil;
 
 public class daoImplPerfil implements daoPerfil{
 
 	private static final String insert = "INSERT INTO perfiles (Dni,email,contrasenia) VALUES(?,?,?)";
 	private static final String update = "UPDATE perfiles SET dni = ? ,email = ?,contrasenia = ? WHERE dni = ?";
+	private static final String delete = "UPDATE perfiles SET Estado = false WHERE Dni = ?";
 	//private static final String delete = "UPDATE perfiles SET Estado = false WHERE Dni = ?";
 	//Se comento el delete porque por el momento no hay un estado para la baja logica en perfiles.
 	private static final String readall = "SELECT * FROM perfiles";
@@ -52,6 +54,29 @@ public class daoImplPerfil implements daoPerfil{
 		
 		return isInsertExitoso;
 	}
+	
+	public boolean delete(Perfil Perfil) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isdeleteExitoso = false;
+		try 
+		{
+			statement = conexion.prepareStatement(delete);
+			
+			statement.setInt(1, Perfil.getDni());
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isdeleteExitoso = true;
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return isdeleteExitoso;
+	}
+	
 
 	@Override
 	public boolean delete(int dni) {
