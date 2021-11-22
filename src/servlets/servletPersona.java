@@ -58,7 +58,7 @@ public class servletPersona extends HttpServlet {
 		
 		
 		
-		if(request.getParameter("toAdmAlumnos")!=null)
+		if(request.getParameter("toAdmAlumnos")!=null)   // ---LINK HACIA ADMINISTRADOR ALUMNOS
 		{
 				request.setAttribute("listaAlumnos", listaAlumnos);
 				request.setAttribute("listaProvincias", listaProvincias);
@@ -69,7 +69,7 @@ public class servletPersona extends HttpServlet {
 		        rd.forward(request, response);	
 		}
 		
-		if(request.getParameter("toAdmDocentes")!=null)
+		if(request.getParameter("toAdmDocentes")!=null)  // ---LINK HACIA ADMINISTRADOR DOCENTES
 		{
 				request.setAttribute("listaDocentes", listaDocentes);
 				request.setAttribute("listaLocalidades", listaLocalidades);
@@ -80,7 +80,7 @@ public class servletPersona extends HttpServlet {
 		}
 		
 		
-		if(request.getParameter("eliminarAlumno")!=null)
+		if(request.getParameter("eliminarAlumno")!=null)  // ---BOTON QUE ELIMINA ALUMNOS
 		{
 			
 			int dni = Integer.parseInt(request.getParameter("dniAlumno").toString());
@@ -100,7 +100,7 @@ public class servletPersona extends HttpServlet {
 		       rd.forward(request, response);
 		}
 		
-		if(request.getParameter("modificarAlumno")!=null)
+		if(request.getParameter("modificarAlumno")!=null)    // ---BOTON QUE MODIFICA ALUMNOS
 		{
 			
 			Alumno alumno = new Alumno();
@@ -132,7 +132,7 @@ public class servletPersona extends HttpServlet {
 			
 		}
 		
-		if(request.getParameter("eliminarDocente")!=null)
+		if(request.getParameter("eliminarDocente")!=null)     // ---BOTON QUE ELIMINA DOCENTES
 		{
 			
 			int dni = Integer.parseInt(request.getParameter("dniDocente").toString());
@@ -152,7 +152,7 @@ public class servletPersona extends HttpServlet {
 		       rd.forward(request, response);
 		}
 		
-		if(request.getParameter("modificarDocente")!=null)
+		if(request.getParameter("modificarDocente")!=null) // ---BOTON QUE MODIFICA DOCENTES
 		{
 			
 			Docente docente = new Docente();
@@ -184,7 +184,7 @@ public class servletPersona extends HttpServlet {
 			
 		}
 		
-		if(request.getParameter("agregarDocente")!=null) 
+		if(request.getParameter("agregarDocente")!=null) // ---BOTON QUE AGREGA DOCENTES
 		{
 
 			Docente docente = new Docente();
@@ -224,7 +224,7 @@ public class servletPersona extends HttpServlet {
 			
 		}
 		
-		if(request.getParameter("moverAgregarDocente")!=null)
+		if(request.getParameter("toAgregarDocente")!=null)  // ---LINK HACIA AGREGAR DOCENTES
 		{
 				
 				request.setAttribute("listaLocalidades", listaLocalidades);
@@ -235,6 +235,26 @@ public class servletPersona extends HttpServlet {
 		        rd.forward(request, response);	
 		}
 		
+		if(request.getParameter("toAgregarAlumno")!=null)  // ---LINK HACIA AGREGAR ALUMNOS
+		{
+				
+				request.setAttribute("listaProvincias", listaProvincias);
+				request.setAttribute("listaPaises", listaPaises);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("Administrador/AltaAlumno.jsp");  
+				
+		        rd.forward(request, response);	
+		}
+		
+		
+		if(request.getParameter("cerrarSesion")!=null)  // ---LINK HACIA LOGIN ELIMINANDO VARIABLE SESSION
+		{
+				
+				request.getSession().removeAttribute("Perfil");
+				RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");  
+				
+		        rd.forward(request, response);	
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -253,13 +273,14 @@ public class servletPersona extends HttpServlet {
 			perfil = daoImplLogin.getValidPerfil(email, contrasenia);
 			
 			if (perfil.isEstado() ) {
+				
 				if(perfil.isAdministrador()) {
-				request.setAttribute("Perfil",perfil);	
+				request.getSession().setAttribute("Perfil",perfil);	
 				RequestDispatcher rd = request.getRequestDispatcher("Administrador/Administrador.jsp");
 				rd.forward(request,response);
 				}else {
 		
-						request.setAttribute("Perfil",perfil);	
+						request.getSession().setAttribute("Perfil",perfil);	
 						RequestDispatcher rd = request.getRequestDispatcher("Docente/Docente.jsp");
 						rd.forward(request,response);
 					  

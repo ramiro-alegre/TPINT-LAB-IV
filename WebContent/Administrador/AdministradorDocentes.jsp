@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="entidad.Perfil"%>
 <%@page import="entidad.Docente"%>
 <%@page import="entidad.Pais"%>
 <%@page import="entidad.Localidad"%>
@@ -13,7 +14,10 @@
 	type="text/css">
 </head>
 <body>
-
+<% Perfil perfil = null;
+if(session.getAttribute("Perfil")!= null){
+       perfil = (Perfil) session.getAttribute("Perfil");
+} %>
 	<header>
 
 		<div class="conteiner__volver">
@@ -26,7 +30,7 @@
 
 		<div class="conteiner__usuario">
 			<p>
-				Bienvenido <span id="usuario">Lorem</span>
+				Bienvenido <%if(perfil != null) { %><span id="usuario"><%=perfil.getEmail() %></span>  <%} %>
 			</p>
 		</div>
 	</header>
@@ -59,7 +63,7 @@
 	<div class="conteiner__h2">
 		<h2>Docentes</h2>
 
-		<a href="servletPersona?moverAgregarDocente=1"><button type="button">Agregar
+		<a href="servletPersona?toAgregarDocente=1"><button type="button">Agregar
 				Docente</button></a>
 
 	</div>

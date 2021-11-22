@@ -1,3 +1,4 @@
+<%@page import="entidad.Perfil"%>
 <%@page import="entidad.Alumno"%>
 <%@page import="entidad.Pais"%>
 <%@page import="entidad.Provincia"%>
@@ -15,11 +16,15 @@
 	type="text/css">
 </head>
 <body>
-
+<% 
+Perfil perfil = null;
+if(session.getAttribute("Perfil")!= null){
+       perfil = (Perfil) session.getAttribute("Perfil");
+} %>
 	<header>
 
 		<div class="conteiner__volver">
-			<a href="../servletPersona?toAdmDocentes=1">Volver</a>
+			<a href="Administrador/Administrador.jsp">Volver</a>
 		</div>
 
 		<div class="conteiner__h1">
@@ -28,7 +33,7 @@
 
 		<div class="conteiner__usuario">
 			<p>
-				Bienvenido <span id="usuario">Lorem</span>
+				Bienvenido <%if(perfil != null) { %><span id="usuario"><%=perfil.getEmail() %></span>  <%} %>
 			</p>
 		</div>
 	</header>
@@ -59,7 +64,7 @@
 	<div class="conteiner__h2">
 		<h2>Alumnos</h2>
 
-		<a href="AltaAlumno.jsp"><button type="button">Agregar
+		<a href="servletPersona?toAgregarAlumno=1"><button type="button">Agregar
 				Alumno</button></a>
 
 	</div>
