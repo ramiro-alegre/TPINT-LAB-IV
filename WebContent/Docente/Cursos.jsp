@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+<%@page import="entidad.Perfil"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -8,7 +8,11 @@
 <link href="docente.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
+<% 
+Perfil perfil = null;
+if(session.getAttribute("Perfil")!= null){
+       perfil = (Perfil) session.getAttribute("Perfil");
+} %>
 	<header>
 
 		<div>
@@ -21,7 +25,7 @@
 
 		<div class="conteiner__usuario">
 			<p>
-				Bienvenido <span id="usuario">Lorem</span>
+				Bienvenido <%if(perfil != null) { %><span id="usuario"><%=perfil.getEmail() %></span>  <%} %>
 			</p>
 		</div>
 	</header>

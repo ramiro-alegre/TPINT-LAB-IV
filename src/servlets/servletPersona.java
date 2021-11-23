@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.daoPerfil;
 import daoImplementacion.daoImplAlumno;
+import daoImplementacion.daoImplCursos;
 import daoImplementacion.daoImplDocente;
 import daoImplementacion.daoImplLocalidad;
 import daoImplementacion.daoImplLogin;
@@ -21,6 +22,7 @@ import daoImplementacion.daoImplProvincia;
 import java.util.ArrayList;
 
 import entidad.Alumno;
+import entidad.Curso;
 import entidad.Docente;
 import entidad.Localidad;
 import entidad.Pais;
@@ -49,13 +51,13 @@ public class servletPersona extends HttpServlet {
 		daoImplPais daoPais = new daoImplPais();
 		daoImplPerfil daoPerfil = new daoImplPerfil();
 		
+		daoImplCursos daoCursos = new daoImplCursos();
+		
 		ArrayList<Pais> listaPaises = daoPais.readAll();
 		ArrayList<Provincia> listaProvincias = daoProvincia.readAll();
 		ArrayList<Localidad> listaLocalidades = daoLocalidad.readAll();   
 		ArrayList<Alumno> listaAlumnos= daoAlumno.readAll();
 		ArrayList<Docente> listaDocentes= daoDocente.readAll();
-		
-		
 		
 		
 		if(request.getParameter("toAdmAlumnos")!=null)   // ---LINK HACIA ADMINISTRADOR ALUMNOS
@@ -255,6 +257,21 @@ public class servletPersona extends HttpServlet {
 				
 		        rd.forward(request, response);	
 		}
+		
+		if(request.getParameter("toCursos")!=null) { // ---LINK HACIA CURSOS SEGUN PROFESOR
+		
+		    Perfil perfilDocente = (Perfil)request.getSession().getAttribute("Perfil");
+			ArrayList<Curso> listaCursos = daoCursos.readAllFromProf(perfilDocente.getDni());
+			
+			request.setAttribute("listaCursos", listaCursos);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Docente/Cursos.jsp");
+			
+			rd.forward(request, response);
+		}
+		
+		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

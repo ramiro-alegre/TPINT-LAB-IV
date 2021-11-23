@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+<%@page import="entidad.Perfil"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -8,10 +8,14 @@
 <link href="docente.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
+<% 
+Perfil perfil = null;
+if(session.getAttribute("Perfil")!= null){
+       perfil = (Perfil) session.getAttribute("Perfil");
+} %>
 	<header>
 		<div class="conteiner__logout">
-			<a style="color: white" href="#">Cerrar Sesión</a>
+			<a style="color: white" href="../servletPersona?cerrarSesion=1">Cerrar Sesión</a>
 		</div>
 
 		<div class="conteiner__h1">
@@ -20,7 +24,7 @@
 
 		<div class="conteiner__usuario">
 			<p>
-				Bienvenido <span id="usuario">Lorem</span>
+					Bienvenido <%if(perfil != null) { %><span id="usuario"><%=perfil.getEmail() %></span>  <%} %>
 			</p>
 		</div>
 
@@ -30,7 +34,7 @@
 
 	<div class="conteiner__h2">Opciones</div>
 	<div class="conteiner__links">
-		<a href="Cursos.jsp">Mis Cursos</a>
+		<a href="../servletPersona?toCursos=1">Mis Cursos</a>
 	</div>
 
 	</main>
