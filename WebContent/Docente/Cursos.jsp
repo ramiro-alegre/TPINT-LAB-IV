@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="entidad.Perfil"%>
+<%@page import="entidad.Materia"%>
+<%@page import="entidad.Curso"%>
+<%@page import="java.util.ArrayList"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -31,6 +34,19 @@ if(session.getAttribute("Perfil")!= null){
 	</header>
 
 	<main>
+	<% 
+	ArrayList<Curso> listaCursos = null;
+	if(request.getAttribute("listaCursos")!=null)
+	{
+		listaCursos = (ArrayList<Curso>) request.getAttribute("listaCursos");
+	}
+	
+	ArrayList<Materia> listaMaterias = null;
+	if(request.getAttribute("listaMaterias")!=null)
+	{
+		listaMaterias = (ArrayList<Materia>) request.getAttribute("listaMaterias");
+	}
+	%>
 
 	<div class="conteiner__h2">
 		<h2>Cursos</h2>
@@ -51,18 +67,21 @@ if(session.getAttribute("Perfil")!= null){
 				<th>Alumnos</th>
 
 			</tr>
-
-			<tr>
-
-
-
-				<td>Lorem</td>
-				<td>Lorem</td>
-				<td>Lorem</td>
-				<td><a href="AlumnosCursos.jsp">Ver Alumnos / Notas</a></td>
-
+ <%  if(listaCursos!=null && listaMaterias !=  null)
+		for(Curso curso : listaCursos) 
+		{
+	%>
+		    <tr>  
+                 <% for (Materia materia : listaMaterias) {
+                      if (materia.getId()== curso.getIdMateria()) {%>
+				<td><%=materia.getNombre()%></td> 
+				     <%}} %>
+				<td><%=curso.getSemestre()%></td>   
+				<td><%=curso.getAnio()%></td> 
+				<td><a href="servletPersona?toCursosxAlumnos=<%=curso.getId()%>">Ver Alumnos / Notas</a></td>
+            
 			</tr>
-
+<% }  %>
 		</table>
 
 	</div>

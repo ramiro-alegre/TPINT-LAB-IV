@@ -9,12 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.daoMateria;
 import dao.daoPerfil;
 import daoImplementacion.daoImplAlumno;
+import daoImplementacion.daoImplCursAlumn;
 import daoImplementacion.daoImplCursos;
 import daoImplementacion.daoImplDocente;
 import daoImplementacion.daoImplLocalidad;
 import daoImplementacion.daoImplLogin;
+import daoImplementacion.daoImplMateria;
 import daoImplementacion.daoImplPais;
 import daoImplementacion.daoImplPerfil;
 import daoImplementacion.daoImplProvincia;
@@ -25,10 +28,11 @@ import entidad.Alumno;
 import entidad.Curso;
 import entidad.Docente;
 import entidad.Localidad;
+import entidad.Materia;
 import entidad.Pais;
 import entidad.Perfil;
 import entidad.Provincia;
-
+import entidad.CursosAlumnos;
 
 
 @WebServlet("/servletPersona")
@@ -50,14 +54,17 @@ public class servletPersona extends HttpServlet {
 		daoImplProvincia daoProvincia = new daoImplProvincia();
 		daoImplPais daoPais = new daoImplPais();
 		daoImplPerfil daoPerfil = new daoImplPerfil();
+		daoImplCursAlumn daoCursosxAlumnos = new daoImplCursAlumn();
 		
 		daoImplCursos daoCursos = new daoImplCursos();
+		daoImplMateria daoMateria = new daoImplMateria();
 		
 		ArrayList<Pais> listaPaises = daoPais.readAll();
 		ArrayList<Provincia> listaProvincias = daoProvincia.readAll();
 		ArrayList<Localidad> listaLocalidades = daoLocalidad.readAll();   
 		ArrayList<Alumno> listaAlumnos= daoAlumno.readAll();
 		ArrayList<Docente> listaDocentes= daoDocente.readAll();
+		ArrayList<Materia> listaMaterias = daoMateria.readAll();
 		
 		
 		if(request.getParameter("toAdmAlumnos")!=null)   // ---LINK HACIA ADMINISTRADOR ALUMNOS
@@ -207,8 +214,7 @@ public class servletPersona extends HttpServlet {
 			boolean isInsertExitoso = daoDocente.insert(docente);
 			request.setAttribute("insertExitosoDocente",isInsertExitoso);
 			
-			//En este punto, ya se creo correctamente el docente
-			//Ahora se pasa a crear su perfil
+		
 			
 			Perfil perfil = new Perfil();
 			
@@ -219,7 +225,6 @@ public class servletPersona extends HttpServlet {
 			boolean isInsertExitoso2 = daoPerfil.insert(perfil);
 			request.setAttribute("insertExitosoPerfilDocente",isInsertExitoso2);
 			
-			//En este punto, ya se creo correctamente su perfil
 			
 			RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAdmDocentes=1");
 		    rd.forward(request, response);
@@ -264,14 +269,27 @@ public class servletPersona extends HttpServlet {
 			ArrayList<Curso> listaCursos = daoCursos.readAllFromProf(perfilDocente.getDni());
 			
 			request.setAttribute("listaCursos", listaCursos);
-			
+			request.setAttribute("listaMaterias", listaMaterias );
 			RequestDispatcher rd = request.getRequestDispatcher("Docente/Cursos.jsp");
 			
 			rd.forward(request, response);
 		}
 		
+		if(request.getParameter("toCursosxAlumnos")!=null) { // ---LINK HACIA ALUMNOS POR CURSO
+			
+			Curso cursoPorID = daoCursos.cursoFromID(Integer.parseInt(request.getParameter("toCursosxAlumnos").toString()));
+			
+			ArrayList<CursosAlumnos> notasAlumnos = daoCursosxAlumnos.readAllFromID(Integer.parseInt(request.getParameter("toCursosxAlumnos").toString()));
+			
+			request.setAttribute("listaAlumnos", listaAlumnos);
+			request.setAttribute("notasAlumnos", notasAlumnos);
+			request.setAttribute("cursoPorID", cursoPorID);
+			request.setAttribute("listaMaterias", listaMaterias );
+			RequestDispatcher rd = request.getRequestDispatcher("Docente/AlumnosCursos.jsp");
+			
+			rd.forward(request, response);
 		
-
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

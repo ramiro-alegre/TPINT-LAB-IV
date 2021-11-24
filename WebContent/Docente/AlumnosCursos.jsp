@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="entidad.Perfil"%>
+<%@page import="entidad.Alumno"%>
+<%@page import="entidad.Curso"%>
+<%@page import="entidad.Materia"%>
+<%@page import="entidad.CursosAlumnos"%>
+<%@page import="java.util.ArrayList"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -31,7 +36,31 @@ if(session.getAttribute("Perfil")!= null){
 	</header>
 
 	<main>
-
+<% 
+	ArrayList<Curso> listaCursos = null;
+	if(request.getAttribute("listaCursos")!=null)
+	{
+		listaCursos = (ArrayList<Curso>) request.getAttribute("listaCursos");
+	}
+	
+	ArrayList<Materia> listaMaterias = null;
+	if(request.getAttribute("listaMaterias")!=null)
+	{
+		listaMaterias = (ArrayList<Materia>) request.getAttribute("listaMaterias");
+	}
+	
+	ArrayList<CursosAlumnos> notasAlumnos = null;
+	if(request.getAttribute("notasAlumnos")!=null)
+	{
+		notasAlumnos = (ArrayList<CursosAlumnos>) request.getAttribute("notasAlumnos");
+	}
+	
+	Curso cursoPorID = null;
+	if(request.getAttribute("cursoPorID")!=null)
+	{
+		cursoPorID = (Curso) request.getAttribute("cursoPorID");
+	}
+	%>
 	<div class="conteiner__h2">
 		<h2>Alumnos de %Materia% %Semestre% %Año%</h2>
 	</div>
