@@ -18,6 +18,7 @@ public class daoImplDocente implements daoDocente {
 	private static final String update = "UPDATE docentes SET Legajo = ? ,NombreApellido = ?,FechaNacimiento = ?,direccion = ?,idlocalidad = ?,idnacionalidad = ?,email = ?,telefono = ?, estado = ? WHERE Dni = ?";
 	private static final String delete = "UPDATE docentes SET Estado = false WHERE Dni = ?";
 	private static final String readall = "SELECT * FROM docentes WHERE estado = true";
+	private static final String verifyAccount = "SELECT dni, estado FROM docentes WHERE dni == ? and estado == true";
 
 	@Override
 	public boolean insert(Docente docente) {
@@ -154,6 +155,8 @@ public class daoImplDocente implements daoDocente {
 		
 		return docente;
 	}
+	
+	
 
 	
 

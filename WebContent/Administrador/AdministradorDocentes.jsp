@@ -10,8 +10,28 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Administrador Docentes</title>
 <link href="Administrador/StyleGeneral.css" rel="stylesheet" type="text/css">
-<link href="Administrador/AdministradorAlumnosDocentes.css" rel="stylesheet"
-	type="text/css">
+<link href="Administrador/AdministradorAlumnosDocentes.css" rel="stylesheet" type="text/css">
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('.table').DataTable();
+    } );
+    
+    //Intentando eliminar el mensaje pasados 3 segundos 
+ 	let div = document.querySelector('#center');
+    if(div){
+    	
+    	setTimeout(function() {
+    		$("#center").remove();
+        }, 3000);
+    }
+    </script>
 </head>
 <body>
 <% Perfil perfil = null;
@@ -72,8 +92,8 @@ if(session.getAttribute("Perfil")!= null){
 
 	<div class="conteiner__tabla">
 
-		<table>
-
+		<table id="customers" class="table">
+		<thead>
 			<tr>
 
 				<th>Dni</th>
@@ -94,17 +114,21 @@ if(session.getAttribute("Perfil")!= null){
 
 				<th>Teléfono</th>
 				
-				<th></th>
+				<th>Modificar</th>
 				
-				<th></th>
+				<th>Eliminar</th>
 
 
 			</tr>
+			</thead>
+<tbody>
+
 
 			 <%  if(listaDocentes!=null)
 		for(Docente docente : listaDocentes) 
 		{
 	%>
+	
 		<tr>  
 		    <form name="tablaDocentes" action="servletPersona" method="get">
 				
@@ -162,14 +186,34 @@ if(session.getAttribute("Perfil")!= null){
 				
 			</form> 
 		</tr>
+		
 	<%  } %>
-
+</tbody>
 		</table>
 
+		<% if(request.getAttribute("updateExitosoDocente") != null){
+			%><div class="center" ><p class="mensaje"><%=request.getAttribute("updateExitosoDocente") %></p></div><% 
+					request.setAttribute("updateExitosoDocente", null);
+			}%>
+			
+			<% if(request.getAttribute("deleteExitosoDocente") != null){
+			%><div class="center"><p class="mensaje"><%=request.getAttribute("deleteExitosoDocente") %></p></div><% 
+					request.setAttribute("deleteExitosoDocente", null);
+			}%>
+			
+			<% if(request.getAttribute("insertExitosoDocente") != null){
+			%><div class="center"><p class="mensaje"><%=request.getAttribute("insertExitosoDocente") %></p></div><% 
+					request.setAttribute("insertExitosoDocente", null);
+			}%>
+			
+		
 	</div>
 
 	</main>
 
 
 </body>
+
+ 
+
 </html>

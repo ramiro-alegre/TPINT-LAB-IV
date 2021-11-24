@@ -20,13 +20,19 @@ a {
 	justify-content: space-around;
 }
 
-table {
+.center{
 	display: flex;
 	justify-content: center;
+	align-items: center;
 }
 
-td, th {
-	border: 1px solid #000;
-	text-align: center;
-	padding: 5px;
+.mensaje{
+	padding: 5px 10px;
+	border: 1px solid black;
+	
 }
+
+
+
+
+

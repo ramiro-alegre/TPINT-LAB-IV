@@ -67,6 +67,8 @@ public class servletPersona extends HttpServlet {
 		ArrayList<Materia> listaMaterias = daoMateria.readAll();
 		
 		
+		
+		
 		if(request.getParameter("toAdmAlumnos")!=null)   // ---LINK HACIA ADMINISTRADOR ALUMNOS
 		{
 				request.setAttribute("listaAlumnos", listaAlumnos);
@@ -147,12 +149,23 @@ public class servletPersona extends HttpServlet {
 			int dni = Integer.parseInt(request.getParameter("dniDocente").toString());
 			
 			boolean isDeleteExitoso = daoDocente.delete(dni);
+			boolean isDeleteExitoso2 = daoPerfil.delete(dni);
+			
+			String mensaje = "";
+			
+			/*Operador ternario*/
+			mensaje = (isDeleteExitoso && isDeleteExitoso2) ? "Eliminado correctamente" : (!isDeleteExitoso) ? 
+			"Ocurrio un error al eliminar el docente" : (!isDeleteExitoso2) ? "Ocurrio un error al eliminar su usuario" : "Ocurrio un error";
+			
+			
+			
 			
 			listaPaises = daoPais.readAll();
 			listaLocalidades = daoLocalidad.readAll();
 			listaDocentes= daoDocente.readAll();
 			
-			   request.setAttribute("deleteExitosoDocente",isDeleteExitoso);
+			   request.setAttribute("deleteExitosoDocente",mensaje);
+			   
 			   request.setAttribute("listaDocentes", listaDocentes);
 				request.setAttribute("listaLocalidades", listaLocalidades);
 				request.setAttribute("listaPaises", listaPaises);
@@ -180,11 +193,15 @@ public class servletPersona extends HttpServlet {
 					         	
 			boolean isUpdateExitoso = daoDocente.update(docente);
 			
+			                             /*Este es el operador ternario*/
+			String mensaje = isUpdateExitoso ? "Modificado correctamente" : "Ocurrio un error";
+			
+			
 			listaPaises = daoPais.readAll();
 			listaLocalidades = daoLocalidad.readAll();
 			listaDocentes= daoDocente.readAll();
 			
-			request.setAttribute("updateExitosoDocente",isUpdateExitoso);
+			request.setAttribute("updateExitosoDocente",mensaje);
 			request.setAttribute("listaAlumnos", listaDocentes);
 			request.setAttribute("listaLocalidades", listaLocalidades);
 			request.setAttribute("listaPaises", listaPaises);
@@ -212,7 +229,11 @@ public class servletPersona extends HttpServlet {
 			docente.setEstado(true);	
 			
 			boolean isInsertExitoso = daoDocente.insert(docente);
-			request.setAttribute("insertExitosoDocente",isInsertExitoso);
+			
+			String mensaje = "";
+			mensaje = (isInsertExitoso) ? "Agregado correctamente" : "Ocurrio un error al agregar el docente";
+			
+			request.setAttribute("insertExitosoDocente",mensaje);
 			
 		
 			
@@ -223,11 +244,19 @@ public class servletPersona extends HttpServlet {
 			perfil.setContrasenia(request.getParameter("contraseniaDocente").toString());
 			
 			boolean isInsertExitoso2 = daoPerfil.insert(perfil);
-			request.setAttribute("insertExitosoPerfilDocente",isInsertExitoso2);
 			
+			mensaje = (isInsertExitoso2) ? "Agregado correctamente" : "Ocurrio un error al agregar su usuario";
 			
-			RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAdmDocentes=1");
-		    rd.forward(request, response);
+			request.setAttribute("insertExitosoDocente",mensaje);
+			
+			/*Este caso es en el que no haya ocurrido ningun error, por lo tanto se muestra el mensaje en admDocentes*/
+			if(isInsertExitoso && isInsertExitoso2) {
+				RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAdmDocentes=1");
+			    rd.forward(request, response);
+			}
+			/*Este caso es en el que haya ocurrido un error, por lo tanto se muestra el mensaje en AgregarDocente*/
+			  RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAgregarDocente=1");
+			    rd.forward(request, response);
 			
 		}
 		

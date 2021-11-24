@@ -80,8 +80,25 @@ public class daoImplPerfil implements daoPerfil{
 
 	@Override
 	public boolean delete(int dni) {
-		// TODO Auto-generated method stub
-		return false;
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isdeleteExitoso = false;
+		try 
+		{
+			statement = conexion.prepareStatement(delete);
+			
+			statement.setInt(1, dni);
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isdeleteExitoso = true;
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return isdeleteExitoso;
 	}
 
 	@Override
