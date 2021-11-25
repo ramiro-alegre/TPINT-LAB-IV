@@ -217,12 +217,13 @@ public class servletPersona extends HttpServlet {
 			Alumno alumno = new Alumno();
 
 			alumno.setDni(Integer.parseInt(request.getParameter("dniAlumno").toString()));
-			alumno.setLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString()));
+			//alumno.setLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString()));
 	        alumno.setNombreApellido(request.getParameter("nombreAlumno").toString());
 	        alumno.setFechaNacimiento(request.getParameter("nacimientoAlumno").toString());
 		    alumno.setDireccion(request.getParameter("direccionAlumno").toString());
-			alumno.setLocalidad(daoLocalidad.localidadFromID(Integer.parseInt(request.getParameter("localidadAlumno").toString())));
 			alumno.setNacionalidad(daoPais.paisFromID(Integer.parseInt(request.getParameter("nacionalidadAlumno").toString())));
+			alumno.setProvincia(daoProvincia.provinciaFromID(Integer.parseInt(request.getParameter("provinciaAlumno").toString())));
+			
 			alumno.setEmail(request.getParameter("emailAlumno").toString());		                     
 			alumno.setTelefono(Integer.parseInt(request.getParameter("telefonoAlumno").toString()));		                     
 			alumno.setEstado(true);	
@@ -235,7 +236,7 @@ public class servletPersona extends HttpServlet {
 			request.setAttribute("insertExitosoAlumno",mensaje);
 			
 			/*Este caso es en el que no haya ocurrido ningun error, por lo tanto se muestra el mensaje en admAlumnos*/
-			if(isInsertExitoso && isInsertExitoso2) {
+			if(isInsertExitoso ) {
 				RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAdmAlumnos=1");
 			    rd.forward(request, response);
 			}

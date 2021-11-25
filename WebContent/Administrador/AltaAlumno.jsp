@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="entidad.Perfil"%>
+<%@page import="entidad.Pais"%>
+<%@page import="entidad.Localidad"%>
+<%@page import="entidad.Provincia"%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>UTN - Agregar alumno</title>
-<link href="StyleGeneral.css" rel="stylesheet" type="text/css">
-<link href="AltaAlumnoDocente.css" rel="stylesheet" type="text/css">
+<link href="Administrador/StyleGeneral.css" rel="stylesheet" type="text/css">
+<link href="Administrador/AltaAlumnoDocente.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <% Perfil perfil = null;
@@ -38,11 +43,13 @@ if(session.getAttribute("Perfil")!= null){
 		listaPaises = (ArrayList<Pais>) request.getAttribute("listaPaises");
 	}
 	
-	ArrayList<Localidad> listaLocalidades = null;
-	if(request.getAttribute("listaLocalidades")!=null)
+	ArrayList<Provincia> listaProvincias = null;
+	if(request.getAttribute("listaProvincias")!=null)
 	{
-		listaLocalidades = (ArrayList<Localidad>) request.getAttribute("listaLocalidades");
+		listaProvincias = (ArrayList<Provincia>) request.getAttribute("listaProvincias");
 	}
+	
+	
 	
  %>
 
@@ -67,25 +74,7 @@ if(session.getAttribute("Perfil")!= null){
 				id="Direccion" name="direccionAlumno" required>
 		</div>
 
-		<div class="conteiner__data">
-			<label for="Localidad">Localidad</label> <select id="Localidad" required name="localidadAlumno">
-			
-                     <%  if(listaLocalidades!=null)
-		                    {
-                    	 
-		                    for(Localidad localidad : listaLocalidades) 
-		                    {		                       
-	                 %>
-	                 
-	                 <option value="<%=localidad.getId() %>"><%=localidad.getNombre() %></option>
-	                 
-	                     <%  }
-                             }
-                            
-	                     %>							
-
-					     </select>
-		</div>
+		
 
 		<div class="conteiner__data">
 			<label for="Nacionalidad">Nacionalidad</label> <select id="Nacionalidad" required name="nacionalidadAlumno" >
@@ -95,6 +84,22 @@ if(session.getAttribute("Perfil")!= null){
 		                       {  
 		         %>	
 				                   <option selected value="<%=pais.getId() %>"><%=pais.getNombre() %></option>
+				           <%  }
+				             
+				       }
+				
+				            %>
+				    
+				</select>
+		</div>
+		<div class="conteiner__data">
+			<label for="Provincia">Provincia</label> <select id="Provincia" required name="provinciaAlumno" >
+				 <%  if(listaProvincias!=null)
+		               {
+		                    for(Provincia provincia : listaProvincias) 
+		                       {  
+		         %>	
+				                   <option selected value="<%=provincia.getId() %>"><%=provincia.getNombre() %></option>
 				           <%  }
 				             
 				       }
