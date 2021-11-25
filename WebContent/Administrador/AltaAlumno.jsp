@@ -30,58 +30,100 @@ if(session.getAttribute("Perfil")!= null){
 		</div>
 	</header>
 
+	<% 
+
+	ArrayList<Pais> listaPaises = null;
+	if(request.getAttribute("listaPaises")!=null)
+	{
+		listaPaises = (ArrayList<Pais>) request.getAttribute("listaPaises");
+	}
+	
+	ArrayList<Localidad> listaLocalidades = null;
+	if(request.getAttribute("listaLocalidades")!=null)
+	{
+		listaLocalidades = (ArrayList<Localidad>) request.getAttribute("listaLocalidades");
+	}
+	
+ %>
 
 	<form class="formulario">
 
 		<div class="conteiner__data">
-			<label for="Dni">Dni</label> <input type="text" id="dni">
+			<label for="Dni">Dni</label> <input type="text" id="dni" name="dniAlumno" required>
 		</div>
 
 		<div class="conteiner__data">
 			<label for="Nombre y apellido">Nombre y Apellido</label> <input
-				type="text" id="NombreYapellido">
+				type="text" id="NombreYapellido" name="nombreAlumno" required>
 		</div>
 
 		<div class="conteiner__data">
 			<label for="FechaNacimiento">Fecha de Nacimiento</label> <input
-				type="text" id="FechaNacimiento">
+				type="text" id="FechaNacimiento" name="nacimientoAlumno" required>
 		</div>
 
 		<div class="conteiner__data">
 			<label for="Direccion">Direccion</label> <input type="text"
-				id="Direccion">
+				id="Direccion" name="direccionAlumno" required>
 		</div>
 
 		<div class="conteiner__data">
-			<label for="Nacionalidad">Nacionalidad</label> <select>
-				<option value="Argentina">Argentina</option>
-				<option value="Uruguay">Uruguay</option>
-				<option value="Peru">Peru</option>
-			</select>
+			<label for="Localidad">Localidad</label> <select id="Localidad" required name="localidadAlumno">
+			
+                     <%  if(listaLocalidades!=null)
+		                    {
+                    	 
+		                    for(Localidad localidad : listaLocalidades) 
+		                    {		                       
+	                 %>
+	                 
+	                 <option value="<%=localidad.getId() %>"><%=localidad.getNombre() %></option>
+	                 
+	                     <%  }
+                             }
+                            
+	                     %>							
+
+					     </select>
 		</div>
 
 		<div class="conteiner__data">
-			<label for="Direccion">Provincia</label> <select>
-				<option value="Buenos Aires">Buenos Aires</option>
-				<option value="Santa Fe">Santa Fe</option>
-				<option value="Mendoza">Mendoza</option>
-			</select>
+			<label for="Nacionalidad">Nacionalidad</label> <select id="Nacionalidad" required name="nacionalidadAlumno" >
+				 <%  if(listaPaises!=null)
+		               {
+		                    for(Pais pais : listaPaises) 
+		                       {  
+		         %>	
+				                   <option selected value="<%=pais.getId() %>"><%=pais.getNombre() %></option>
+				           <%  }
+				             
+				       }
+				
+				            %>
+				    
+				</select>
 		</div>
 
 		<div class="conteiner__data">
-			<label for="Email">Email</label> <input type="text" id="Email">
+			<label for="Email">Email</label> <input type="text" id="Email" name="emailAlumno" required>
 		</div>
 
 		<div class="conteiner__data">
 			<label for="Telefono">Telefono</label><input type="text"
-				id="Telefono">
+				id="Telefono" name="telefonoAlumno" required>
 		</div>
 
 		<div>
-			<button type="submit">Agregar Alumno</button>
+			<button type="submit" name="agregarAlumno">Agregar Alumno</button>
 		</div>
 
 	</form>
+
+	<% if(request.getAttribute("insertExitosoAlumno") != null){
+		%><div class="center"><p><%=request.getAttribute("insertExitosoAlumno") %></p></div><% 
+				request.setAttribute("insertExitosoAlumno", null);
+		}%>
+
 
 </body>
 </html>

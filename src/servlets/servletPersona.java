@@ -209,6 +209,41 @@ public class servletPersona extends HttpServlet {
 		    rd.forward(request, response);
 			
 		}
+
+
+	   if(request.getParameter("agregarAlumno")!=null) // ---BOTON QUE AGREGA alumnos
+		{
+
+			Alumno alumno = new Alumno();
+
+			alumno.setDni(Integer.parseInt(request.getParameter("dniAlumno").toString()));
+			alumno.setLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString()));
+	        alumno.setNombreApellido(request.getParameter("nombreAlumno").toString());
+	        alumno.setFechaNacimiento(request.getParameter("nacimientoAlumno").toString());
+		    alumno.setDireccion(request.getParameter("direccionAlumno").toString());
+			alumno.setLocalidad(daoLocalidad.localidadFromID(Integer.parseInt(request.getParameter("localidadAlumno").toString())));
+			alumno.setNacionalidad(daoPais.paisFromID(Integer.parseInt(request.getParameter("nacionalidadAlumno").toString())));
+			alumno.setEmail(request.getParameter("emailAlumno").toString());		                     
+			alumno.setTelefono(Integer.parseInt(request.getParameter("telefonoAlumno").toString()));		                     
+			alumno.setEstado(true);	
+			
+			boolean isInsertExitoso = daoAlumno.insert(alumno);
+			
+			String mensaje = "";
+			mensaje = (isInsertExitoso) ? "Agregado correctamente" : "Ocurrio un error al agregar el Alumno";
+			
+			request.setAttribute("insertExitosoAlumno",mensaje);
+			
+			/*Este caso es en el que no haya ocurrido ningun error, por lo tanto se muestra el mensaje en admAlumnos*/
+			if(isInsertExitoso && isInsertExitoso2) {
+				RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAdmAlumnos=1");
+			    rd.forward(request, response);
+			}
+			/*Este caso es en el que haya ocurrido un error, por lo tanto se muestra el mensaje en alumno*/
+			  RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAgregarAlumno=1");
+			    rd.forward(request, response);
+			
+		}
 		
 		if(request.getParameter("agregarDocente")!=null) // ---BOTON QUE AGREGA DOCENTES
 		{
