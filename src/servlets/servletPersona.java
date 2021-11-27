@@ -215,6 +215,7 @@ public class servletPersona extends HttpServlet {
 		{
 
 			Alumno alumno = new Alumno();
+			
 
 			alumno.setDni(Integer.parseInt(request.getParameter("dniAlumno").toString()));
 			alumno.setLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString()));
@@ -249,6 +250,11 @@ public class servletPersona extends HttpServlet {
 		if(request.getParameter("agregarDocente")!=null) // -----BOTON QUE AGREGA DOCENTES
 		{
 
+			
+			request.setAttribute("listaLocalidades", listaLocalidades);
+			request.setAttribute("listaPaises", listaPaises);
+			
+			
 			Docente docente = new Docente();
 					
 			
@@ -267,11 +273,17 @@ public class servletPersona extends HttpServlet {
 			boolean isInsertExitoso = daoDocente.insert(docente);
 			
 			String mensaje = "";
-			mensaje = (isInsertExitoso) ? "Agregado correctamente" : "Ocurrio un error al agregar el docente";
+			mensaje = (isInsertExitoso) ? "Agregado correctamente" : "Dni, legajo o email ya registrados";
 			
 			request.setAttribute("insertExitosoDocente",mensaje);
 			
-		
+			//Ocurrio un error al agregar el docente, por lo tanto, no se agrega su perfil 
+			if(!isInsertExitoso) 
+			{
+				RequestDispatcher rd = request.getRequestDispatcher("Administrador/AltaDocente.jsp");
+			    rd.forward(request, response);
+			}
+			
 			
 			Perfil perfil = new Perfil();
 			
@@ -287,11 +299,11 @@ public class servletPersona extends HttpServlet {
 			
 			/*Este caso es en el que no haya ocurrido ningun error, por lo tanto se muestra el mensaje en admDocentes*/
 			if(isInsertExitoso && isInsertExitoso2) {
-				RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAdmDocentes=1");
+				RequestDispatcher rd = request.getRequestDispatcher("Administrador/AltaDocente.jsp");
 			    rd.forward(request, response);
 			}
 			/*Este caso es en el que haya ocurrido un error, por lo tanto se muestra el mensaje en AgregarDocente*/
-			  RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAgregarDocente=1");
+			  RequestDispatcher rd = request.getRequestDispatcher("Administrador/AltaDocente.jsp");
 			    rd.forward(request, response);
 			
 		}
