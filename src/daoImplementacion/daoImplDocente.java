@@ -18,13 +18,19 @@ public class daoImplDocente implements daoDocente {
 	private static final String update = "UPDATE docentes SET Legajo = ? ,NombreApellido = ?,FechaNacimiento = ?,direccion = ?,idlocalidad = ?,idnacionalidad = ?,email = ?,telefono = ?, estado = ? WHERE Dni = ?";
 	private static final String delete = "UPDATE docentes SET Estado = false WHERE Dni = ?";
 	private static final String readall = "SELECT * FROM docentes WHERE estado = true";
-	private static final String verifyAccount = "SELECT dni, estado FROM docentes WHERE dni == ? and estado == true";
-
+	
+	
+	
+	
 	@Override
 	public boolean insert(Docente docente) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
+		
+		
+		
+		
 		try
 		{
 			statement = conexion.prepareStatement(insert);
@@ -47,6 +53,7 @@ public class daoImplDocente implements daoDocente {
 		} 
 		catch (SQLException e) 
 		{
+			
 			e.printStackTrace();
 			try {
 				conexion.rollback();
@@ -86,7 +93,7 @@ public class daoImplDocente implements daoDocente {
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			 e.printStackTrace();
 		}
 		return isupdateExitoso;
 	}
@@ -153,8 +160,11 @@ public class daoImplDocente implements daoDocente {
 		docente.setTelefono(resultSet.getInt("telefono"));
 		docente.setEstado(resultSet.getBoolean("estado"));
 		
+		
+		
 		return docente;
 	}
+	
 	
 	
 

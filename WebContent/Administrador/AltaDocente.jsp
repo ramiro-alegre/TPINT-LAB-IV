@@ -18,6 +18,9 @@ if(session.getAttribute("Perfil")!= null){
        perfil = (Perfil) session.getAttribute("Perfil");
 } %>
 
+
+
+
 	<header>
 
 		<div class="conteiner__volver">
@@ -139,7 +142,7 @@ if(session.getAttribute("Perfil")!= null){
 	</form>
 	
 	<% if(request.getAttribute("insertExitosoDocente") != null){
-			%><div class="center"><p><%=request.getAttribute("insertExitosoDocente") %></p></div><% 
+			%><div class="center"><p class="mensaje"><%=request.getAttribute("insertExitosoDocente") %></p></div><% 
 					request.setAttribute("insertExitosoDocente", null);
 			}%>
 

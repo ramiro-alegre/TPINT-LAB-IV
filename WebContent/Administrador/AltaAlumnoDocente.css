@@ -58,3 +58,15 @@ button {
 	border: none;
 	cursor: pointer;
 }
+
+.center{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px 0px;
+}
+
+.mensaje{
+	padding: 5px 10px;
+	border: 1px solid black;
+}

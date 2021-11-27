@@ -20,7 +20,10 @@
 
 <script type="text/javascript">
     $(document).ready( function () {
-        $('.table').DataTable();
+        var table = $('.table').DataTable();
+        
+     
+        
     } );
     
     //Intentando eliminar el mensaje pasados 3 segundos 
