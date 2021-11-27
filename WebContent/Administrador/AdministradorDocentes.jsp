@@ -19,21 +19,36 @@
 
 
 <script type="text/javascript">
-    $(document).ready( function () {
-        var table = $('.table').DataTable();
-        
-     
-        
+$(document).ready(function() {
+	$('.table thead th').each( function () {
+        var title = $('.table tfoot th').eq( $(this).index() ).text();
+        if(title!=""){
+            $(this).html( '<input type="text" placeholder="Filtrar '+title+'" />' );
+      }
     } );
+
+    // DataTable
+    var table = $('.table').DataTable({
+   
+    });
+
+    // Apply the search
+    table.columns().eq( 0 ).each( function ( colIdx ) {
+        
+        $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
+            table
+                .column( colIdx )
+                .search( this.value )
+                .draw();
+        } );
+    } );
+} );
     
-    //Intentando eliminar el mensaje pasados 3 segundos 
- 	let div = document.querySelector('#center');
-    if(div){
-    	
-    	setTimeout(function() {
-    		$("#center").remove();
-        }, 3000);
-    }
+    
+
+ 
+    
+
     </script>
 </head>
 <body>
@@ -95,7 +110,7 @@ if(session.getAttribute("Perfil")!= null){
 
 	<div class="conteiner__tabla">
 
-		<table id="customers" class="table">
+	<table id="customers" class="table">
 		<thead>
 			<tr>
 
@@ -107,7 +122,7 @@ if(session.getAttribute("Perfil")!= null){
 
 				<th>Fecha de Nacimiento</th>
 
-				<th>Dirreción</th>
+				<th>Dirección</th>
 
                 <th>Localidad</th>
 
@@ -123,7 +138,7 @@ if(session.getAttribute("Perfil")!= null){
 
 
 			</tr>
-			</thead>
+		</thead>
 <tbody>
 
 
@@ -135,13 +150,13 @@ if(session.getAttribute("Perfil")!= null){
 		<tr>  
 		    <form name="tablaDocentes" action="servletPersona" method="get">
 				
-				<td> <input type="number" name="dniDocente" readonly="readonly" value="<%=docente.getDni()%>"> </td> 
-				<td> <input type="number" required name="legajoDocente" value="<%=docente.getLegajo() %>" ></td>   
-				<td> <input type="text" required name="nombreDocente" value="<%=docente.getNombreApellido() %>" ></td> 
-				<td> <input type="text" required pattern="\d{1,2}/\d{1,2}/\d{4}" title="La fecha no es v&aacute;lida" name="nacimientoDocente" value="<%=docente.getFechaNacimiento() %>" ></td> 
-				<td> <input type="text" required name="direccionDocente" value="<%=docente.getDireccion() %>" ></td> 
-				     <td> 
-				         <select required name="localidadDocente">
+				<td name="dniDocente"><%=docente.getDni()%> <input type="hidden" name="dniDocente" value="<%=docente.getDni()%>"></td> 
+				<td><%=docente.getLegajo() %></td>   
+				<td><%=docente.getNombreApellido() %></td> 
+				<td><%=docente.getFechaNacimiento() %></td> 
+				<td><%=docente.getDireccion() %></td> 
+				<td> 
+				         
                      <%  if(listaLocalidades!=null)
 		                    {
 		                    for(Localidad localidad : listaLocalidades) 
@@ -149,21 +164,17 @@ if(session.getAttribute("Perfil")!= null){
 		                       if (docente.getLocalidad().getId()==localidad.getId())
 		                       {
 	                 %>
-							   <option selected="selected" value="<%=localidad.getId() %>"><%=localidad.getNombre() %></option>
+							   <%=localidad.getNombre() %>
 	                 <%
-	                           }else{ 
-	                  %> 
-	                 <option value="<%=localidad.getId() %>"><%=localidad.getNombre() %></option>
-	                 
-	                     <%    }
+	                           }
                              }
                             }
 	                     %>							
 
-					     </select>
+					    
 				
 				</td> 
-				<td> <select required name="nacionalidadDocente" >
+				<td> 
 				 <%  if(listaPaises!=null)
 		                    {
 		                    for(Pais pais : listaPaises) 
@@ -171,28 +182,39 @@ if(session.getAttribute("Perfil")!= null){
 		                          if (docente.getNacionalidad().getId()==pais.getId())
 		                         {
 		                    %>	
-				                   <option selected="selected" value="<%=pais.getId() %>"><%=pais.getNombre() %></option>
-				<%               } else {
-				%>
-				                   <option value="<%=pais.getId() %>"><%=pais.getNombre() %></option>
-				<%               }
+				                   <%=pais.getNombre() %>
+				<%               } 
 				             }
 				           }
 				
 				%>
-				</select>
+				
 				</td> 
-				<td> <input type="email" required name="emailDocente" value="<%=docente.getEmail() %>" ></td> 
-				<td> <input type="number" required name="telefonoDocente" value="<%=docente.getTelefono() %>" ></td> 
-				<td> <input type="submit" name="modificarDocente" value="Modificar"> </td>
-				<td> <input type="submit" name="eliminarDocente" value="Eliminar"> </td>    
+				<td><%=docente.getEmail()%></td> 
+				<td><%=docente.getTelefono()%></td> 
+				<td><input type="submit" name="modificarDocente" value="Modificar"></td>
+				<td><input type="submit" name="eliminarDocente" value="Eliminar"></td>    
 				
 			</form> 
 		</tr>
 		
+		
 	<%  } %>
-</tbody>
-		</table>
+	</tbody>
+	 <tfoot>
+            <tr>
+                <th>dni</th>
+                <th>legajo</th>
+                <th>nombre y apellido</th>
+                <th>fecha de nacimiento</th>
+                <th>dirección</th>
+                <th>localidad</th>
+                <th>nacionalidad</th>
+                <th>email</th>
+                <th>teléfono</th>
+            </tr>
+        </tfoot>
+</table>
 
 		<% if(request.getAttribute("updateExitosoDocente") != null){
 			%><div class="center" ><p class="mensaje"><%=request.getAttribute("updateExitosoDocente") %></p></div><% 
