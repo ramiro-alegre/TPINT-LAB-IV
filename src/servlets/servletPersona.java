@@ -217,7 +217,7 @@ public class servletPersona extends HttpServlet {
 			Alumno alumno = new Alumno();
 
 			alumno.setDni(Integer.parseInt(request.getParameter("dniAlumno").toString()));
-			//alumno.setLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString()));
+			alumno.setLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString()));
 	        alumno.setNombreApellido(request.getParameter("nombreAlumno").toString());
 	        alumno.setFechaNacimiento(request.getParameter("nacimientoAlumno").toString());
 		    alumno.setDireccion(request.getParameter("direccionAlumno").toString());
@@ -246,7 +246,7 @@ public class servletPersona extends HttpServlet {
 			
 		}
 		
-		if(request.getParameter("agregarDocente")!=null) // ---BOTON QUE AGREGA DOCENTES
+		if(request.getParameter("agregarDocente")!=null) // -----BOTON QUE AGREGA DOCENTES
 		{
 
 			Docente docente = new Docente();

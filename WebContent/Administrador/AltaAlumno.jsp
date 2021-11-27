@@ -56,7 +56,11 @@ if(session.getAttribute("Perfil")!= null){
 	<form class="formulario">
 
 		<div class="conteiner__data">
-			<label for="Dni">Dni</label> <input type="text" id="dni" name="dniAlumno" required>
+			<label for="Dni">Dni</label> <input type="number" id="dni" name="dniAlumno" required>
+		</div>
+		
+		<div class="conteiner__data">
+			<label for="legajo">Legajo</label> <input type="number" id="legajo" name="legajoAlumno" required>
 		</div>
 
 		<div class="conteiner__data">
@@ -66,15 +70,13 @@ if(session.getAttribute("Perfil")!= null){
 
 		<div class="conteiner__data">
 			<label for="FechaNacimiento">Fecha de Nacimiento</label> <input
-				type="text" id="FechaNacimiento" name="nacimientoAlumno" required>
+				type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" title="La fecha no es v&aacute;lida" id="FechaNacimiento" name="nacimientoAlumno" required>
 		</div>
 
 		<div class="conteiner__data">
-			<label for="Direccion">Direccion</label> <input type="text"
-				id="Direccion" name="direccionAlumno" required>
+			<label for="Direccion">Direccion</label> 
+			<input type="text" id="Direccion" name="direccionAlumno" required>
 		</div>
-
-		
 
 		<div class="conteiner__data">
 			<label for="Nacionalidad">Nacionalidad</label> <select id="Nacionalidad" required name="nacionalidadAlumno" >
@@ -83,7 +85,7 @@ if(session.getAttribute("Perfil")!= null){
 		                    for(Pais pais : listaPaises) 
 		                       {  
 		         %>	
-				                   <option selected value="<%=pais.getId() %>"><%=pais.getNombre() %></option>
+				                   <option value="<%=pais.getId() %>"><%=pais.getNombre() %></option>
 				           <%  }
 				             
 				       }
@@ -99,7 +101,7 @@ if(session.getAttribute("Perfil")!= null){
 		                    for(Provincia provincia : listaProvincias) 
 		                       {  
 		         %>	
-				                   <option selected value="<%=provincia.getId() %>"><%=provincia.getNombre() %></option>
+				                   <option value="<%=provincia.getId() %>"><%=provincia.getNombre() %></option>
 				           <%  }
 				             
 				       }
@@ -110,11 +112,11 @@ if(session.getAttribute("Perfil")!= null){
 		</div>
 
 		<div class="conteiner__data">
-			<label for="Email">Email</label> <input type="text" id="Email" name="emailAlumno" required>
+			<label for="Email">Email</label> <input type="email" id="Email" name="emailAlumno" required>
 		</div>
 
 		<div class="conteiner__data">
-			<label for="Telefono">Telefono</label><input type="text"
+			<label for="Telefono">Telefono</label><input type="number"
 				id="Telefono" name="telefonoAlumno" required>
 		</div>
 
