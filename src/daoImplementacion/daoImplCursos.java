@@ -85,7 +85,7 @@ public class daoImplCursos implements daoCursos {
 			
 			while(resultSet.next())
 			{
-				return curso;
+				return getCurso(resultSet);
 			}
 		} 
 		catch (SQLException e) 
@@ -94,6 +94,12 @@ public class daoImplCursos implements daoCursos {
 		}
 		
 		return curso;
+	}
+
+	@Override
+	public boolean insert(Curso curso) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

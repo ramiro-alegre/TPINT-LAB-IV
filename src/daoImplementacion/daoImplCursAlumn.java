@@ -1,5 +1,6 @@
 package daoImplementacion;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,8 @@ import entidad.CursosAlumnos;
 public class daoImplCursAlumn implements daoCursosAlumnos {
 
 	private static final String readAllFromID = "SELECT * FROM cursosxalumnos WHERE idCurso = ?";
-	
+    private static final String update = "UPDATE cursosxalumnos SET parcialUno = ?, parcialDos = ?, recuperatorioUno = ?, recuperatorioDos = ?,  estado = ? WHERE idCurso = ? AND dniAlumno = ? ";
+
 	@Override
 	public ArrayList<CursosAlumnos> readAllFromID(int idCurso) {
 		 
@@ -63,6 +65,44 @@ public class daoImplCursAlumn implements daoCursosAlumnos {
         cxa.setRecuperatorioDos(resultSet.getFloat("recuperatorioDos"));
         cxa.setEstado(resultSet.getString("estado"));
 		return cxa;
+	}
+
+
+	@Override
+	public boolean insert(CursosAlumnos notas) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(CursosAlumnos notas) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isupdateExitoso = false;
+		try 
+		{
+			statement = conexion.prepareStatement(update);
+			
+			statement.setFloat(1, notas.getParcialUno());
+			statement.setFloat(2, notas.getParcialDos());
+			statement.setFloat(3, notas.getRecuperatorioUno());
+			statement.setFloat(4, notas.getRecuperatorioDos());
+			statement.setString(5 , notas.getEstado());
+			
+			statement.setInt(6, notas.getIdCurso());
+			statement.setInt(7, notas.getDniAlumno());
+			
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isupdateExitoso = true;
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return isupdateExitoso;
 	}
 
 }

@@ -1,14 +1,12 @@
 package daoImplementacion;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
 
-import dao.daoPerfil;
-import entidad.Pais;
 import entidad.Perfil;
 
 
@@ -17,12 +15,16 @@ public class daoImplLogin {
 	final String ConsultaPerfil = "select * from perfiles where email = ? and contrasenia = ? and estado = true " ;
 
 	public Perfil getValidPerfil(Perfil Perfil) throws ClassNotFoundException {
-		boolean status = false;
 		
 		
-		Class.forName("com.mysql.jdbc.Driver");
+		 try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		java.sql.PreparedStatement statement;
+		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 
 			try {	
@@ -49,9 +51,14 @@ public class daoImplLogin {
 		
 		Perfil perfil = new Perfil();
 		
-		Class.forName("com.mysql.jdbc.Driver");
+		 try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		java.sql.PreparedStatement statement;
+		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 
 			try {	
