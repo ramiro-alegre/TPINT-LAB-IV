@@ -18,23 +18,7 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
 
-<script type="text/javascript">
-    $(document).ready( function () {
-        var table = $('.table').DataTable();
-        
-     
-        
-    } );
-    
-    //Intentando eliminar el mensaje pasados 3 segundos 
- 	let div = document.querySelector('#center');
-    if(div){
-    	
-    	setTimeout(function() {
-    		$("#center").remove();
-        }, 3000);
-    }
-    </script>
+
 </head>
 <body>
 <% Perfil perfil = null;
@@ -44,7 +28,7 @@ if(session.getAttribute("Perfil")!= null){
 	<header>
 
 		<div class="conteiner__volver">
-			<a href="Administrador/Administrador.jsp">Volver</a>
+			<a href="servletPersona?toAdmGeneral=1">Volver</a>
 		</div>
 
 		<div class="conteiner__h1">
@@ -79,6 +63,12 @@ if(session.getAttribute("Perfil")!= null){
 		listaLocalidades = (ArrayList<Localidad>) request.getAttribute("listaLocalidades");
 	}
 	
+	int dniDocente = 0;
+	 if(request.getAttribute("avisoModificarDocente")!=null){
+			
+		dniDocente = (int)request.getAttribute("avisoModificarDocente");
+	}
+	
  %>
 
 
@@ -95,7 +85,7 @@ if(session.getAttribute("Perfil")!= null){
 
 	<div class="conteiner__tabla">
 
-		<table id="customers" class="table">
+	<table id="customers" class="table">
 		<thead>
 			<tr>
 
@@ -107,7 +97,7 @@ if(session.getAttribute("Perfil")!= null){
 
 				<th>Fecha de Nacimiento</th>
 
-				<th>Dirreción</th>
+				<th>Dirección</th>
 
                 <th>Localidad</th>
 
@@ -123,16 +113,42 @@ if(session.getAttribute("Perfil")!= null){
 
 
 			</tr>
-			</thead>
+		</thead>
 <tbody>
 
+			
+		
+			 <% 
+			 
+			 
+			 
+			 if(request.getAttribute("avisoModificarDocente")!= null){
+					
+				 if(listaDocentes!=null){
+					 
+					 //En este punto necesitamos que los filtros desaparezcan 
+					 
+					 %>
+<script type="text/javascript">
 
-			 <%  if(listaDocentes!=null)
-		for(Docente docente : listaDocentes) 
-		{
-	%>
+$(document).ready(function() {
 	
-		<tr>  
+      $('.table tfoot').remove();
+        
+   
+
+    // DataTable
+    var table = $('.table').DataTable({
+    	searching: false
+    });
+} );
+</script>
+					 <% 
+					 
+					 for(Docente docente : listaDocentes){
+						 if(dniDocente == docente.getDni()){
+							 %>
+							 <tr>  
 		    <form name="tablaDocentes" action="servletPersona" method="get">
 				
 				<td> <input type="number" name="dniDocente" readonly="readonly" value="<%=docente.getDni()%>"> </td> 
@@ -184,15 +200,124 @@ if(session.getAttribute("Perfil")!= null){
 				</td> 
 				<td> <input type="email" required name="emailDocente" value="<%=docente.getEmail() %>" ></td> 
 				<td> <input type="number" required name="telefonoDocente" value="<%=docente.getTelefono() %>" ></td> 
-				<td> <input type="submit" name="modificarDocente" value="Modificar"> </td>
-				<td> <input type="submit" name="eliminarDocente" value="Eliminar"> </td>    
+				<td> <input type="submit" name="modificarDocente" value="Modificar" onclick="return confirm('seguro que desea modificar al docente?')" > </td>
+				<td> <input type="submit" name="eliminarDocente" value="Eliminar" onclick="return confirm('seguro que desea eliminar al docente?')" > </td>    
+				
+			</form> 
+		</tr>
+							 
+							 <% 
+						 }
+					 }
+				 }
+				 
+				} else{
+			 
+			 if(listaDocentes!=null)
+//Tabla por default cuando no se modifica nada		 
+ %>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$('.table thead th').each( function () {
+        var title = $('.table tfoot th').eq( $(this).index() ).text();
+        if(title!=""){
+            $(this).html( '<input type="text" placeholder="Filtrar '+title+'" />' );
+      }
+    } );
+
+    // DataTable
+    var table = $('.table').DataTable({
+   
+    });
+
+    // Apply the search
+    table.columns().eq( 0 ).each( function ( colIdx ) {
+        
+        $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
+            table
+                .column( colIdx )
+                .search( this.value )
+                .draw();
+        } );
+    } );
+} );
+</script>
+ <% 	 
+			
+		for(Docente docente : listaDocentes) 
+		{
+	%>
+	
+		<tr>  
+		    <form name="tablaDocentes" action="servletPersona" method="get">
+				
+				<td name="dniDocente"><%=docente.getDni()%> <input type="hidden" name="dniDocente" value="<%=docente.getDni()%>"></td> 
+				<td><%=docente.getLegajo() %></td>   
+				<td><%=docente.getNombreApellido() %></td> 
+				<td><%=docente.getFechaNacimiento() %></td> 
+				<td><%=docente.getDireccion() %></td> 
+				<td> 
+				         
+                     <%  if(listaLocalidades!=null)
+		                    {
+		                    for(Localidad localidad : listaLocalidades) 
+		                    {
+		                       if (docente.getLocalidad().getId()==localidad.getId())
+		                       {
+	                 %>
+							   <%=localidad.getNombre() %>
+	                 <%
+	                           }
+                             }
+                            }
+	                     %>							
+
+					    
+				
+				</td> 
+				<td> 
+				 <%  if(listaPaises!=null)
+		                    {
+		                    for(Pais pais : listaPaises) 
+		                      {  
+		                          if (docente.getNacionalidad().getId()==pais.getId())
+		                         {
+		                    %>	
+				                   <%=pais.getNombre() %>
+				<%               } 
+				             }
+				           }
+				
+				%>
+				
+				</td> 
+				<td><%=docente.getEmail()%></td> 
+				<td><%=docente.getTelefono()%></td> 
+				<td><input type="submit" name="modificarDocenteAviso" value="Modificar"></td>
+				<td><input type="submit" name="eliminarDocente" value="Eliminar"></td>    
 				
 			</form> 
 		</tr>
 		
-	<%  } %>
-</tbody>
-		</table>
+		
+	<%  }} %>
+	</tbody>
+	 <tfoot>
+            <tr>
+                <th>dni</th>
+                <th>legajo</th>
+                <th>nombre y apellido</th>
+                <th>fecha de nacimiento</th>
+                <th>dirección</th>
+                <th>localidad</th>
+                <th>nacionalidad</th>
+                <th>email</th>
+                <th>teléfono</th>
+            </tr>
+        </tfoot>
+</table>
 
 		<% if(request.getAttribute("updateExitosoDocente") != null){
 			%><div class="center" ><p class="mensaje"><%=request.getAttribute("updateExitosoDocente") %></p></div><% 

@@ -18,7 +18,7 @@ if(session.getAttribute("Perfil")!= null){
 } %>
 	<header>
 	<div class="conteiner__logout">
-		<a class="logout" href="../servletPersona?cerrarSesion=1">Cerrar Sesión</a>
+		<a class="logout" href="./servletPersona?cerrarSesion=1" onclick="return confirm('Seguro que desea cerrar sesion?')"  >Cerrar Sesión</a>
 	</div>
 
 	<div class="conteiner__h1">
@@ -39,7 +39,7 @@ if(session.getAttribute("Perfil")!= null){
 	<div class="conteiner__links">
 		<a href="./servletPersona?toAdmAlumnos=1">Alumnos</a> 
 		<a href="./servletPersona?toAdmDocentes=1">Docentes</a> 
-		<a href="AltaCursos.jsp">Cursos</a>
+		<a href="./servletPersona?toCursos=1">Cursos</a>
 	</div>
 
 	</main>
