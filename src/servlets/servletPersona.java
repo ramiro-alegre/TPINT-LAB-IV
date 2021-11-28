@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.daoMateria;
-import dao.daoPerfil;
 import daoImplementacion.daoImplAlumno;
 import daoImplementacion.daoImplCursAlumn;
 import daoImplementacion.daoImplCursos;
@@ -205,7 +203,7 @@ public class servletPersona extends HttpServlet {
 			request.setAttribute("listaAlumnos", listaDocentes);
 			request.setAttribute("listaLocalidades", listaLocalidades);
 			request.setAttribute("listaPaises", listaPaises);
-		    RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAdmDocentes=1");
+		    RequestDispatcher rd = request.getRequestDispatcher("servletPersona?toAdmDocentes=1");
 		    rd.forward(request, response);
 			
 		}
@@ -238,11 +236,11 @@ public class servletPersona extends HttpServlet {
 			
 			/*Este caso es en el que no haya ocurrido ningun error, por lo tanto se muestra el mensaje en admAlumnos*/
 			if(isInsertExitoso ) {
-				RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAdmAlumnos=1");
+				RequestDispatcher rd = request.getRequestDispatcher("servletPersona?toAdmAlumnos=1");
 			    rd.forward(request, response);
 			}
 			/*Este caso es en el que haya ocurrido un error, por lo tanto se muestra el mensaje en alumno*/
-			  RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAgregarAlumno=1");
+			  RequestDispatcher rd = request.getRequestDispatcher("servletPersona?toAgregarAlumno=1");
 			    rd.forward(request, response);
 			
 		}
@@ -299,14 +297,17 @@ public class servletPersona extends HttpServlet {
 			
 			/*Este caso es en el que no haya ocurrido ningun error, por lo tanto se muestra el mensaje en admDocentes*/
 			if(isInsertExitoso && isInsertExitoso2) {
+
 				RequestDispatcher rd = request.getRequestDispatcher("Administrador/AltaDocente.jsp");
 			    rd.forward(request, response);
 			}
-			/*Este caso es en el que haya ocurrido un error, por lo tanto se muestra el mensaje en AgregarDocente*/
-			  RequestDispatcher rd = request.getRequestDispatcher("Administrador/AltaDocente.jsp");
-			    rd.forward(request, response);
 			
-		}
+			/*Este caso es en el que haya ocurrido un error, por lo tanto se muestra el mensaje en AgregarDocente*/
+			  RequestDispatcher rd = request.getRequestDispatcher("servletPersona?toAgregarDocente=1");
+
+			    rd.forward(request, response);
+	        }
+		
 		
 		if(request.getParameter("toAgregarDocente")!=null)  // ---LINK HACIA AGREGAR DOCENTES
 		{
@@ -354,10 +355,48 @@ public class servletPersona extends HttpServlet {
 		
 		if(request.getParameter("toCursosxAlumnos")!=null) { // ---LINK HACIA ALUMNOS POR CURSO
 			
-			Curso cursoPorID = daoCursos.cursoFromID(Integer.parseInt(request.getParameter("toCursosxAlumnos").toString()));
 			
-			ArrayList<CursosAlumnos> notasAlumnos = daoCursosxAlumnos.readAllFromID(Integer.parseInt(request.getParameter("toCursosxAlumnos").toString()));
+			int idCurso = Integer.parseInt(request.getParameter("toCursosxAlumnos").toString());
+			Curso cursoPorID = daoCursos.cursoFromID(idCurso);
 			
+			ArrayList<CursosAlumnos> notasAlumnos = daoCursosxAlumnos.readAllFromID(idCurso);
+			
+			request.setAttribute("listaAlumnos", listaAlumnos);
+			request.setAttribute("notasAlumnos", notasAlumnos);
+			request.setAttribute("cursoPorID", cursoPorID);
+			request.setAttribute("listaMaterias", listaMaterias );
+			RequestDispatcher rd = request.getRequestDispatcher("Docente/AlumnosCursos.jsp");
+			
+			rd.forward(request, response);
+		
+		}
+		
+        if(request.getParameter("modificarNotas")!=null) { // ---BOTON PARA MODIFICAR CURSOSXALUMNOS
+			
+			CursosAlumnos notas = new CursosAlumnos();
+			ArrayList<CursosAlumnos> notasAlumnos = new ArrayList<CursosAlumnos>();
+			int filas=Integer.parseInt(request.getParameter("filas").toString());
+			String alumnos[]= new String[6];
+			for (int i=0 ;i <filas;i++) {
+				alumnos = request.getParameterValues("alumno"+i);
+				notas.setIdCurso(Integer.parseInt(request.getParameter("cursoPorID").toString()));
+				notas.setDniAlumno(Integer.parseInt(alumnos[0]));
+				notas.setParcialUno(Float.parseFloat(alumnos[1]));
+				notas.setParcialDos(Float.parseFloat(alumnos[2]));
+				notas.setRecuperatorioUno(Float.parseFloat(alumnos[3]));
+				notas.setRecuperatorioDos(Float.parseFloat(alumnos[4]));
+				notas.setEstado(alumnos[5]);
+				//notasAlumnos.add(notas);
+				notas.toString();
+				daoCursosxAlumnos.update(notas);
+			}
+			
+			
+			
+			listaAlumnos = daoAlumno.readAll();
+			notasAlumnos = daoCursosxAlumnos.readAllFromID(Integer.parseInt(request.getParameter("cursoPorID").toString()));
+			Curso cursoPorID = daoCursos.cursoFromID(Integer.parseInt(request.getParameter("cursoPorID").toString()));
+			listaMaterias = daoMateria.readAll();
 			request.setAttribute("listaAlumnos", listaAlumnos);
 			request.setAttribute("notasAlumnos", notasAlumnos);
 			request.setAttribute("cursoPorID", cursoPorID);
@@ -388,12 +427,12 @@ public class servletPersona extends HttpServlet {
 				
 				if(perfil.isAdministrador()) {
 				request.getSession().setAttribute("Perfil",perfil);	
-				RequestDispatcher rd = request.getRequestDispatcher("Administrador/Administrador.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/Administrador/Administrador.jsp");
 				rd.forward(request,response);
 				}else {
 		
 						request.getSession().setAttribute("Perfil",perfil);	
-						RequestDispatcher rd = request.getRequestDispatcher("Docente/Docente.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("/Docente/Docente.jsp");
 						rd.forward(request,response);
 					  
 					}

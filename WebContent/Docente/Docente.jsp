@@ -34,7 +34,7 @@ if(session.getAttribute("Perfil")!= null){
 
 	<div class="conteiner__h2">Opciones</div>
 	<div class="conteiner__links">
-		<a href="../servletPersona?toCursos=1">Mis Cursos</a>
+		<a href="servletPersona?toCursos=1">Mis Cursos</a>
 	</div>
 
 	</main>

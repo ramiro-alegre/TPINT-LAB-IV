@@ -93,6 +93,13 @@ public String getEstado() {
 public void setEstado(String estado) {
 	this.estado = estado;
 }
+
+@Override
+public String toString() {
+	return "CursosAlumnos [idCurso=" + idCurso + ", dniAlumno=" + dniAlumno + ", parcialUno=" + parcialUno
+			+ ", parcialDos=" + parcialDos + ", recuperatorioUno=" + recuperatorioUno + ", recuperatorioDos="
+			+ recuperatorioDos + ", estado=" + estado + "]";
+}
   
   
   
