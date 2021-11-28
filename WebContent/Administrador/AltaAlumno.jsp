@@ -121,7 +121,7 @@ if(session.getAttribute("Perfil")!= null){
 		</div>
 
 		<div>
-			<button type="submit" name="agregarAlumno">Agregar Alumno</button>
+			<button type="submit" name="agregarAlumno" onclick="return confirm('seguro que desea agregar al alumno?')" >Agregar Alumno</button>
 		</div>
 
 	</form>

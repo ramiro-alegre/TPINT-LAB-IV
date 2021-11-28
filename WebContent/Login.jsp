@@ -22,12 +22,12 @@
 
 		<div class="conteiner__data">
 			<label for="user">Nombre de usuario</label> <input type="text"
-				id="email" name="email">
+				id="email" name="email" required >
 		</div>
 
 		<div class="conteiner__data">
 			<label for="password">Contraseña</label> <input type="password"
-				id="contrasenia" name="contrasenia">
+				id="contrasenia" name="contrasenia" required >
 		</div>
 
 		<div>

@@ -66,6 +66,13 @@ public class servletPersona extends HttpServlet {
 		ArrayList<Docente> listaDocentes= daoDocente.readAll();
 		ArrayList<Materia> listaMaterias = daoMateria.readAll();
 		
+		if(request.getParameter("toAdmGeneral")!=null)   // ---LINK HACIA ADMINISTRADOR
+		{
+				
+				RequestDispatcher rd = request.getRequestDispatcher("Administrador/Administrador.jsp");  
+				
+		        rd.forward(request, response);	
+		}
 		
 		
 		

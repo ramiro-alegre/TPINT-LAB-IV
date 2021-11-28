@@ -44,7 +44,7 @@ if(session.getAttribute("Perfil")!= null){
 	<header>
 
 		<div class="conteiner__volver">
-			<a href="Administrador/Administrador.jsp">Volver</a>
+			<a href="servletPersona?toAdmGeneral=1">Volver</a>
 		</div>
 
 		<div class="conteiner__h1">
@@ -184,8 +184,8 @@ if(session.getAttribute("Perfil")!= null){
 				</td> 
 				<td> <input type="email" required name="emailDocente" value="<%=docente.getEmail() %>" ></td> 
 				<td> <input type="number" required name="telefonoDocente" value="<%=docente.getTelefono() %>" ></td> 
-				<td> <input type="submit" name="modificarDocente" value="Modificar"> </td>
-				<td> <input type="submit" name="eliminarDocente" value="Eliminar"> </td>    
+				<td> <input type="submit" name="modificarDocente" value="Modificar" onclick="return confirm('seguro que desea modificar al docente?')" > </td>
+				<td> <input type="submit" name="eliminarDocente" value="Eliminar" onclick="return confirm('seguro que desea eliminar al docente?')" > </td>    
 				
 			</form> 
 		</tr>

@@ -104,7 +104,7 @@ if(session.getAttribute("Perfil")!= null){
 			</table>
 		</div>
 		<div style="padding: 10px; text-align: center">
-			<button type="submit">Agregar Curso</button>
+			<button type="submit" onclick="return confirm('seguro que desea agregar el nuevo curso?')"  >Agregar Curso</button>
 		</div>
 
 	</form>
