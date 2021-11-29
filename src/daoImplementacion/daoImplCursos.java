@@ -1,5 +1,6 @@
 package daoImplementacion;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ public class daoImplCursos implements daoCursos {
 	
 	private static final String readallFromProf = "SELECT * FROM cursos WHERE estado = true AND dniDocente = ?";
 	private static final String cursofromID = "SELECT * FROM cursos WHERE id = ?";
+	private static final String insert = "INSERT INTO cursos (idMateria,semestre,anio,dniDocente) VALUES(?,?,?,?)";
 	
 	
 	@Override
@@ -98,8 +100,35 @@ public class daoImplCursos implements daoCursos {
 
 	@Override
 	public boolean insert(Curso curso) {
-		// TODO Auto-generated method stub
-		return false;
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isInsertExitoso = false;
+		try
+		{
+			statement = conexion.prepareStatement(insert);
+			
+			statement.setInt(1, curso.getIdMateria());
+			statement.setInt(2, curso.getSemestre());
+			statement.setInt(3, curso.getAnio());
+			statement.setInt(4, curso.getDniDocente());
+			
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isInsertExitoso = true;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return isInsertExitoso;
 	}
 
 }

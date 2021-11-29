@@ -8,12 +8,12 @@ public class CursosAlumnos {
   private float parcialDos;
   private float recuperatorioUno;
   private float recuperatorioDos;
-  private String estado;
+  private boolean estado;
   
   public CursosAlumnos () {}
   
 public CursosAlumnos(int idCurso, int dniAlumno, float parcialUno, float parcialDos, float recuperatorioUno,
-		float recuperatorioDos, String estado) {
+		float recuperatorioDos, boolean estado) {
 	super();
 	this.idCurso = idCurso;
 	this.dniAlumno = dniAlumno;
@@ -85,22 +85,14 @@ public void setRecuperatorioDos(float recuperatorioDos) {
 }
 
 
-public String getEstado() {
+public boolean getEstado() {
 	return estado;
 }
 
 
-public void setEstado(String estado) {
+public void setEstado(boolean estado) {
 	this.estado = estado;
 }
 
-@Override
-public String toString() {
-	return "CursosAlumnos [idCurso=" + idCurso + ", dniAlumno=" + dniAlumno + ", parcialUno=" + parcialUno
-			+ ", parcialDos=" + parcialDos + ", recuperatorioUno=" + recuperatorioUno + ", recuperatorioDos="
-			+ recuperatorioDos + ", estado=" + estado + "]";
-}
-  
-  
-  
+
 }

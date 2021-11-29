@@ -63,7 +63,7 @@ public class daoImplCursAlumn implements daoCursosAlumnos {
         cxa.setParcialDos(resultSet.getFloat("parcialDos"));
         cxa.setRecuperatorioUno(resultSet.getFloat("recuperatorioUno"));
         cxa.setRecuperatorioDos(resultSet.getFloat("recuperatorioDos"));
-        cxa.setEstado(resultSet.getString("estado"));
+        cxa.setEstado(resultSet.getBoolean("estado"));
 		return cxa;
 	}
 
@@ -87,7 +87,7 @@ public class daoImplCursAlumn implements daoCursosAlumnos {
 			statement.setFloat(2, notas.getParcialDos());
 			statement.setFloat(3, notas.getRecuperatorioUno());
 			statement.setFloat(4, notas.getRecuperatorioDos());
-			statement.setString(5 , notas.getEstado());
+			statement.setBoolean(5 , notas.getEstado());
 			
 			statement.setInt(6, notas.getIdCurso());
 			statement.setInt(7, notas.getDniAlumno());

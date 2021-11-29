@@ -418,13 +418,11 @@ public class servletPersona extends HttpServlet {
 				notas.setParcialDos(Float.parseFloat(alumnos[2]));
 				notas.setRecuperatorioUno(Float.parseFloat(alumnos[3]));
 				notas.setRecuperatorioDos(Float.parseFloat(alumnos[4]));
-				notas.setEstado(alumnos[5]);
+				notas.setEstado(Boolean.parseBoolean(alumnos[5]));
 				//notasAlumnos.add(notas);
 				notas.toString();
 				daoCursosxAlumnos.update(notas);
 			}
-			
-			
 			
 			listaAlumnos = daoAlumno.readAll();
 			notasAlumnos = daoCursosxAlumnos.readAllFromID(Integer.parseInt(request.getParameter("cursoPorID").toString()));
@@ -437,8 +435,31 @@ public class servletPersona extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("Docente/AlumnosCursos.jsp");
 			
 			rd.forward(request, response);
-		
 		}
+        
+        if(request.getParameter("toAltaCursos")!=null) { // ----LINK HACIA ALTA CURSOS
+        	
+        	request.setAttribute("listaDocentes", listaDocentes);
+        	request.setAttribute("listaAlumnos", listaAlumnos);
+        	request.setAttribute("listaMaterias", listaMaterias );
+			RequestDispatcher rd = request.getRequestDispatcher("Administrador/AltaCursos.jsp");
+			rd.forward(request, response);
+        }
+        
+        if(request.getParameter("agregarCurso")!=null) { // ---BOTON PARA AGREGAR CURSO
+        	
+        	//aca ahcer logica como en cursosxalumno.
+        	
+        	listaDocentes = daoDocente.readAll();
+        	listaMaterias = daoMateria.readAll();
+        	listaAlumnos = daoAlumno.readAll();
+        	
+        	request.setAttribute("listaDocentes", listaDocentes);
+        	request.setAttribute("listaAlumnos", listaAlumnos);
+        	request.setAttribute("listaMaterias", listaMaterias );
+			RequestDispatcher rd = request.getRequestDispatcher("Administrador/AltaCursos.jsp");
+			rd.forward(request, response);
+        }
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

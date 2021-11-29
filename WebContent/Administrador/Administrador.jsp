@@ -39,7 +39,7 @@ if(session.getAttribute("Perfil")!= null){
 	<div class="conteiner__links">
 		<a href="./servletPersona?toAdmAlumnos=1">Alumnos</a> 
 		<a href="./servletPersona?toAdmDocentes=1">Docentes</a> 
-		<a href="./servletPersona?toCursos=1">Cursos</a>
+		<a href="./servletPersona?toAltaCursos=1">Cursos</a>
 	</div>
 
 	</main>

@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@page import="entidad.Perfil"%>
 <%@page import="entidad.Materia"%>
+<%@page import="entidad.Docente"%>
+<%@page import="entidad.Alumno"%>
 <%@page import="java.util.ArrayList"%>
 <html>
 <head>
@@ -17,7 +19,26 @@
 <% Perfil perfil = null;
 if(session.getAttribute("Perfil")!= null){
        perfil = (Perfil) session.getAttribute("Perfil");
-} %>
+} 
+
+ArrayList<Alumno> listaAlumnos = null;
+	if(request.getAttribute("listaAlumnos")!=null)
+	{
+		listaAlumnos = (ArrayList<Alumno>) request.getAttribute("listaAlumnos");
+	}
+	
+ArrayList<Docente> listaDocentes = null;
+	if(request.getAttribute("listaDocentes")!=null)
+	{
+		listaDocentes = (ArrayList<Docente>) request.getAttribute("listaDocentes");
+	}
+	
+ArrayList<Materia> listaMaterias = null;
+	if(request.getAttribute("listaMaterias")!=null)
+	{
+		listaMaterias = (ArrayList<Materia>) request.getAttribute("listaMaterias");
+	}	
+%>
 	<header>
 
 		<div class="conteiner__volver">
@@ -41,31 +62,47 @@ if(session.getAttribute("Perfil")!= null){
 	<form class="formulario">
 
 		<div class="conteiner__data">
-			<label for="materia">Materia</label> <select name="materia"
-				id="materia">
-				<option value="%materia1%">%Materia1%</option>
-				<option value="%materia2%">%Materia2%</option>
+			<label for="materia">Materia</label> 
+			
+			<select name="materia"id="materia">
+			<%if(listaMaterias!=null)
+		        {
+		            for(Materia materia : listaMaterias) 
+		            {  %>
+				<option value="<%=materia.getId()%>"><%=materia.getNombre()%></option>
+				<%  }
+				}    %>
 			</select>
 		</div>
 
 		<div class="conteiner__data">
-			<label for="semestre">Semestre</label> <select name="semestre"
-				id="semestre">
+			<label for="semestre">Semestre</label> 
+			
+			<select name="semestre" id="semestre">
 				<option value="1">Primer Semestre</option>
 				<option value="2">Segundo Semestre</option>
+				<option value="3">Tercer Semestre</option>
+				<option value="4">Cuarto Semestre</option>
+				<option value="5">Quinto Semestre</option>
+				<option value="6">Sexto Semestre</option>
 			</select>
 		</div>
 
 		<div class="conteiner__data">
-			<label for="anioCurso">Año</label> <input type="number"
-				id="anioCurso" placeholder="2021" style="width: 80px">
+			<label for="anioCurso">Año</label> 
+			<input type="number" id="anioCurso" min="2021" max="2031" placeholder="2021" style="width: 80px">
 		</div>
 
 		<div class="conteiner__data">
-			<label for="docente">Docente</label> <select name="semestre"
-				id="semestre">
-				<option value="%docente1%">%docente1%</option>
-				<option value="%docente2%">%docente2%</option>
+			<label for="docente">Docente</label> 
+			<select name="docente" id="docente">
+				<%if(listaDocentes!=null)
+		        {
+		            for(Docente docente : listaDocentes) 
+		            {  %>
+				<option value="<%=docente.getDni()%>"><%=docente.getNombreApellido()%></option>
+				<%  }
+				}    %>
 			</select>
 		</div>
 
@@ -83,30 +120,32 @@ if(session.getAttribute("Perfil")!= null){
 
 					<th>Dni</th>
 
-					<th>Nombre</th>
-
-					<th>Apellido</th>
+					<th>Nombre y Apellido</th>
 
 					<th>Añadir</th>
 
 				</tr>
 
-				<tr>
+				
+                <%if(listaAlumnos!=null)
+		        {
+		            for(Alumno alumno : listaAlumnos) 
+		            {  %>
+                    <tr>
 
-
-
-					<td>Lorem</td>
-					<td>Lorem</td>
-					<td>Lorem</td>
-					<td>Lorem</td>
+					<td><%=alumno.getLegajo()%></td>
+					<td><%=alumno.getDni()%></td>
+					<td><%=alumno.getNombreApellido()%></td>
 					<td><input type="checkbox" id="cbox" value="%dni%"></td>
-
-				</tr>
+					</tr>
+               <%   }  
+               }     %>
+				
 
 			</table>
 		</div>
 		<div style="padding: 10px; text-align: center">
-			<button type="submit" onclick="return confirm('seguro que desea agregar el nuevo curso?')"  >Agregar Curso</button>
+			<button type="submit" name="agregarCurso" onclick="return confirm('seguro que desea agregar el nuevo curso?')"  >Agregar Curso</button>
 		</div>
 
 	</form>

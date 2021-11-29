@@ -63,8 +63,6 @@ if(session.getAttribute("Perfil")!= null){
 	
 	System.out.println(cursoPorID.getId());
 	System.out.println(notasAlumnos.size());
-	System.out.println(listaAlumnos.size());
-	System.out.println(listaMaterias.size());
 	%>
 	<div class="conteiner__h2">
 		<h2>Alumnos de 
@@ -109,7 +107,7 @@ if(session.getAttribute("Perfil")!= null){
 <% int i=0; if(listaAlumnos!=null && notasAlumnos != null && cursoPorID != null ) {
     
 		for(CursosAlumnos notasAlumno : notasAlumnos) 
-		{  if (cursoPorID.getId() == notasAlumno.getIdCurso()){ %>
+		{  if (cursoPorID.getId() == notasAlumno.getIdCurso()){System.out.println(notasAlumno.getEstado()); %>
 				<tr> 
 				
                    <% for (Alumno alumno : listaAlumnos) {
@@ -121,18 +119,23 @@ if(session.getAttribute("Perfil")!= null){
 					
 					<td>
 					    <input type="hidden" name="alumno<%=i%>" value=<%=notasAlumno.getDniAlumno()%>>
-					<input type="number" min="1" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getParcialUno() %>
+					<input type="number" min="0" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getParcialUno() %>
 						 style="width: 40px; align: center;"></td>
-					<td><input type="number" min="1" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getParcialDos() %>
+					<td><input type="number" min="0" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getParcialDos() %>
 						 style="width: 40px; align: center;"></td>
-					<td><input type="number" min="1" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getRecuperatorioUno() %>
+					<td><input type="number" min="0" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getRecuperatorioUno() %>
 						 style="width: 40px; align: center;"></td>
-					<td><input type="number" min="1" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getRecuperatorioDos() %>
+					<td><input type="number" min="0" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getRecuperatorioDos() %>
 						 style="width: 40px; align: center;"></td>
 
 					<td><select name="alumno<%=i%>">
-							<option <%if(notasAlumno.getEstado() == "Regular"){%> selected <%}%>value="Regular">Regular</option>
-							<option <%if(notasAlumno.getEstado() == "Libre")  {%> selected <%}%>value="Libre">Libre</option>
+					<%if(notasAlumno.getEstado()){%>
+							<option selected="selected" value="true">Regular</option>
+							<option value="false">Libre</option>
+					<%}else {%>
+							<option value="true">Regular</option>
+							<option selected="selected" value="false">Libre</option>
+					<%}%>
 					</select></td>
                     
 				</tr>
