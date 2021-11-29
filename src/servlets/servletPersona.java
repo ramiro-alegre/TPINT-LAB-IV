@@ -116,6 +116,28 @@ public class servletPersona extends HttpServlet {
 		       rd.forward(request, response);
 		}
 		
+		
+		
+       if(request.getParameter("modificarAlumnoAviso") != null) {
+			
+			listaPaises = daoPais.readAll();
+			listaProvincias = daoProvincia.readAll();
+			listaDocentes= daoDocente.readAll();
+			
+			
+			request.setAttribute("listaAlumnos", listaAlumnos);
+			request.setAttribute("listaProvincias", listaProvincias);
+			request.setAttribute("listaPaises", listaPaises);
+			
+			int dni = Integer.parseInt(request.getParameter("dniAlumno").toString());
+			request.setAttribute("avisoModificarAlumno", dni);
+			
+			System.out.println(request.getAttribute("avisoModificarAlumno"));
+			RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorAlumnos.jsp");
+		    rd.forward(request, response);
+		}
+		
+		
 		if(request.getParameter("modificarAlumno")!=null)    // ---BOTON QUE MODIFICA ALUMNOS
 		{
 			
@@ -143,7 +165,10 @@ public class servletPersona extends HttpServlet {
 			request.setAttribute("listaAlumnos", listaAlumnos);
 			request.setAttribute("listaProvincias", listaProvincias);
 			request.setAttribute("listaPaises", listaPaises);
-		    RequestDispatcher rd = request.getRequestDispatcher("Administrador/AdministradorAlumnos.jsp");
+			
+			request.setAttribute("avisoModificarAlumno", null);
+			
+		    RequestDispatcher rd = request.getRequestDispatcher("./servletPersona?toAdmAlumnos=1");
 		    rd.forward(request, response);
 			
 		}
