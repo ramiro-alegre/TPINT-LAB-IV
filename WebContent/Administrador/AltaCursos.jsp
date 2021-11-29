@@ -59,7 +59,7 @@ ArrayList<Materia> listaMaterias = null;
 	<div style="padding: 5px; text-align: center">
 		<h3>Datos del curso:</h3>
 	</div>
-	<form class="formulario">
+	<form class="formulario" method="get" action="servletPersona">
 
 		<div class="conteiner__data">
 			<label for="materia">Materia</label> 
@@ -136,7 +136,7 @@ ArrayList<Materia> listaMaterias = null;
 					<td><%=alumno.getLegajo()%></td>
 					<td><%=alumno.getDni()%></td>
 					<td><%=alumno.getNombreApellido()%></td>
-					<td><input type="checkbox" id="cbox" value="%dni%"></td>
+					<td><input type="checkbox" id="cbox" name="dni" value="<%=alumno.getDni()%>"></td>
 					</tr>
                <%   }  
                }     %>

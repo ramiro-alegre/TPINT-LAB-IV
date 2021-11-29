@@ -450,6 +450,13 @@ public class servletPersona extends HttpServlet {
         	
         	//aca ahcer logica como en cursosxalumno.
         	
+        	String[] checked = request.getParameterValues("dni");
+        	
+        	for(int i=0; i < checked.length; i++) {
+        		System.out.println(checked[i]);
+        	}
+        	
+        	
         	listaDocentes = daoDocente.readAll();
         	listaMaterias = daoMateria.readAll();
         	listaAlumnos = daoAlumno.readAll();
