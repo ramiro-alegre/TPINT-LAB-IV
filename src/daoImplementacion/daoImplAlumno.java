@@ -17,7 +17,8 @@ public class daoImplAlumno implements daoAlumno{
 	private static final String delete = "UPDATE alumnos SET Estado = false WHERE Dni = ?";
 	private static final String readall = "SELECT * FROM alumnos WHERE estado = true";
 	private static final String readFromDni = "SELECT * FROM alumnos WHERE dni = ?";
-
+	private static final String verificarLegajo = "SELECT * FROM alumnos WHERE legajo = ?";
+	
 	@Override
 	public boolean insert(Alumno alumno) {
 		
@@ -47,11 +48,6 @@ public class daoImplAlumno implements daoAlumno{
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
-			try {
-				conexion.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
 		}
 		
 		return isInsertExitoso;
@@ -212,6 +208,71 @@ public class daoImplAlumno implements daoAlumno{
 		}
 		
 		return alumno;
+	}
+
+	@Override
+	public boolean verificarDni(int dni) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement statement;
+		ResultSet resultSet; 
+		
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readFromDni);
+			statement.setInt(1,dni);
+			
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				return false;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+
+	@Override
+	public boolean verificarLegajo(int legajo) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement statement;
+		ResultSet resultSet;
+		
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(verificarLegajo);
+			statement.setInt(1,legajo);
+			
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				return false;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 }

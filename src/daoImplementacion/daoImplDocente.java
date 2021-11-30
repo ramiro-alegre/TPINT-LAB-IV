@@ -18,8 +18,8 @@ public class daoImplDocente implements daoDocente {
 	private static final String update = "UPDATE docentes SET Legajo = ? ,NombreApellido = ?,FechaNacimiento = ?,direccion = ?,idlocalidad = ?,idnacionalidad = ?,email = ?,telefono = ?, estado = ? WHERE Dni = ?";
 	private static final String delete = "UPDATE docentes SET Estado = false WHERE Dni = ?";
 	private static final String readall = "SELECT * FROM docentes WHERE estado = true";
-	
-	
+	private static final String verificarDni = "SELECT * FROM docentes WHERE dni = ?";
+	private static final String verificarLegajo = "SELECT * FROM docentes WHERE legajo = ?";
 	
 	
 	@Override
@@ -27,9 +27,6 @@ public class daoImplDocente implements daoDocente {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
-		
-		
-		
 		
 		try
 		{
@@ -163,6 +160,71 @@ public class daoImplDocente implements daoDocente {
 		
 		
 		return docente;
+	}
+
+	@Override
+	public boolean verificarDni(int dni) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement statement;
+		ResultSet resultSet; 
+		
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(verificarDni);
+			statement.setInt(1,dni);
+			
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				return false;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+
+	@Override
+	public boolean verificarLegajo(int legajo) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement statement;
+		ResultSet resultSet;
+		
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(verificarLegajo);
+			statement.setInt(1,legajo);
+			
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				return false;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return true;
 	}
 	
 	

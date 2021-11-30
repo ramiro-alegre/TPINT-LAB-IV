@@ -269,10 +269,18 @@ public class servletPersona extends HttpServlet {
 
 	   if(request.getParameter("agregarAlumno")!=null) // ---BOTON QUE AGREGA alumnos
 		{
-
+		   
+		    request.setAttribute("listaProvincias", listaProvincias);
+			request.setAttribute("listaPaises", listaPaises);
+		   
+		    String mensaje = "";
+            boolean isInsertExitoso = false;
 			Alumno alumno = new Alumno();
 			
-
+            if (daoDocente.verificarDni(Integer.parseInt(request.getParameter("dniAlumno").toString()))) 
+            {
+                if(daoDocente.verificarLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString())))
+                {
 			alumno.setDni(Integer.parseInt(request.getParameter("dniAlumno").toString()));
 			alumno.setLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString()));
 	        alumno.setNombreApellido(request.getParameter("nombreAlumno").toString());
@@ -285,35 +293,42 @@ public class servletPersona extends HttpServlet {
 			alumno.setTelefono(Integer.parseInt(request.getParameter("telefonoAlumno").toString()));		                     
 			alumno.setEstado(true);	
 			
-			boolean isInsertExitoso = daoAlumno.insert(alumno);
+			isInsertExitoso = daoAlumno.insert(alumno);
+			mensaje = (isInsertExitoso) ? "Agregado correctamente" : "Ocurrio un error al agregar el Alumno";    
+                } 
+                else 
+                {
+                mensaje = "El Legajo solicitado ya existe";	
+                }
+            } 
+            else 
+            {
+            mensaje = "El Dni solicitado ya existe";
+            }
 			
-			String mensaje = "";
-			mensaje = (isInsertExitoso) ? "Agregado correctamente" : "Ocurrio un error al agregar el Alumno";
 			
 			request.setAttribute("insertExitosoAlumno",mensaje);
 			
-			/*Este caso es en el que no haya ocurrido ningun error, por lo tanto se muestra el mensaje en admAlumnos*/
-			if(isInsertExitoso ) {
-				RequestDispatcher rd = request.getRequestDispatcher("servletPersona?toAdmAlumnos=1");
-			    rd.forward(request, response);
-			}
-			/*Este caso es en el que haya ocurrido un error, por lo tanto se muestra el mensaje en alumno*/
-			  RequestDispatcher rd = request.getRequestDispatcher("servletPersona?toAgregarAlumno=1");
-			    rd.forward(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("Administrador/AltaAlumno.jsp");
+			rd.forward(request, response);
 			
 		}
 		
 		if(request.getParameter("agregarDocente")!=null) // -----BOTON QUE AGREGA DOCENTES
 		{
 
-			
 			request.setAttribute("listaLocalidades", listaLocalidades);
 			request.setAttribute("listaPaises", listaPaises);
 			
 			
-			Docente docente = new Docente();
-					
-			
+			    String mensaje = "";
+	            boolean isInsertExitoso = false;
+				Docente docente = new Docente();
+				
+	            if (daoAlumno.verificarDni(Integer.parseInt(request.getParameter("dniDocente").toString()))) 
+	            {
+	                if(daoAlumno.verificarLegajo(Integer.parseInt(request.getParameter("legajoDocente").toString())))
+	                {
 			
 			docente.setDni(Integer.parseInt(request.getParameter("dniDocente").toString()));
 			docente.setLegajo(Integer.parseInt(request.getParameter("legajoDocente").toString()));
@@ -326,10 +341,22 @@ public class servletPersona extends HttpServlet {
 			docente.setTelefono(Integer.parseInt(request.getParameter("telefonoDocente").toString()));		                     
 			docente.setEstado(true);	
 			
-			boolean isInsertExitoso = daoDocente.insert(docente);
+			isInsertExitoso = daoDocente.insert(docente);
 			
-			String mensaje = "";
-			mensaje = (isInsertExitoso) ? "Agregado correctamente" : "Dni, legajo o email ya registrados";
+			mensaje = (isInsertExitoso) ? "Agregado correctamente" : "Ocurrio un error al agregar el Docente";    
+			
+	                } 
+	                else 
+	                {
+	                mensaje = "El Legajo solicitado ya existe";	
+	                }
+	            } 
+	            else 
+	            {
+	            mensaje = "El Dni solicitado ya existe";
+	            }
+				
+			
 			
 			request.setAttribute("insertExitosoDocente",mensaje);
 			

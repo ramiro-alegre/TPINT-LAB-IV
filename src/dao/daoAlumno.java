@@ -12,4 +12,6 @@ public interface daoAlumno {
 	public ArrayList<Alumno> readAll();
 	public boolean update(Alumno alumno);
 	public Alumno readFromDni (int dniAlumno);
+	public boolean verificarDni(int dni);
+	public boolean verificarLegajo(int legajo);
 }
