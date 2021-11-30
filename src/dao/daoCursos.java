@@ -10,4 +10,6 @@ public interface daoCursos {
 	public Curso cursoFromID(int idCurso);
 	
 	public boolean insert (Curso curso);
+	
+	public Curso readLast();
 }

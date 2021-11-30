@@ -64,7 +64,7 @@ ArrayList<Materia> listaMaterias = null;
 		<div class="conteiner__data">
 			<label for="materia">Materia</label> 
 			
-			<select name="materia"id="materia">
+			<select name="idMateria"id="materia">
 			<%if(listaMaterias!=null)
 		        {
 		            for(Materia materia : listaMaterias) 
@@ -90,12 +90,12 @@ ArrayList<Materia> listaMaterias = null;
 
 		<div class="conteiner__data">
 			<label for="anioCurso">Año</label> 
-			<input type="number" id="anioCurso" min="2021" max="2031" placeholder="2021" style="width: 80px">
+			<input type="number" name="anio" id="anioCurso" min="2021" max="2031" placeholder="2021" style="width: 80px">
 		</div>
 
 		<div class="conteiner__data">
 			<label for="docente">Docente</label> 
-			<select name="docente" id="docente">
+			<select name="dniDocente" id="docente">
 				<%if(listaDocentes!=null)
 		        {
 		            for(Docente docente : listaDocentes) 

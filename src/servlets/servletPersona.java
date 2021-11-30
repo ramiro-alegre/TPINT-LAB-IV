@@ -471,20 +471,47 @@ public class servletPersona extends HttpServlet {
 			rd.forward(request, response);
         }
         
-        if(request.getParameter("agregarCurso")!=null) { // ---BOTON PARA AGREGAR CURSO
+        if(request.getParameter("agregarCurso")!=null) { // ----BOTON PARA AGREGAR CURSO y tambien alumnos de ese curso.
         	
-        	//aca ahcer logica como en cursosxalumno.
-        	
+            Curso curso = new Curso();
+        	CursosAlumnos cxa = new CursosAlumnos();
         	String[] checked = request.getParameterValues("dni");
+        	ArrayList <Alumno> alumnosRebotados =  new ArrayList <Alumno>();
+        	boolean insertCursoExitoso;
+        	boolean insertAlumnoExitoso;
         	
+        	//insercion del curso.
+        	curso.setIdMateria(Integer.parseInt(request.getParameter("idMateria").toString()));
+        	curso.setSemestre(Integer.parseInt(request.getParameter("semestre").toString()));
+        	curso.setAnio(Integer.parseInt(request.getParameter("anio").toString()));
+        	curso.setDniDocente(Integer.parseInt(request.getParameter("dniDocente").toString()));
+        	
+        	insertCursoExitoso = daoCursos.insert(curso);
+        	
+        	//insercion de alumnosxcurso
+        	if (insertCursoExitoso) {
         	for(int i=0; i < checked.length; i++) {
-        		System.out.println(checked[i]);
+        		
+        		cxa.setIdCurso(daoCursos.readLast().getId());
+        		cxa.setDniAlumno(Integer.parseInt(checked[i]));
+        		
+        		insertAlumnoExitoso=daoCursosxAlumnos.insert(cxa); 
+        		   if (!insertAlumnoExitoso) { //si falla en alguno, va agregando a la lista de rebotados.
+        			alumnosRebotados.add(daoAlumno.readFromDni(Integer.parseInt(checked[i])));
+        		  }
+        	    }
         	}
-        	
         	
         	listaDocentes = daoDocente.readAll();
         	listaMaterias = daoMateria.readAll();
         	listaAlumnos = daoAlumno.readAll();
+        	
+        	
+        	request.setAttribute("insertExitoso", insertCursoExitoso);
+        	
+        	if(alumnosRebotados != null) {
+        	request.setAttribute("alumnosRebotados", alumnosRebotados);
+        	}
         	
         	request.setAttribute("listaDocentes", listaDocentes);
         	request.setAttribute("listaAlumnos", listaAlumnos);

@@ -15,7 +15,8 @@ public class daoImplCursAlumn implements daoCursosAlumnos {
 
 	private static final String readAllFromID = "SELECT * FROM cursosxalumnos WHERE idCurso = ?";
     private static final String update = "UPDATE cursosxalumnos SET parcialUno = ?, parcialDos = ?, recuperatorioUno = ?, recuperatorioDos = ?,  estado = ? WHERE idCurso = ? AND dniAlumno = ? ";
-
+    private static final String insert = "INSERT INTO cursosxalumnos (idCurso,dniAlumno) VALUES(?,?)";
+    
 	@Override
 	public ArrayList<CursosAlumnos> readAllFromID(int idCurso) {
 		 
@@ -69,9 +70,34 @@ public class daoImplCursAlumn implements daoCursosAlumnos {
 
 
 	@Override
-	public boolean insert(CursosAlumnos notas) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean insert(CursosAlumnos cxa) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isInsertExitoso = false;
+		try
+		{
+			statement = conexion.prepareStatement(insert);
+			
+			statement.setInt(1, cxa.getIdCurso());
+			statement.setInt(2, cxa.getDniAlumno());
+			
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isInsertExitoso = true;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return isInsertExitoso;
 	}
 
 	@Override
