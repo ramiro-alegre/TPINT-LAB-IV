@@ -20,7 +20,7 @@ public class daoImplDocente implements daoDocente {
 	private static final String readall = "SELECT * FROM docentes WHERE estado = true";
 	private static final String verificarDni = "SELECT * FROM docentes WHERE dni = ?";
 	private static final String verificarLegajo = "SELECT * FROM docentes WHERE legajo = ?";
-	
+	private static final String verificarEmail = "SELECT * FROM docentes WHERE email = ?";
 	
 	@Override
 	public boolean insert(Docente docente) {
@@ -212,6 +212,38 @@ public class daoImplDocente implements daoDocente {
 		{
 			statement = conexion.getSQLConexion().prepareStatement(verificarLegajo);
 			statement.setInt(1,legajo);
+			
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				return false;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	@Override
+	public boolean verificarEmail(String email) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement statement;
+		ResultSet resultSet;
+		
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(verificarEmail);
+			statement.setString(1,email);
 			
 			resultSet = statement.executeQuery();
 			

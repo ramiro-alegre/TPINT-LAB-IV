@@ -18,6 +18,7 @@ public class daoImplAlumno implements daoAlumno{
 	private static final String readall = "SELECT * FROM alumnos WHERE estado = true";
 	private static final String readFromDni = "SELECT * FROM alumnos WHERE dni = ?";
 	private static final String verificarLegajo = "SELECT * FROM alumnos WHERE legajo = ?";
+	private static final String verificarEmail = "SELECT * FROM alumnos WHERE email = ?";
 	
 	@Override
 	public boolean insert(Alumno alumno) {
@@ -260,6 +261,38 @@ public class daoImplAlumno implements daoAlumno{
 		{
 			statement = conexion.getSQLConexion().prepareStatement(verificarLegajo);
 			statement.setInt(1,legajo);
+			
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				return false;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	@Override
+	public boolean verificarEmail(String email) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement statement;
+		ResultSet resultSet;
+		
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(verificarEmail);
+			statement.setString(1,email);
 			
 			resultSet = statement.executeQuery();
 			

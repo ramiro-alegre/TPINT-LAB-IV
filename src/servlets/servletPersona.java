@@ -281,6 +281,8 @@ public class servletPersona extends HttpServlet {
             {
                 if(daoDocente.verificarLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString())))
                 {
+                	if(daoDocente.verificarEmail(request.getParameter("emailAlumno").toString()))
+                    {
 			alumno.setDni(Integer.parseInt(request.getParameter("dniAlumno").toString()));
 			alumno.setLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString()));
 	        alumno.setNombreApellido(request.getParameter("nombreAlumno").toString());
@@ -288,13 +290,17 @@ public class servletPersona extends HttpServlet {
 		    alumno.setDireccion(request.getParameter("direccionAlumno").toString());
 			alumno.setNacionalidad(daoPais.paisFromID(Integer.parseInt(request.getParameter("nacionalidadAlumno").toString())));
 			alumno.setProvincia(daoProvincia.provinciaFromID(Integer.parseInt(request.getParameter("provinciaAlumno").toString())));
-			
 			alumno.setEmail(request.getParameter("emailAlumno").toString());		                     
 			alumno.setTelefono(Integer.parseInt(request.getParameter("telefonoAlumno").toString()));		                     
 			alumno.setEstado(true);	
 			
 			isInsertExitoso = daoAlumno.insert(alumno);
 			mensaje = (isInsertExitoso) ? "Agregado correctamente" : "Ocurrio un error al agregar el Alumno";    
+                   } 
+                   else 
+                   {
+                   mensaje = "El Email solicitado ya existe";	
+                   }
                 } 
                 else 
                 {
@@ -329,7 +335,8 @@ public class servletPersona extends HttpServlet {
 	            {
 	                if(daoAlumno.verificarLegajo(Integer.parseInt(request.getParameter("legajoDocente").toString())))
 	                {
-			
+	                	if(daoAlumno.verificarEmail(request.getParameter("emailDocente").toString()))
+	                    {
 			docente.setDni(Integer.parseInt(request.getParameter("dniDocente").toString()));
 			docente.setLegajo(Integer.parseInt(request.getParameter("legajoDocente").toString()));
 			docente.setNombreApellido(request.getParameter("nombreDocente").toString());
@@ -344,7 +351,11 @@ public class servletPersona extends HttpServlet {
 			isInsertExitoso = daoDocente.insert(docente);
 			
 			mensaje = (isInsertExitoso) ? "Agregado correctamente" : "Ocurrio un error al agregar el Docente";    
-			
+	                    } 
+	                    else 
+	                    {
+	                    mensaje = "El Email solicitado ya existe";	
+	                    }
 	                } 
 	                else 
 	                {

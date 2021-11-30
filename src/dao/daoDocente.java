@@ -11,4 +11,5 @@ public interface daoDocente {
 	public boolean update(Docente docente);
 	public boolean verificarDni(int dni);
 	public boolean verificarLegajo(int legajo);
+	public boolean verificarEmail(String email);
 }

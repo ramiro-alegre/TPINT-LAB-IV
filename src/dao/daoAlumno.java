@@ -14,4 +14,5 @@ public interface daoAlumno {
 	public Alumno readFromDni (int dniAlumno);
 	public boolean verificarDni(int dni);
 	public boolean verificarLegajo(int legajo);
+	public boolean verificarEmail(String email);
 }
