@@ -11,4 +11,5 @@ public interface daoAlumno {
 	public boolean delete(Alumno alumno);
 	public ArrayList<Alumno> readAll();
 	public boolean update(Alumno alumno);
+	public Alumno readFromDni (int dniAlumno);
 }

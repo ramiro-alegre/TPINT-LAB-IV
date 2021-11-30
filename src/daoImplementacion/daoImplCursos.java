@@ -15,7 +15,7 @@ public class daoImplCursos implements daoCursos {
 	private static final String readallFromProf = "SELECT * FROM cursos WHERE estado = true AND dniDocente = ?";
 	private static final String cursofromID = "SELECT * FROM cursos WHERE id = ?";
 	private static final String insert = "INSERT INTO cursos (idMateria,semestre,anio,dniDocente) VALUES(?,?,?,?)";
-	
+	private static final String selectLast= "SELECT * FROM cursos ORDER BY id DESC LIMIT 1";
 	
 	@Override
 	public ArrayList<Curso> readAllFromProf(int dniProfesor) {
@@ -129,6 +129,39 @@ public class daoImplCursos implements daoCursos {
 		}
 		
 		return isInsertExitoso;
+	}
+
+	@Override
+	public Curso readLast() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement statement;
+		ResultSet resultSet; 
+		Curso curso = new Curso();
+		
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(selectLast);
+			
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				return getCurso(resultSet);
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return curso;
 	}
 
 }

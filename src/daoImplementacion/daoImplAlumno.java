@@ -16,6 +16,7 @@ public class daoImplAlumno implements daoAlumno{
 	private static final String update = "UPDATE alumnos SET Legajo = ? ,NombreApellido = ?,FechaNacimiento = ?,direccion = ?,idprovincia = ?,idnacionalidad = ?,email = ?,telefono = ?, estado = ? WHERE Dni = ?";
 	private static final String delete = "UPDATE alumnos SET Estado = false WHERE Dni = ?";
 	private static final String readall = "SELECT * FROM alumnos WHERE estado = true";
+	private static final String readFromDni = "SELECT * FROM alumnos WHERE dni = ?";
 
 	@Override
 	public boolean insert(Alumno alumno) {
@@ -175,6 +176,40 @@ public class daoImplAlumno implements daoAlumno{
 		alumno.setEmail(resultSet.getString("email"));
 		alumno.setTelefono(resultSet.getInt("telefono"));
 		alumno.setEstado(resultSet.getBoolean("estado"));
+		
+		return alumno;
+	}
+
+	@Override
+	public Alumno readFromDni(int dniAlumno) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement statement;
+		ResultSet resultSet; 
+		Alumno alumno = new Alumno();
+		
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readFromDni);
+			statement.setInt(1,dniAlumno);
+			
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				return getAlumno(resultSet);
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
 		
 		return alumno;
 	}
