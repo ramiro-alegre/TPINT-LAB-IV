@@ -142,8 +142,13 @@ public class servletPersona extends HttpServlet {
 		{
 			
 			Alumno alumno = new Alumno();
-					
+			boolean isUpdateExitoso = false;
+			String mensaje = "";
 			
+			 if(daoDocente.verificarLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString())))
+             {
+             	if(daoDocente.verificarEmail(request.getParameter("emailAlumno").toString()))
+                 {
 			alumno.setDni(Integer.parseInt(request.getParameter("dniAlumno").toString()));
 			alumno.setLegajo(Integer.parseInt(request.getParameter("legajoAlumno").toString()));
 			alumno.setNombreApellido(request.getParameter("nombreAlumno").toString());
@@ -153,15 +158,27 @@ public class servletPersona extends HttpServlet {
 			alumno.setNacionalidad(daoPais.paisFromID(Integer.parseInt(request.getParameter("nacionalidadAlumno").toString())));
 			alumno.setEmail(request.getParameter("emailAlumno").toString());		                     
 			alumno.setTelefono(Integer.parseInt(request.getParameter("telefonoAlumno").toString()));		                     
-			alumno.setEstado(true);		                     
-					         	
-			boolean isUpdateExitoso = daoAlumno.update(alumno);
+			alumno.setEstado(true);
+			isUpdateExitoso = daoAlumno.update(alumno);
+			
+			mensaje = (isUpdateExitoso) ? "Modificado correctamente" : "Ocurrio un error al modificar el Alumno";    
+                 } 
+                 else 
+                 {
+                 mensaje = "El Email solicitado ya existe";	
+                 }
+              } 
+              else 
+              {
+              mensaje = "El Legajo solicitado ya existe";	
+              }         	
+			
 			
 			listaPaises = daoPais.readAll();
 			listaProvincias = daoProvincia.readAll();
 			listaAlumnos= daoAlumno.readAll();
 			
-			request.setAttribute("updateExitoso",isUpdateExitoso);
+			request.setAttribute("updateExitosoAlumno",mensaje);
 			request.setAttribute("listaAlumnos", listaAlumnos);
 			request.setAttribute("listaProvincias", listaProvincias);
 			request.setAttribute("listaPaises", listaPaises);
@@ -226,10 +243,14 @@ public class servletPersona extends HttpServlet {
 		
 		if(request.getParameter("modificarDocente")!=null) // ---BOTON QUE MODIFICA DOCENTES
 		{
-			
+			boolean isUpdateExitoso;
 			Docente docente = new Docente();
+			String mensaje = "";
 					
-			
+			if(daoAlumno.verificarLegajo(Integer.parseInt(request.getParameter("legajoDocente").toString())))
+            {
+            	if(daoAlumno.verificarEmail(request.getParameter("emailDocente").toString()))
+                {
 			docente.setDni(Integer.parseInt(request.getParameter("dniDocente").toString()));
 			docente.setLegajo(Integer.parseInt(request.getParameter("legajoDocente").toString()));
 			docente.setNombreApellido(request.getParameter("nombreDocente").toString());
@@ -241,11 +262,19 @@ public class servletPersona extends HttpServlet {
 			docente.setTelefono(Integer.parseInt(request.getParameter("telefonoDocente").toString()));		                     
 			docente.setEstado(true);		                     
 					         	
-			boolean isUpdateExitoso = daoDocente.update(docente);
-			
-			                             /*Este es el operador ternario*/
-			String mensaje = isUpdateExitoso ? "Modificado correctamente" : "Ocurrio un error";
-			
+			isUpdateExitoso = daoDocente.update(docente);
+			mensaje = (isUpdateExitoso) ? "Modificado correctamente" : "Ocurrio un error al modificar el Docente";    
+                } 
+                else 
+                {
+                mensaje = "El Email solicitado ya existe";	
+                }
+            } 
+            else 
+            {
+            mensaje = "El Legajo solicitado ya existe";	
+            }
+			                         	
 			
 			listaPaises = daoPais.readAll();
 			listaLocalidades = daoLocalidad.readAll();
