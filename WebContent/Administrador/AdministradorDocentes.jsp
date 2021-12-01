@@ -229,7 +229,6 @@ $(document).ready(function() {
 
     // DataTable
     var table = $('.table').DataTable({
-   
     });
 
     // Apply the search

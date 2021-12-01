@@ -8,8 +8,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Cursos</title>
-<link href="docente.css" rel="stylesheet" type="text/css">
+<link href="Docente/docente.css" rel="stylesheet" type="text/css">
+<link href="Administrador/StyleGeneral.css" rel="stylesheet" type="text/css">
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 </head>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+    // DataTable
+    var table = $('.table').DataTable({
+    	searching: false
+    });
+} );
+</script>
+
 <body>
 <% 
 Perfil perfil = null;
@@ -19,7 +37,7 @@ if(session.getAttribute("Perfil")!= null){
 	<header>
 
 		<div>
-			<a style="color: white" href="Docente.jsp">Volver</a>
+			<a style="color: white" href="Docente/Docente.jsp">Volver</a>
 		</div>
 
 		<div class="conteiner__h1">
@@ -54,8 +72,8 @@ if(session.getAttribute("Perfil")!= null){
 
 	<div class="conteiner__cursos">
 
-		<table>
-
+		<table class="table">
+		<thead>
 			<tr>
 
 				<th>Materia</th>
@@ -67,10 +85,13 @@ if(session.getAttribute("Perfil")!= null){
 				<th>Alumnos</th>
 
 			</tr>
+		</thead>
+		<tbody>
  <%  if(listaCursos!=null && listaMaterias !=  null)
 		for(Curso curso : listaCursos) 
 		{
 	%>
+		    
 		    <tr>  
                  <% for (Materia materia : listaMaterias) {
                       if (materia.getId()== curso.getIdMateria()) {%>
@@ -81,7 +102,9 @@ if(session.getAttribute("Perfil")!= null){
 				<td><a href="servletPersona?toCursosxAlumnos=<%=curso.getId()%>">Ver Alumnos / Notas</a></td>
             
 			</tr>
+			
 <% }  %>
+</tbody>
 		</table>
 
 	</div>

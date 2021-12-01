@@ -10,8 +10,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Alumnos</title>
-<link href="docente.css" rel="stylesheet" type="text/css">
+<link href="Docente/docente.css" rel="stylesheet" type="text/css">
+<link href="Docente/AlumnosCursos.css" rel="stylesheet" type="text/css">
+<link href="Administrador/StyleGeneral.css" rel="stylesheet" type="text/css">
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 </head>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+    // DataTable
+    var table = $('.table').DataTable({
+    	searching: false
+    });
+} );
+</script>
+
 <body>
 <% 
 Perfil perfil = null;
@@ -21,7 +40,7 @@ if(session.getAttribute("Perfil")!= null){
 	<header>
 
 		<div class="conteiner__volver">
-			<a style="color: white" href="Cursos.jsp">Volver</a>
+			<a style="color: white" href="servletPersona?toCursos=1">Volver</a>
 		</div>
 
 		<div class="conteiner__h1">
@@ -78,14 +97,12 @@ if(session.getAttribute("Perfil")!= null){
 	</div>
 <form name="tablaNotas" action="servletPersona" method="get">
          
-		<div class="button_container">
-			<button type="submit" name="modificarNotas">Guardar Cambios</button>
-		</div>
+	
 
 		<div class="conteiner__cursos">
 
-			<table>
-
+		<table class=".table" id="customers">
+			<thead>
 				<tr>
                    
 					<th>Nombre y Apellido</th>
@@ -103,6 +120,8 @@ if(session.getAttribute("Perfil")!= null){
 					<th>Estado</th>
 
 				</tr>
+			</thead>
+<tbody>
 
 <% int i=0; if(listaAlumnos!=null && notasAlumnos != null && cursoPorID != null ) {
     
@@ -121,12 +140,12 @@ if(session.getAttribute("Perfil")!= null){
 					    <input type="hidden" name="alumno<%=i%>" value=<%=notasAlumno.getDniAlumno()%>>
 					<input type="number" min="0" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getParcialUno() %>
 						 style="width: 40px; align: center;"></td>
-					<td><input type="number" min="0" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getParcialDos() %>
-						 style="width: 40px; align: center;"></td>
-					<td><input type="number" min="0" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getRecuperatorioUno() %>
-						 style="width: 40px; align: center;"></td>
-					<td><input type="number" min="0" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getRecuperatorioDos() %>
-						 style="width: 40px; align: center;"></td>
+					<td><input type="number" min="0" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getParcialDos() %>>
+					</td>
+					<td><input type="number" min="0" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getRecuperatorioUno() %>>
+					</td>
+					<td><input type="number" min="0" max="10" step=".1" name="alumno<%=i%>" value=<%=notasAlumno.getRecuperatorioDos() %>>
+					</td>
 
 					<td><select name="alumno<%=i%>">
 					<%if(notasAlumno.getEstado()){%>
@@ -142,6 +161,7 @@ if(session.getAttribute("Perfil")!= null){
         <% i++;  }
              }
         }%>
+        </tbody>
 			</table>
          
 		</div>
@@ -151,5 +171,9 @@ if(session.getAttribute("Perfil")!= null){
 			<button name="modificarNotas" type="submit">Guardar Cambios</button>
 		</div>
 	</form>
+	<% if(request.getAttribute("updateExitosoNotas") != null){
+			%><div class="center"><p class="mensaje"><%=request.getAttribute("updateExitosoNotas") %></p></div><% 
+					request.setAttribute("updateExitosoNotas", null);
+			}%>
 </body>
 </html>

@@ -46,22 +46,3 @@ main {
 	justify-content: space-around;
 }
 
-table {
-	display: flex;
-	justify-content: center;
-}
-
-td, th {
-	border: 1px solid #000;
-	text-align: center;
-	padding: 5px;
-}
-
-button {
-	width: 130px;
-	height: 30px;
-	color: white;
-	background-color: #1C819F;
-	border: none;
-	cursor: pointer;
-}

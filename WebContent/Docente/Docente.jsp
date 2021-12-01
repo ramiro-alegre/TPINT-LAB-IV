@@ -5,7 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Docente</title>
-<link href="docente.css" rel="stylesheet" type="text/css">
+<link href="Docente/docente.css" rel="stylesheet" type="text/css">
+<link href="Administrador/StyleGeneral.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <% 

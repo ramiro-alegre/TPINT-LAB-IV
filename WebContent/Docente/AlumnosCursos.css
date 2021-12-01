@@ -1,0 +1,32 @@
+@charset "ISO-8859-1";
+
+table {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+td, th {
+	border: 1px solid #000;
+	text-align: center;
+	padding: 5px;
+	width: 150px;
+}
+
+input{
+	width: 30%
+}
+
+
+
+.center{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.mensaje{
+	padding: 5px 10px;
+	border: 1px solid black;
+	
+}

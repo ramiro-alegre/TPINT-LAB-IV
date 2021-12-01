@@ -1,0 +1,67 @@
+@charset "ISO-8859-1";
+
+header {
+	background-color: #3C3F42;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	color: white;
+}
+
+a {
+	color: white;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.conteiner__h2 {
+	font-size: 25px;
+	margin-top: 50px;
+}
+
+.conteiner__h3, .conteiner__data--general{
+	display: flex;
+	justify-content: center;
+	align-items:center;
+}
+
+.conteiner__data--general{
+	flex-direction: column;
+}
+
+.conteiner__data{
+	width: 500px;
+}
+
+#table{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+
+
+th,td{
+	padding: 2px 5px;
+	width: 150px;
+}
+
+
+
+.center{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.mensaje{
+	padding: 5px 10px;
+	border: 1px solid black;
+	
+}
+
+

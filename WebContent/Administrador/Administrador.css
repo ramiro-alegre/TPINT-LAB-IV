@@ -15,6 +15,10 @@ main {
 	align-items: center;
 }
 
+a {
+	color: white;
+}
+
 .conteiner__h2 {
 	font-size: 25px;
 	margin-top: 50px;

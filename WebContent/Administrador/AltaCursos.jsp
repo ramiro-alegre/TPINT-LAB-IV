@@ -9,10 +9,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Alta Cursos</title>
-<link href="StyleGeneral.css" rel="stylesheet" type="text/css">
-<link href="AltaAlumnoDocente.css" rel="stylesheet" type="text/css">
-<link href="AdministradorAlumnosDocentes.css" rel="stylesheet"
-	type="text/css">
+<link href="Administrador/StyleGeneral.css" rel="stylesheet" type="text/css">
+<link href="Administrador/AltaCursos.css" rel="stylesheet" type="text/css">
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+
+
+
 
 </head>
 <body>
@@ -38,11 +45,12 @@ ArrayList<Materia> listaMaterias = null;
 	{
 		listaMaterias = (ArrayList<Materia>) request.getAttribute("listaMaterias");
 	}	
+	
 %>
 	<header>
 
 		<div class="conteiner__volver">
-			<a href="Administrador.jsp">Volver</a>
+			<a href="servletPersona?toAdmGeneral=1">Volver</a>
 		</div>
 
 		<div class="conteiner__h1">
@@ -61,6 +69,7 @@ ArrayList<Materia> listaMaterias = null;
 	</div>
 	<form class="formulario" method="get" action="servletPersona">
 
+	<div class="conteiner__data--general">
 		<div class="conteiner__data">
 			<label for="materia">Materia</label> 
 			
@@ -106,16 +115,16 @@ ArrayList<Materia> listaMaterias = null;
 			</select>
 		</div>
 
-		<div class="conteiner__data"></div>
-		<div style="padding: 5px; text-align: center">
+	</div>
+		<div class="conteiner__h3">
 			<h3>Agregar alumnos al curso:</h3>
 		</div>
 		<div class="conteiner__alumnos">
 
-			<table>
+			<table class=".table" id="table">
 
+				<thead>
 				<tr>
-
 					<th>Legajo</th>
 
 					<th>Dni</th>
@@ -123,9 +132,9 @@ ArrayList<Materia> listaMaterias = null;
 					<th>Nombre y Apellido</th>
 
 					<th>Añadir</th>
-
 				</tr>
-
+				</thead>
+<tbody>
 				
                 <%if(listaAlumnos!=null)
 		        {
@@ -141,7 +150,7 @@ ArrayList<Materia> listaMaterias = null;
                <%   }  
                }     %>
 				
-
+</tbody>
 			</table>
 		</div>
 		<div style="padding: 10px; text-align: center">
@@ -149,6 +158,24 @@ ArrayList<Materia> listaMaterias = null;
 		</div>
 
 	</form>
+	
+	<% if(request.getAttribute("mensajeAltaCurso") != null){
+			%><div class="center"><p class="mensaje"><%=request.getAttribute("mensajeAltaCurso") %></p></div><% 
+					request.setAttribute("mensajeAltaCurso", null);
+			}%>
 
 </body>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+
+    // DataTable
+    var table = $('.table').DataTable({
+    });
+
+
+} );
+</script>
 </html>

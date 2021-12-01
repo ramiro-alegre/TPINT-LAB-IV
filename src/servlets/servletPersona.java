@@ -502,6 +502,7 @@ public class servletPersona extends HttpServlet {
 			ArrayList<CursosAlumnos> notasAlumnos = new ArrayList<CursosAlumnos>();
 			int filas=Integer.parseInt(request.getParameter("filas").toString());
 			String alumnos[]= new String[6];
+			boolean isUpdateExitoso = false;
 			for (int i=0 ;i <filas;i++) {
 				alumnos = request.getParameterValues("alumno"+i);
 				notas.setIdCurso(Integer.parseInt(request.getParameter("cursoPorID").toString()));
@@ -513,8 +514,12 @@ public class servletPersona extends HttpServlet {
 				notas.setEstado(Boolean.parseBoolean(alumnos[5]));
 				//notasAlumnos.add(notas);
 				notas.toString();
-				daoCursosxAlumnos.update(notas);
+				isUpdateExitoso = daoCursosxAlumnos.update(notas);
+				if(!isUpdateExitoso) break; 
 			}
+			
+			String mensaje = (isUpdateExitoso) ? "Notas agregadas correctamente" : "Ocurrio un error al actualizar";
+			request.setAttribute("updateExitosoNotas", mensaje);
 			
 			listaAlumnos = daoAlumno.readAll();
 			notasAlumnos = daoCursosxAlumnos.readAllFromID(Integer.parseInt(request.getParameter("cursoPorID").toString()));
@@ -573,8 +578,11 @@ public class servletPersona extends HttpServlet {
         	listaMaterias = daoMateria.readAll();
         	listaAlumnos = daoAlumno.readAll();
         	
+        	String mensaje = (insertCursoExitoso) ? "Curso agregado correctamente" : "Ocurrio un error";
+        	request.setAttribute("mensajeAltaCurso", mensaje);
         	
-        	request.setAttribute("insertExitoso", insertCursoExitoso);
+        	//Comentado, Nico revisar si es necesario esto
+        	//request.setAttribute("insertExitoso", insertCursoExitoso);
         	
         	if(alumnosRebotados != null) {
         	request.setAttribute("alumnosRebotados", alumnosRebotados);
