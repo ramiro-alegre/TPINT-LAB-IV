@@ -1,5 +1,6 @@
 @charset "ISO-8859-1";
 
+/*
 table {
 	display: flex;
 	flex-direction: column;
@@ -16,7 +17,7 @@ td, th {
 input{
 	width: 30%
 }
-
+*/
 
 
 .center{

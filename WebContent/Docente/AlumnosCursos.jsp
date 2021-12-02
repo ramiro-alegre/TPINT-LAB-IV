@@ -13,7 +13,7 @@
 <link href="Docente/docente.css" rel="stylesheet" type="text/css">
 <link href="Docente/AlumnosCursos.css" rel="stylesheet" type="text/css">
 <link href="Administrador/StyleGeneral.css" rel="stylesheet" type="text/css">
-
+<link href="./tablas.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

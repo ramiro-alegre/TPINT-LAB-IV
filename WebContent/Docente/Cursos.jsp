@@ -37,7 +37,7 @@ if(session.getAttribute("Perfil")!= null){
 	<header>
 
 		<div>
-			<a style="color: white" href="Docente/Docente.jsp">Volver</a>
+			<a style="color: white" href="servletPersona?toDocentes=1">Volver</a>
 		</div>
 
 		<div class="conteiner__h1">

@@ -95,6 +95,13 @@ public class servletPersona extends HttpServlet {
 		        rd.forward(request, response);	
 		}
 		
+		if(request.getParameter("toDocentes")!=null)  // ---LINK HACIA DOCENTES
+		{
+
+				RequestDispatcher rd = request.getRequestDispatcher("Docente/Docente.jsp");   
+		        rd.forward(request, response);	
+		}
+		
 		
 		if(request.getParameter("eliminarAlumno")!=null)  // ---BOTON QUE ELIMINA ALUMNOS
 		{

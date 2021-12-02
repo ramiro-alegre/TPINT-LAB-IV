@@ -16,7 +16,7 @@ if(session.getAttribute("Perfil")!= null){
 } %>
 	<header>
 		<div class="conteiner__logout">
-			<a style="color: white" href="../servletPersona?cerrarSesion=1">Cerrar Sesión</a>
+			<a style="color: white" href="servletPersona?cerrarSesion=1" onclick="return confirm('Seguro que desea cerrar sesion?')">Cerrar Sesión</a>
 		</div>
 
 		<div class="conteiner__h1">

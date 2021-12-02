@@ -127,7 +127,7 @@ if(session.getAttribute("Perfil")!= null){
 	</form>
 
 	<% if(request.getAttribute("insertExitosoAlumno") != null){
-		%><div class="center"><p><%=request.getAttribute("insertExitosoAlumno") %></p></div><% 
+		%><div class="center"><p class="mensaje"><%=request.getAttribute("insertExitosoAlumno") %></p></div><% 
 				request.setAttribute("insertExitosoAlumno", null);
 		}%>
 
